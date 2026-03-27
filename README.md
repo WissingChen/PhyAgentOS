@@ -32,19 +32,19 @@ OEA utilizes a **"State-as-a-File"** protocol matrix, natively supporting zero-c
 ## 🦾 Showcase
 
 <div align="center">
-  <img src="docs/imgs/setup.gif" alt="rekep" width="400">
+  <img src="docs/imgs/setup.gif" alt="rekep" width="900">
   <br>
   OEA deploys robot arms with one click, no coding required (AgileX PIPER).
 </div>
 
 <div align="center">
-  <img src="docs/imgs/SAM3.gif" alt="rekep" width="400">
+  <img src="docs/imgs/SAM3.gif" alt="rekep" width="900">
   <br>
   OEA achieves natural language-driven grasping tasks through SAM3 (AgileX PIPER).
 </div>
 
 <div align="center">
-  <img src="docs/imgs/ReKep.gif" alt="rekep" width="400">
+  <img src="docs/imgs/ReKep.gif" alt="rekep" width="900">
   <br>
   OEA achieves natural language-driven grasping tasks through ReKep (Dobot Nova 2).
 </div>
@@ -148,7 +148,7 @@ OpenEmbodiedAgent/
 
 OEA supports various embodiment types through the HAL (Hardware Abstraction Layer) protocol.
 
-| Embodiment Type | Model | Status | Remarks |
+| Embodiment Type | Robot | Status | Remarks |
 | :--- | :--- | :--- | :--- |
 | **Desktop Robot Arm** | AgileX PIPER | 🟢 Verified | Full-chain verified with ReKep & SAM3 |
 | **Composite Robot** | AgileX PIPER + Unitree Go2 | 🟡 Partial |  locomotion adaptation in progress |
