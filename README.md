@@ -1,6 +1,6 @@
 <div align="center">
-  <img src="docs/imgs/PhyAgentOS.png" alt="PhyAgentOS" width="500">
-  <h1>Physical Agent Operation System (PhyAgentOS)</h1>
+  <img src="docs/imgs/logo_en.png" alt="Physical Agent Operating System" width="700">
+  <h1>Physical Agent Operation System</h1>
   <p><b>A Decoupled Protocol-Based Framework for Self-Evolving and Cross-Embodiment Agents</b></p>
   <p>
     <a href="./README.md">English</a> | <a href="./README_zh.md">中文</a>
@@ -131,7 +131,7 @@ You will see the action execution in the simulation logs in Terminal 1, and rece
 Physical Agent Operating System/
 ├── PhyAgentOS/                # Track A: Software Brain Core
 │   ├── agent/              # Agent Logic (Planner, Critic)
-│   ├── templates/          # Workspace Markdown Templates
+│   ├── templates/          # Workspace Markdown Templates  
 │   └── ...
 ├── hal/                    # Track B: Hardware HAL & Simulation
 │   ├── hal_watchdog.py     # Hardware Watchdog Daemon

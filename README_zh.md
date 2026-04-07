@@ -1,6 +1,6 @@
 <div align="center">
-  <img src="docs/imgs/PhyAgentOS.png" alt="Physical Agent Operating System" width="500">
-  <h1>Physical Agent Operating System (PhyAgentOS)</h1>
+  <img src="docs/imgs/logo_en.png" alt="Physical Agent Operating System" width="700">
+  <h1>Physical Agent Operating System</h1>
   <p><b>一种基于协议解耦与多智能体协同的自进化具身框架</b></p>
   <p>
     <a href="./README.md">English</a> | <a href="./README_zh.md">中文</a>
