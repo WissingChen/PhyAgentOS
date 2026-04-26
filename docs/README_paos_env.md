@@ -82,7 +82,35 @@ python hal/hal_watchdog.py \
   --driver-config examples/pipergo2_manipulation_driver.json
 ```
 
-### Send PAOS Agent Commands
+## 4b) Start HAL watchdog (VNC mode, for containers without local X)
+
+```bash
+cd /home/zyserver/work/PhyAgentOS
+conda activate paos
+python hal/hal_watchdog.py --vnc --interval 0.05 --driver pipergo2_manipulation --driver-config examples/pipergo2_manipulation_driver.json
+```
+
+Then open a browser at `http://<host>:31315/vnc.html` to see the Isaac Sim window.
+
+Notes:
+- `--vnc` auto-bootstraps Isaac Sim env **inside the Python process** using the
+  `isaac_env` block of the driver-config JSON: sets `DISPLAY` (defaults to
+  `:99`), injects `ISAAC_PATH` / `CARB_APP_PATH` / `EXP_PATH` /
+  `INTERNUTOPIA_ASSETS_PATH`, sources `setup_python_env.sh`, and prepends
+  `extra_pythonpath` to both `PYTHONPATH` and `sys.path`. Users no longer need
+  to wrap the command in a shell script that `source`s those vars.
+- `--gui` and `--vnc` are mutually exclusive. Without either flag the
+  watchdog runs headless.
+- On first start in `--vnc` mode the watchdog **re-execs itself once**
+  (`[isaac-bootstrap] LD_LIBRARY_PATH changed; re-exec ...` →
+  `[isaac-bootstrap] post-reexec ready ...`). This is required because
+  glibc's dynamic loader caches `LD_LIBRARY_PATH` at process start, so
+  `libcarb.so` / `isaacsim` imports only succeed after the process is
+  restarted with the environment sourced from `setup_python_env.sh`.
+- Customize the Isaac Sim / InternUtopia paths in
+  `examples/pipergo2_manipulation_driver.json` under the `isaac_env` key.
+
+## 5) Send PAOS agent commands
 
 Open another terminal:
 
@@ -90,34 +118,12 @@ Open another terminal:
 cd /path/to/PhyAgentOS
 conda activate paos
 paos agent -m "open simulation"
-```
-
-The next two manipulation commands use the **built-in rule-based** skills
-(scripted navigation + pick-and-place):
-
-```bash
 paos agent -m "go to desk"
+paos agent -m "what is on the table"
 paos agent -m "pick up the red cube and return to the starting position"
 ```
 
-### Isaac Sim Configuration Files
-
-| File | Purpose |
-|---|---|
-| `examples/pipergo2_manipulation_driver.json` | PIPER + Go2 manipulation config |
-| `examples/franka_simulation_driver.json` | Franka simulation config |
-| `examples/g1_simulation_driver.json` | G1 humanoid simulation config |
-| `examples/multi_robot_simulation_internutopia_driver.json` | Multi-robot scene config |
-
----
-
-## G1 Humanoid Simulation
-
-```bash
-python hal/hal_watchdog.py --driver g1_simulation
-```
-
-See `examples/g1_simulation_driver.json` for configuration options.
+The table question is answered immediately from the current `ENVIRONMENT.md` scene graph / manipulation runtime state. In fleet mode, include the target `robot_id` in the tool call context.
 
 ---
 
