@@ -443,6 +443,12 @@ class ToolsConfig(Base):
     mcp_servers: dict[str, MCPServerConfig] = Field(default_factory=dict)
 
 
+class TuiConfig(Base):
+    """Terminal UI preferences."""
+
+    theme: str = "morandi"
+
+
 class Config(BaseSettings):
     """Root configuration for PhyAgentOS."""
 
@@ -453,6 +459,7 @@ class Config(BaseSettings):
     tools: ToolsConfig = Field(default_factory=ToolsConfig)
     embodiments: EmbodimentsConfig = Field(default_factory=EmbodimentsConfig)
     forge: ForgeConfig = Field(default_factory=ForgeConfig)
+    tui: TuiConfig = Field(default_factory=TuiConfig)
 
     @model_validator(mode="before")
     @classmethod
@@ -559,4 +566,4 @@ class Config(BaseSettings):
                 return spec.default_api_base
         return None
 
-    model_config = ConfigDict(env_prefix="PhyAgentOS_", env_nested_delimiter="__")
+    model_config = ConfigDict(env_prefix="PhyAgentOS_", env_nested_delimiter="__", extra="ignore")
