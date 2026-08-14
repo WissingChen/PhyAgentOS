@@ -1,0 +1,198 @@
+[
+  {
+    "t": 0.5,
+    "event": {
+      "kind": "deviation",
+      "payload": {
+        "label": "pH",
+        "expected": "6.0",
+        "measured": "4.1",
+        "lines": ["检测到偏差", "正在暂停当前计划"]
+      }
+    }
+  },
+  {
+    "t": 3.0,
+    "event": {
+      "kind": "voice",
+      "payload": {"text": "结果偏离预期。暂停执行，重新规划。"}
+    }
+  },
+  {
+    "t": 8.0,
+    "event": {
+      "kind": "brief",
+      "payload": {
+        "lines": [
+          "TASK ACCEPTED — 任务已接受",
+          "正在理解现场并组织协作",
+          "",
+          "指令：“使用现场现有材料，配出六级pH彩虹并送检。你们自己分工。”",
+          "",
+          "✓ 无固定布局   ✓ 无预设坐标   ✓ 一个自然语言目标"
+        ]
+      }
+    }
+  },
+  {
+    "t": 11.0,
+    "event": {
+      "kind": "voice",
+      "payload": {"text": "任务已接受。正在理解现场并组织协作。"}
+    }
+  },
+  {
+    "t": 13.0,
+    "event": {
+      "kind": "comm",
+      "payload": {"src": "DOG", "dst": "OS", "text": "发现6个候选样本，其中1个浓度未知。"}
+    }
+  },
+  {
+    "t": 15.5,
+    "event": {
+      "kind": "comm",
+      "payload": {"src": "OS", "dst": "ROBOT A", "text": "先取A、C、E，未知样本保留测试。"}
+    }
+  },
+  {
+    "t": 18.0,
+    "event": {
+      "kind": "comm",
+      "payload": {"src": "OS", "dst": "ROBOT B", "text": "切换为自适应滴定，不使用固定剂量。"}
+    }
+  },
+  {
+    "t": 20.5,
+    "event": {
+      "kind": "comm",
+      "payload": {"src": "OS", "dst": "ALL", "text": "环境信息收到，开启三方共同验证。"}
+    }
+  },
+  {
+    "t": 38.0,
+    "event": {
+      "kind": "state",
+      "payload": {"step": "OBSERVE", "note": "实际颜色与目标不符"}
+    }
+  },
+  {
+    "t": 40.0,
+    "event": {
+      "kind": "state",
+      "payload": {"step": "PAUSE", "note": "停止当前剂量"}
+    }
+  },
+  {
+    "t": 42.0,
+    "event": {
+      "kind": "state",
+      "payload": {"step": "DIAGNOSE", "note": "样本浓度高于预期"}
+    }
+  },
+  {
+    "t": 44.0,
+    "event": {
+      "kind": "state",
+      "payload": {"step": "REPLAN", "note": "补充碱性缓冲液并降低后续剂量"}
+    }
+  },
+  {
+    "t": 46.0,
+    "event": {
+      "kind": "voice",
+      "payload": {"text": "不需要重新开始。从当前结果继续修正。"}
+    }
+  },
+  {
+    "t": 49.0,
+    "event": {
+      "kind": "comm",
+      "payload": {"src": "OS", "dst": "DOG", "text": "定位并运输缓冲液。"}
+    }
+  },
+  {
+    "t": 51.0,
+    "event": {
+      "kind": "comm",
+      "payload": {"src": "OS", "dst": "ROBOT A", "text": "抓取缓冲液并完成装载、取放和交接。"}
+    }
+  },
+  {
+    "t": 53.0,
+    "event": {
+      "kind": "comm",
+      "payload": {"src": "OS", "dst": "ROBOT B", "text": "分三次进行小剂量补偿。"}
+    }
+  },
+  {
+    "t": 55.0,
+    "event": {
+      "kind": "comm",
+      "payload": {"src": "OS", "dst": "VALIDATOR", "text": "每次补偿后重新检测。"}
+    }
+  },
+  {
+    "t": 62.0,
+    "event": {
+      "kind": "validation",
+      "payload": {
+        "lines": [
+          "TARGET pH      6.0",
+          "RESULT pH      6.03",
+          "COLOR ΔE       PASS",
+          "",
+          "MISSION RESUMED"
+        ]
+      }
+    }
+  },
+  {
+    "t": 68.0,
+    "event": {
+      "kind": "stats",
+      "payload": {
+        "lines": [
+          "MISSION PASSED",
+          "",
+          "HUMAN INTERVENTION   0",
+          "SCENE RESET          0"
+        ]
+      }
+    }
+  },
+  {
+    "t": 73.0,
+    "event": {
+      "kind": "experience",
+      "payload": {
+        "lines": [
+          "情境      B17批次样本浓度偏高",
+          "症状      首次滴定颜色快速过冲",
+          "有效策略  先进行0.2 ml测试，再采用分段闭环滴定",
+          "验收结果  PASS",
+          "策略状态  可在后续任务中调用"
+        ]
+      }
+    }
+  },
+  {
+    "t": 78.0,
+    "event": {
+      "kind": "voice",
+      "payload": {"text": "持续纠错，不只解决这一次任务。"}
+    }
+  },
+  {
+    "t": 85.0,
+    "event": {
+      "kind": "finale",
+      "payload": {
+        "title": "REPLAN³",
+        "subtitle": "3 Robots. 1 Mission. 0 Reset.",
+        "lines": ["泛化至未知情境", "无需重置即可恢复", "在每次任务后持续进化"],
+        "footer": "Powered by PhyAgentOS"
+      }
+    }
+  }
+]

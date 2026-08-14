@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REPLAN³ — PhyAgentOS</title>
+<style>
+:root{
+  --bg:#f5f5f7; --card:#ffffff; --ink:#1d1d1f; --ink2:#86868b; --ink3:#b6b6bd; --line:#e8e8ed;
+  --blue:#0071e3; --blue2:#0a84ff; --red:#ff3b30; --green:#34c759; --amber:#f5a623;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+  --sans:-apple-system,"SF Pro Display","PingFang SC","Helvetica Neue","Noto Sans CJK SC","Microsoft YaHei",sans-serif;
+  --ease:cubic-bezier(.25,.1,.25,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;background:#111;overflow:hidden}
+body{font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased}
+body.idle-cursor,body.idle-cursor *{cursor:none}
+body.clean #hint,body.clean #progress{display:none}
+#stage.noanim,#stage.noanim *{transition:none!important;animation-duration:.01s!important}
+
+#stage{
+  position:absolute;left:50%;top:50%;width:1920px;height:1080px;
+  transform-origin:center center;background:var(--bg);overflow:hidden;
+}
+
+/* ---------- top bar ---------- */
+#topbar{
+  position:absolute;top:0;left:0;right:0;height:76px;z-index:40;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;background:rgba(245,245,247,.8);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+}
+.tb-left{display:flex;align-items:center;gap:14px}
+.tb-face svg{display:block}
+.tb-name{font-size:21px;font-weight:600;letter-spacing:.2px}
+.tb-right{display:flex;align-items:center;gap:26px}
+.tb-mission{font-size:14px;font-weight:500;letter-spacing:1px;color:var(--ink2)}
+.tb-status{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;letter-spacing:.5px}
+.tb-status i{width:8px;height:8px;border-radius:50%;background:currentColor}
+.tb-status.live{color:#1e7d34}
+.tb-status.paused{color:#d70015}
+.tb-status.replanning{color:#c93400}
+.tb-status.resumed{color:#0055d4}
+.tb-status.passed{color:#1e7d34}
+.tb-clock{font-family:var(--mono);font-size:16px;color:var(--ink2);font-variant-numeric:tabular-nums}
+
+/* ---------- views ---------- */
+.view{
+  position:absolute;inset:76px 0 0 0;
+  opacity:0;pointer-events:none;transform:translateY(14px);
+  transition:opacity .3s var(--ease),transform .3s var(--ease);
+}
+.view.active{opacity:1;pointer-events:auto;transform:none}
+
+/* ---------- overview: three columns ---------- */
+#view-overview{display:flex;padding:28px 44px 34px;gap:0}
+.col-label{
+  flex:none;font-size:12px;font-weight:600;letter-spacing:2px;color:var(--ink3);padding:2px 4px 14px;
+}
+.col-sep{flex:none;width:1px;background:var(--line);margin:0 36px}
+
+/* left: robots */
+#robotCol{width:300px;flex:none;display:flex;flex-direction:column}
+#robotList{flex:1;display:flex;flex-direction:column;gap:14px}
+.robot-card{
+  background:var(--card);border-radius:16px;padding:20px 22px;
+  box-shadow:0 2px 12px rgba(0,0,0,.04);
+  cursor:pointer;transition:box-shadow .25s var(--ease),transform .25s var(--ease);
+  position:relative;
+}
+.robot-card:hover{box-shadow:0 8px 28px rgba(0,0,0,.09);transform:translateY(-2px)}
+.robot-card .rc-arrow{
+  position:absolute;right:18px;top:20px;font-size:17px;color:var(--ink3);font-weight:500;
+  transition:color .2s;
+}
+.robot-card:hover .rc-arrow{color:var(--blue)}
+.rc-row1{display:flex;align-items:center;gap:9px}
+.rc-dot{width:8px;height:8px;border-radius:50%;background:var(--ink3);flex:none}
+.rc-dot.run{background:var(--blue2)}
+.rc-dot.paused{background:var(--red)}
+.rc-dot.done{background:var(--green)}
+.rc-name{font-size:18px;font-weight:650;letter-spacing:.5px}
+.rc-batt{margin-left:auto;font-family:var(--mono);font-size:13px;color:var(--ink2);font-variant-numeric:tabular-nums}
+.rc-row2{font-size:13.5px;color:var(--ink2);margin-top:5px}
+.rc-task{font-size:14.5px;font-weight:450;margin-top:9px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* center: conversation (shot mode) */
+#chatCol{flex:1;min-width:0;display:flex;flex-direction:column}
+#chatStage{flex:1;min-height:0;position:relative}
+.shot{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  opacity:0;transform:translateY(16px);
+  transition:opacity .3s var(--ease),transform .3s var(--ease);
+}
+.shot.in{opacity:1;transform:none}
+.shot.out{opacity:0;transform:translateY(-16px)}
+.msg{display:flex;align-items:center;gap:14px}
+.bubble{max-width:620px;padding:16px 24px;border-radius:22px;font-size:20px;line-height:1.5;font-weight:450}
+.msg.human .bubble{
+  background:linear-gradient(135deg,#0a84ff,#0066cc);color:#fff;
+  border-bottom-right-radius:7px;box-shadow:0 10px 28px rgba(0,113,227,.22);
+}
+.msg.os .bubble{background:#fff;border-bottom-left-radius:7px;box-shadow:0 5px 20px rgba(0,0,0,.07)}
+.msg .avatar{flex:none;width:44px;height:44px;border-radius:50%;background:#fff;box-shadow:0 4px 14px rgba(0,0,0,.09);display:flex;align-items:center;justify-content:center}
+.shot .quiet{
+  font-size:21px;font-weight:450;color:var(--ink2);text-align:center;line-height:1.6;max-width:640px;
+}
+.sys-card{
+  background:#fff;border-radius:18px;padding:24px 34px;
+  box-shadow:0 8px 30px rgba(0,0,0,.07);
+}
+.sys-title{font-size:12px;font-weight:650;letter-spacing:2px;color:var(--ink3);margin-bottom:12px;text-align:center}
+.sys-line{display:flex;align-items:center;gap:11px;font-size:18px;padding:6px 0;font-weight:450}
+.sys-line b{color:var(--green);font-size:15px}
+
+#cmdRow{
+  flex:none;display:none;align-items:center;gap:12px;background:#fff;border-radius:999px;
+  padding:12px 14px 12px 24px;box-shadow:0 4px 20px rgba(0,0,0,.07);
+}
+#cmdRow.shown{display:flex}
+#cmdText{flex:1;font-size:16.5px;line-height:1.4;color:var(--ink);min-height:23px;word-break:break-all}
+#cmdText:empty::before{content:"给 PhyAgentOS 下达任务…";color:var(--ink3)}
+#cmdSend{
+  flex:none;width:38px;height:38px;border-radius:50%;background:#e9e9ee;color:#9a9aa1;
+  display:flex;align-items:center;justify-content:center;transition:all .25s var(--ease);
+}
+#cmdSend.ready{background:var(--blue);color:#fff;box-shadow:0 6px 18px rgba(0,113,227,.35)}
+#cmdSend.sent{transform:scale(.85)}
+#cmdSend svg{display:block}
+
+/* right: mission */
+#missionCol{width:340px;flex:none;display:flex;flex-direction:column;min-height:0}
+.card{
+  background:var(--card);border-radius:16px;padding:20px 24px;
+  box-shadow:0 2px 12px rgba(0,0,0,.04);
+}
+#card-mission{flex:none}
+.ms-status{font-size:34px;font-weight:300;letter-spacing:.5px;line-height:1.15;margin:2px 0 4px}
+.ms-status.red{color:#d70015}
+.ms-status.green{color:#1e7d34}
+.ms-status.blue{color:#0055d4}
+.ms-sub{font-size:14px;color:var(--ink2);font-weight:450}
+.ms-sub.mono{font-family:var(--mono);font-size:13px}
+#card-mission.armed{animation:pulse 1.7s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 2px 12px rgba(0,0,0,.04),0 0 0 0 rgba(255,59,48,.22)}50%{box-shadow:0 2px 12px rgba(0,0,0,.04),0 0 0 12px rgba(255,59,48,0)}}
+.ph-row{display:flex;gap:30px;margin:10px 0 12px}
+.ph label{display:block;font-size:10.5px;font-weight:650;letter-spacing:1.2px;color:var(--ink3);margin-bottom:4px}
+.ph .num{font-family:var(--mono);font-size:36px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums}
+.ph .num.red{color:var(--red)}
+.dev-lines{display:flex;gap:8px;flex-wrap:wrap}
+.dev-line{font-size:13.5px;font-weight:500;color:#d70015;background:rgba(255,59,48,.08);border-radius:8px;padding:6px 12px}
+.dev-line.ok{color:#1e7d34;background:rgba(52,199,89,.1)}
+.val-rows{display:flex;flex-direction:column;gap:7px;margin:8px 0 12px}
+.val-row{display:flex;align-items:baseline;justify-content:space-between;font-size:15px}
+.val-row label{font-size:11px;font-weight:650;letter-spacing:1.2px;color:var(--ink3)}
+.val-row .v{font-family:var(--mono);font-size:22px;font-weight:600;font-variant-numeric:tabular-nums}
+.val-row .v.green{color:var(--green)}
+.val-banner{
+  text-align:center;font-size:14px;font-weight:700;letter-spacing:2px;color:#0055d4;
+  background:rgba(10,132,255,.08);border-radius:10px;padding:9px;
+}
+.stats-row{display:flex;gap:10px;margin-top:12px}
+.stat{flex:1;background:var(--bg);border-radius:12px;padding:12px 10px 10px;text-align:center}
+.stat .stat-num{font-family:var(--mono);font-size:36px;font-weight:600;line-height:1.05;font-variant-numeric:tabular-nums}
+.stat label{display:block;font-size:9.5px;font-weight:650;letter-spacing:1px;color:var(--ink2);white-space:nowrap}
+.chk-rows{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.chk-row{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:500}
+.chk-row b{color:var(--green);font-size:14px}
+.chk-row .cv{margin-left:auto;font-family:var(--mono);font-size:13px;color:var(--ink2)}
+
+#replanLine{
+  flex:none;display:none;margin-top:14px;font-size:13.5px;color:var(--ink2);font-weight:450;
+  padding:11px 18px;background:var(--card);border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.04);
+}
+#replanLine.shown{display:block}
+#replanLine b{color:var(--ink);font-weight:600}
+
+#card-timeline{flex:1;min-height:0;margin-top:14px;display:flex;flex-direction:column}
+.tl-title{flex:none;font-size:12px;font-weight:600;letter-spacing:2px;color:var(--ink3);margin-bottom:12px}
+#tlList{flex:1;min-height:0;overflow:hidden;display:flex;flex-direction:column;gap:10px}
+.tl-row{display:flex;align-items:baseline;gap:12px;font-size:14px;opacity:0;transform:translateY(6px);transition:opacity .3s var(--ease),transform .3s var(--ease)}
+.tl-row.in{opacity:1;transform:none}
+.tl-t{font-family:var(--mono);font-size:12px;color:var(--ink3);flex:none;font-variant-numeric:tabular-nums}
+.tl-text{font-weight:450;color:var(--ink)}
+.tl-row.alert .tl-text{color:#d70015;font-weight:500}
+.tl-row.ok .tl-text{color:#1e7d34;font-weight:500}
+
+#missionLink{
+  flex:none;margin-top:14px;text-align:right;
+  font-size:15px;font-weight:500;color:var(--blue);cursor:pointer;
+  padding:6px 4px;transition:opacity .2s;
+}
+#missionLink:hover{opacity:.7}
+
+/* ---------- detail pages ---------- */
+.detail{display:flex;flex-direction:column;padding:24px 44px 30px}
+.dt-head{flex:none;display:flex;align-items:center;gap:20px;padding-bottom:20px}
+.dt-back{
+  font-size:16px;font-weight:500;color:var(--blue);cursor:pointer;background:none;border:none;
+  font-family:var(--sans);padding:4px 0;transition:opacity .2s;
+}
+.dt-back:hover{opacity:.7}
+.dt-title{font-size:26px;font-weight:650;letter-spacing:.3px}
+.dt-sub{font-size:15px;color:var(--ink2);font-weight:450}
+.dt-state{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:15px;font-weight:550;color:var(--ink2)}
+.dt-state i{width:8px;height:8px;border-radius:50%;background:currentColor}
+.dt-body{flex:1;min-height:0;display:flex;gap:22px}
+.dt-main{flex:1;min-width:0}
+.dt-side{width:400px;flex:none;display:flex;flex-direction:column;gap:18px;min-height:0}
+.dt-foot{
+  flex:none;margin-top:20px;background:var(--card);border-radius:14px;
+  box-shadow:0 2px 12px rgba(0,0,0,.04);padding:14px 22px;
+  font-family:var(--mono);font-size:13px;color:var(--ink2);
+  display:flex;flex-direction:column;gap:5px;max-height:118px;overflow:hidden;
+}
+.dt-foot .lg{display:flex;gap:14px;font-variant-numeric:tabular-nums}
+.dt-foot .lg span:first-child{color:var(--ink3);flex:none}
+
+.vpanel{
+  background:#fff;border-radius:16px;
+  box-shadow:0 2px 12px rgba(0,0,0,.04);display:flex;flex-direction:column;overflow:hidden;
+  position:relative;
+}
+.vp-head{
+  flex:none;display:flex;align-items:center;gap:9px;padding:11px 18px;
+  font-size:11.5px;font-weight:650;letter-spacing:1.6px;color:var(--ink2);
+}
+.vp-head .rec{width:7px;height:7px;border-radius:50%;background:var(--red);animation:breathe 1.6s infinite}
+.vp-head .vptag{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--ink3);letter-spacing:.3px}
+.vp-body{flex:1;position:relative;overflow:hidden;border-radius:0 0 16px 16px}
+.vp-standby{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:12px;letter-spacing:2.5px;color:#c9c9cf;background:#fafafc;
+}
+.vp-content{position:absolute;inset:0;opacity:0;transition:opacity .5s ease}
+.vp-content svg{position:absolute;inset:0;width:100%;height:100%}
+.vpanel.live .vp-standby{display:none}
+.vpanel.live .vp-content{opacity:1}
+@keyframes breathe{0%,100%{opacity:.35}50%{opacity:1}}
+.ants{animation:ants 1.1s linear infinite}
+@keyframes ants{to{stroke-dashoffset:-24}}
+
+.dt-info{background:var(--card);border-radius:16px;box-shadow:0 2px 12px rgba(0,0,0,.04);padding:16px 22px}
+.dt-info .ir{display:flex;align-items:baseline;justify-content:space-between;padding:7px 0;font-size:15px}
+.dt-info .ir label{font-size:11.5px;font-weight:650;letter-spacing:1.2px;color:var(--ink3)}
+.dt-info .ir span{font-weight:500;font-variant-numeric:tabular-nums}
+.dt-info .ir span.mono{font-family:var(--mono);font-size:14px}
+
+/* mission detail: DAG + targets */
+.dt-panel{background:var(--card);border-radius:16px;box-shadow:0 2px 12px rgba(0,0,0,.04);padding:18px 22px}
+.dt-panel .pt{font-size:11.5px;font-weight:650;letter-spacing:1.8px;color:var(--ink3);margin-bottom:12px}
+.dag{display:flex;flex-direction:column}
+.dag-row{display:flex;align-items:center;gap:12px;padding:6px 0;font-size:15px;font-weight:450;color:var(--ink3)}
+.dag-row .dg-dot{width:10px;height:10px;border-radius:50%;background:var(--line);flex:none}
+.dag-row.done{color:var(--ink)}
+.dag-row.done .dg-dot{background:var(--green)}
+.dag-row.active{color:var(--ink);font-weight:550}
+.dag-row.active .dg-dot{background:var(--blue2);animation:breathe 1.4s infinite}
+.dag-row.alert{color:#d70015;font-weight:550}
+.dag-row.alert .dg-dot{background:var(--red)}
+.dag-row .dg-tag{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--ink3)}
+.targets{display:flex;flex-direction:column;gap:7px}
+.tg-row{display:flex;align-items:center;gap:10px;font-size:14px}
+.tg-swatch{width:14px;height:14px;border-radius:5px;flex:none}
+.tg-name{font-family:var(--mono);font-size:13px;font-weight:600}
+.tg-state{margin-left:auto;font-size:12.5px;color:var(--ink2)}
+.tg-row.alert .tg-state{color:#d70015;font-weight:600}
+.tg-row.ok .tg-state{color:#1e7d34}
+
+/* replan state machine (mission detail) */
+.sm{display:flex;align-items:center;margin:2px 0 10px}
+.sm-node{
+  flex:none;padding:8px 11px;border-radius:10px;border:1.5px solid var(--line);
+  font-size:11px;font-weight:700;letter-spacing:.6px;color:var(--ink2);
+  transition:all .3s var(--ease);
+}
+.sm-node.done{border-color:var(--blue2);color:var(--blue2);background:rgba(10,132,255,.06)}
+.sm-node.active{border-color:var(--ink);color:#fff;background:var(--ink)}
+.sm-link{flex:1;height:2px;min-width:6px;background:var(--line);position:relative;overflow:hidden}
+.sm-link i{position:absolute;inset:0;background:var(--blue2);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
+.sm-link.filled i{transform:scaleX(1)}
+.sm-note{font-size:14px;font-weight:450;color:var(--ink);min-height:20px}
+
+/* ---------- cold open ---------- */
+#view-cold{
+  position:absolute;inset:0;z-index:30;background:#050607;color:#f5f5f7;
+  display:none;align-items:center;justify-content:center;
+}
+#view-cold.shown{display:flex}
+.cold-data{text-align:left;transition:opacity .25s var(--ease)}
+.cold-data .cd-line{
+  font-family:var(--mono);font-size:30px;font-weight:500;letter-spacing:1px;padding:8px 0;
+  font-variant-numeric:tabular-nums;
+  opacity:0;transform:translateY(10px);transition:opacity .3s var(--ease) var(--d,0s),transform .3s var(--ease) var(--d,0s);
+}
+.cold-data .cd-line b{color:#f5f5f7;font-weight:700}
+.cold-data .cd-line.red{color:#ff453a}
+.cold-data .cd-line.red b{color:#ff453a}
+.cold-data .cd-alert{
+  margin-top:26px;font-size:19px;font-weight:600;letter-spacing:2px;color:#ff453a;
+  opacity:0;transform:translateY(10px);transition:opacity .3s var(--ease) var(--d,0s),transform .3s var(--ease) var(--d,0s);
+}
+.cold-data .cd-voice{
+  margin-top:18px;font-size:22px;font-weight:450;color:#a1a1a6;
+  opacity:0;transform:translateY(10px);transition:opacity .3s var(--ease) var(--d,0s),transform .3s var(--ease) var(--d,0s);
+}
+.cold-data.in .cd-line,.cold-data.in .cd-alert,.cold-data.in .cd-voice{opacity:1;transform:none}
+.cold-data.out{opacity:0}
+.cold-title{
+  position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .2s;
+}
+.cold-title.in{opacity:1}
+.ct-main{
+  font-size:150px;font-weight:800;letter-spacing:-2px;
+  transform:scale(1.4);opacity:0;
+  transition:transform .34s cubic-bezier(.2,.9,.3,1),opacity .18s;
+}
+.cold-title.in .ct-main{transform:scale(1);opacity:1}
+.ct-main sup{font-size:.42em;vertical-align:.62em}
+.ct-sub{margin-top:16px;font-size:27px;font-weight:500;color:#86868b;letter-spacing:.5px;opacity:0;transition:opacity .45s var(--ease) .28s}
+.cold-title.in .ct-sub{opacity:1}
+
+/* ---------- experience overlay ---------- */
+#expOverlay{
+  position:absolute;inset:0;z-index:25;display:flex;align-items:center;justify-content:center;
+  background:rgba(245,245,247,.6);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  opacity:0;pointer-events:none;transition:opacity .4s var(--ease);
+}
+#expOverlay.in{opacity:1}
+.exp-card{
+  width:980px;background:#fff;border-radius:24px;padding:40px 48px;
+  box-shadow:0 30px 90px rgba(0,0,0,.13);
+  transform:translateY(20px) scale(.98);transition:transform .4s var(--ease);
+}
+#expOverlay.in .exp-card{transform:none}
+.exp-head{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.exp-head .dot{width:9px;height:9px;border-radius:50%;background:var(--green)}
+.exp-head .ttl{font-size:23px;font-weight:700;letter-spacing:1.5px}
+.exp-row{display:flex;gap:20px;font-size:21px;padding:14px 0;border-bottom:1px solid #f2f2f5}
+.exp-row:last-child{border-bottom:none}
+.exp-row label{flex:none;width:110px;font-size:16px;font-weight:650;color:var(--ink2);padding-top:4px}
+.exp-row span{font-weight:450;line-height:1.55}
+.exp-row .ok{color:#1e7d34;font-weight:600}
+.fade{opacity:0;transform:translateY(6px);transition:opacity .3s var(--ease) var(--d,0s),transform .3s var(--ease) var(--d,0s)}
+#expOverlay.in .fade{opacity:1;transform:none}
+
+/* ---------- finale ---------- */
+#view-finale{
+  position:absolute;inset:0;z-index:35;background:#fff;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .6s var(--ease);
+}
+#view-finale.active{opacity:1;pointer-events:auto}
+.fin-box{text-align:center}
+.fin-box>*{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease) var(--d,0s),transform .7s var(--ease) var(--d,0s)}
+#view-finale.in .fin-box>*{opacity:1;transform:none}
+.fin-title{font-size:138px;font-weight:800;letter-spacing:-1px;--d:.1s}
+.fin-title sup{font-size:.42em;vertical-align:.62em}
+.fin-sub{font-size:31px;font-weight:500;color:var(--ink2);letter-spacing:.6px;margin-top:6px;--d:.4s}
+.fin-lines{display:flex;justify-content:center;gap:16px;margin-top:52px;--d:.8s}
+.fin-lines div{font-size:19px;font-weight:550;color:var(--ink);border:1.5px solid var(--line);border-radius:999px;padding:12px 26px}
+.fin-foot{margin-top:66px;font-size:17px;color:var(--ink2);letter-spacing:.4px;--d:1.2s}
+
+/* ---------- hint & progress ---------- */
+#hint{
+  position:absolute;right:34px;bottom:22px;z-index:50;
+  display:flex;align-items:center;gap:16px;
+  font-family:var(--mono);font-size:13px;color:#b3b3ba;
+}
+#progress{position:absolute;left:0;right:0;bottom:0;height:3px;z-index:50;background:rgba(0,0,0,.04)}
+#progress i{display:block;height:100%;width:0;background:var(--blue2);transition:width .3s var(--ease)}
+
+.eyes{transform-box:fill-box;transform-origin:center;animation:blink 4.8s infinite}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95.5%{transform:scaleY(.06)}}
+</style>
+</head>
+<body>
+<div id="stage">
+  <header id="topbar">
+    <div class="tb-left">
+      <span class="tb-face" id="tbFace"></span>
+      <span class="tb-name">PhyAgentOS</span>
+    </div>
+    <div class="tb-right">
+      <span class="tb-mission">任务 #042 · 六级 pH 彩虹配制</span>
+      <span class="tb-status live" id="statusPill"><i></i><b id="statusText">LIVE</b></span>
+      <span class="tb-clock" id="clock">T+00:00</span>
+    </div>
+  </header>
+
+  <!-- ========== overview ========== -->
+  <div class="view active" id="view-overview">
+    <!-- left: robots -->
+    <div id="robotCol">
+      <div class="col-label">ROBOTS</div>
+      <div id="robotList">
+        <div class="robot-card" data-robot="dog">
+          <span class="rc-arrow">›</span>
+          <div class="rc-row1"><span class="rc-dot" id="rcDogDot"></span><span class="rc-name">DOG</span><span class="rc-batt">87%</span></div>
+          <div class="rc-row2">四足巡检 · <span id="rcDogState">待机</span></div>
+          <div class="rc-task" id="rcDogTask">待命</div>
+        </div>
+        <div class="robot-card" data-robot="a">
+          <span class="rc-arrow">›</span>
+          <div class="rc-row1"><span class="rc-dot" id="rcADot"></span><span class="rc-name">ROBOT A</span><span class="rc-batt">76%</span></div>
+          <div class="rc-row2">抓取运输 · <span id="rcAState">待机</span></div>
+          <div class="rc-task" id="rcATask">待命</div>
+        </div>
+        <div class="robot-card" data-robot="b">
+          <span class="rc-arrow">›</span>
+          <div class="rc-row1"><span class="rc-dot" id="rcBDot"></span><span class="rc-name">ROBOT B</span><span class="rc-batt">91%</span></div>
+          <div class="rc-row2">精细操作 · <span id="rcBState">待机</span></div>
+          <div class="rc-task" id="rcBTask">待命</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sep"></div>
+
+    <!-- center: conversation (shot mode) -->
+    <div id="chatCol">
+      <div class="col-label">CONVERSATION</div>
+      <div id="chatStage"></div>
+      <div id="cmdRow">
+        <div id="cmdText"></div>
+        <div id="cmdSend">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
+            <path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sep"></div>
+
+    <!-- right: mission -->
+    <div id="missionCol">
+      <div class="col-label">MISSION</div>
+      <div class="card" id="card-mission">
+        <div class="ms-status" id="msStatus">待命中</div>
+        <div class="ms-sub" id="msBody">等待任务指令</div>
+      </div>
+      <div id="replanLine">REPLAN · <b id="rlText"></b></div>
+      <div class="card" id="card-timeline">
+        <div class="tl-title">TIMELINE</div>
+        <div id="tlList"></div>
+      </div>
+      <div id="missionLink">任务详情 →</div>
+    </div>
+  </div>
+
+  <!-- ========== robot detail ========== -->
+  <div class="view detail" id="view-robot">
+    <div class="dt-head">
+      <button class="dt-back" data-nav="overview">‹ 返回</button>
+      <span class="dt-title" id="dtRTitle">DOG</span>
+      <span class="dt-sub" id="dtRRole">四足巡检</span>
+      <span class="dt-state" id="dtRState"><i></i>待机</span>
+    </div>
+    <div class="dt-body">
+      <div class="vpanel dt-main" id="dtCam">
+        <div class="vp-head"><span class="rec"></span><span id="dtCamLabel">CAM · DOG 第一视角</span><span class="vptag">1920×1080</span></div>
+        <div class="vp-body"><div class="vp-standby">NO SIGNAL</div><div class="vp-content" id="dtSvgCam"></div></div>
+      </div>
+      <div class="dt-side">
+        <div class="vpanel" id="dtDepth" style="flex:1.1">
+          <div class="vp-head"><span id="dtDepthLabel">DEPTH · 深度图</span><span class="vptag" id="dtDepthTag">dToF 640×360</span></div>
+          <div class="vp-body"><div class="vp-standby">NO SIGNAL</div><div class="vp-content" id="dtSvgDepth"></div></div>
+        </div>
+        <div class="vpanel" id="dtSeg" style="flex:1.1">
+          <div class="vp-head">SEG · 目标分割<span class="vptag">yolo-v11 nano</span></div>
+          <div class="vp-body"><div class="vp-standby">NO SIGNAL</div><div class="vp-content" id="dtSvgSeg"></div></div>
+        </div>
+        <div class="dt-info" id="dtRInfo">
+          <div class="ir"><label>位姿 POSE</label><span class="mono" id="dtRPos">(0.0, 0.0)</span></div>
+          <div class="ir"><label>电量 BATTERY</label><span class="mono" id="dtRBatt">87%</span></div>
+          <div class="ir"><label>当前任务 TASK</label><span id="dtRTask">待命</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="dt-foot" id="dtRLog"></div>
+  </div>
+
+  <!-- ========== mission detail ========== -->
+  <div class="view detail" id="view-mission">
+    <div class="dt-head">
+      <button class="dt-back" data-nav="overview">‹ 返回</button>
+      <span class="dt-title">任务 #042</span>
+      <span class="dt-sub">六级 pH 彩虹配制 · 送检</span>
+      <span class="dt-state" id="dtMState"><i></i>LIVE</span>
+    </div>
+    <div class="dt-body">
+      <div class="vpanel dt-main" id="dtMCam">
+        <div class="vp-head"><span class="rec"></span>任务主视角 · CAM 01 操作台<span class="vptag">多机位已切换至最佳视角</span></div>
+        <div class="vp-body"><div class="vp-standby">NO SIGNAL</div><div class="vp-content" id="dtMSvg"></div></div>
+      </div>
+      <div class="dt-side">
+        <div class="dt-panel">
+          <div class="pt">子任务 SUBTASKS</div>
+          <div class="dag" id="dagList"></div>
+        </div>
+        <div class="dt-panel">
+          <div class="pt">REPLAN 闭环</div>
+          <div class="sm">
+            <div class="sm-node" id="sm0">OBSERVE</div><div class="sm-link" id="sl0"><i></i></div>
+            <div class="sm-node" id="sm1">PAUSE</div><div class="sm-link" id="sl1"><i></i></div>
+            <div class="sm-node" id="sm2">DIAGNOSE</div><div class="sm-link" id="sl2"><i></i></div>
+            <div class="sm-node" id="sm3">REPLAN</div>
+          </div>
+          <div class="sm-note" id="smNote"></div>
+        </div>
+        <div class="dt-panel" style="flex:1;min-height:0">
+          <div class="pt">目标 TARGETS</div>
+          <div class="targets" id="targetList"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== cold open ========== -->
+  <div id="view-cold">
+    <div class="cold-data" id="coldData">
+      <div class="cd-line" style="--d:.1s">EXPECTED pH&nbsp;&nbsp;<b>6.0</b></div>
+      <div class="cd-line red" style="--d:.55s">MEASURED pH&nbsp;&nbsp;<b>4.1</b></div>
+      <div class="cd-alert" style="--d:1.05s">检测到偏差 · 正在暂停当前计划</div>
+      <div class="cd-voice" style="--d:1.6s">“结果偏离预期。暂停执行，重新规划。”</div>
+    </div>
+    <div class="cold-title" id="coldTitle">
+      <div class="ct-main">REPLAN<sup>3</sup></div>
+      <div class="ct-sub">3 Robots. 1 Mission. 0 Reset.</div>
+    </div>
+  </div>
+
+  <!-- experience overlay -->
+  <div id="expOverlay">
+    <div class="exp-card">
+      <div class="exp-head"><span class="dot"></span><span class="ttl">EXPERIENCE SAVED · 经验已写入长期记忆</span></div>
+      <div class="exp-row fade" style="--d:.15s"><label>情境</label><span>B17 批次样本浓度偏高</span></div>
+      <div class="exp-row fade" style="--d:.35s"><label>症状</label><span>首次滴定颜色快速过冲</span></div>
+      <div class="exp-row fade" style="--d:.55s"><label>有效策略</label><span>先进行 0.2 ml 测试，再采用分段闭环滴定</span></div>
+      <div class="exp-row fade" style="--d:.75s"><label>验收结果</label><span class="ok">PASS</span></div>
+      <div class="exp-row fade" style="--d:.95s"><label>策略状态</label><span class="ok">可在后续任务中调用</span></div>
+    </div>
+  </div>
+
+  <!-- finale -->
+  <section id="view-finale">
+    <div class="fin-box">
+      <div class="fin-title">REPLAN<sup>3</sup></div>
+      <div class="fin-sub">3 Robots. 1 Mission. 0 Reset.</div>
+      <div class="fin-lines">
+        <div>泛化至未知情境</div>
+        <div>无需重置即可恢复</div>
+        <div>在每次任务后持续进化</div>
+      </div>
+      <div class="fin-foot">Powered by PhyAgentOS</div>
+    </div>
+  </section>
+
+  <div id="hint"><span id="hintText">▸ 1/28</span><span class="keys">SPACE 下一拍 · ← 回退 · A 自动 · 1/2/3 机器人 · M 任务 · ESC 返回 · R 重置 · H 净屏 · F 全屏</span></div>
+  <div id="progress"><i id="progressBar"></i></div>
+</div>
+
+<script>
+"use strict";
+
+const FACE = `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <rect x="22" y="36" width="156" height="128" rx="64" fill="#ffffff" stroke="#e4e4e9" stroke-width="3"/>
+  <rect x="46" y="64" width="108" height="72" rx="36" fill="#1d1d1f"/>
+  <g class="eyes">
+    <ellipse cx="84" cy="100" rx="11" ry="15" fill="#ffffff"/>
+    <ellipse cx="116" cy="100" rx="11" ry="15" fill="#ffffff"/>
+  </g>
+</svg>`;
+
+const CMD_TEXT = "PhyAgentOS，使用现场现有材料，配出六级 pH 彩虹并送检。你们自己分工。";
+
+/* script v3: cold open -> rewind -> linear story */
+const TIMELINE = [
+  {t:0.5,  kind:"cold-data"},
+  {t:3.2,  kind:"cold-title"},
+  {t:5.5,  kind:"cold-end"},
+  {t:6.5,  kind:"input"},
+  {t:11.5, kind:"send"},
+  {t:13.0, kind:"chat-os", text:"任务已接受。正在理解现场并组织协作。"},
+  {t:14.5, kind:"brief"},
+  {t:16.5, kind:"vision"},
+  {t:18.5, kind:"comm", src:"DOG", dst:"OS", text:"发现 6 个候选样本，其中 1 个浓度未知。",
+    robots:{dog:{state:"SCANNING", cls:"run", task:"扫描并定位全部样本", pos:"(2.4, 1.1)"}}},
+  {t:21.0, kind:"comm", src:"OS", dst:"ROBOT A", text:"切换为自适应滴定，不使用固定剂量。",
+    robots:{a:{state:"ACTIVE", cls:"run", task:"取出试剂 A / C / E", pos:"(1.2, 3.0)"}}},
+  {t:23.5, kind:"comm", src:"OS", dst:"ROBOT B", text:"先取 A、C、E，未知样本保留测试。",
+    robots:{b:{state:"ACTIVE", cls:"run", task:"自适应滴定 · 样本 D", pos:"(4.1, 2.2)"}}},
+  {t:26.0, kind:"comm", src:"OS", dst:"ALL", text:"环境信息收到，开启三方共同验证。"},
+  {t:38.0, kind:"deviation"},
+  {t:39.5, kind:"chat-os", text:"结果偏离预期。暂停执行，重新规划。"},
+  {t:41.0, kind:"state", step:0, note:"实际颜色与目标不符"},
+  {t:42.5, kind:"state", step:1, note:"停止当前剂量"},
+  {t:44.0, kind:"state", step:2, note:"样本浓度高于预期"},
+  {t:45.5, kind:"state", step:3, note:"补充碱性缓冲液并降低后续剂量"},
+  {t:47.0, kind:"chat-os", text:"不需要重新开始。从当前结果继续修正。"},
+  {t:49.0, kind:"comm", src:"OS", dst:"DOG", text:"定位并运输缓冲液。",
+    robots:{dog:{state:"MOVING", cls:"run", task:"定位并运输缓冲液", pos:"(5.8, 0.6)"}}},
+  {t:51.0, kind:"comm", src:"OS", dst:"ROBOT A", text:"抓取缓冲液并完成装载、取放和交接。",
+    robots:{a:{state:"ACTIVE", cls:"run", task:"缓冲液装载 · 取放 · 交接", pos:"(3.3, 2.8)"}}},
+  {t:53.0, kind:"comm", src:"OS", dst:"ROBOT B", text:"分三次进行小剂量补偿。",
+    robots:{b:{state:"ACTIVE", cls:"run", task:"小剂量补偿 ×3 · 闭环滴定", pos:"(4.1, 2.2)"}}},
+  {t:55.0, kind:"comm", src:"OS", dst:"VALIDATOR", text:"每次补偿后重新检测。"},
+  {t:62.0, kind:"validation"},
+  {t:68.0, kind:"stats"},
+  {t:73.0, kind:"experience"},
+  {t:78.0, kind:"chat-os", text:"持续纠错，不只解决这一次任务。"},
+  {t:82.0, kind:"emotion"},
+  {t:86.0, kind:"finale"},
+];
+
+const TUBE_X = i => 66 + i * 52;
+const RAINBOW = ["#e5484d", "#f76b15", "#ffc53d", "#46a758", "#3e63dd", "#8e4ec6"];
+const TUBE_IDS = ["A", "B", "C", "D", "E", "F"];
+const ROBOT_META = {
+  dog: {name:"DOG",     role:"四足巡检", batt:"87%", pos:"(0.0, 0.0)"},
+  a:   {name:"ROBOT A", role:"抓取运输", batt:"76%", pos:"(1.2, 3.0)"},
+  b:   {name:"ROBOT B", role:"精细操作", batt:"91%", pos:"(4.1, 2.2)"},
+};
+
+const $ = id => document.getElementById(id);
+const stage = $("stage");
+let idx = 0;
+let autoTimer = null;
+let baseT = 0, baseWall = performance.now();
+
+/* demo state (drives both overview and detail pages) */
+const S = {
+  view: "overview",
+  robot: "dog",
+  scene: null,           // null | wake | anomaly | resolved | complete
+  phase: "idle",
+  replanStep: -1,
+  replanNote: "",
+  flags: {},
+  logs: [],
+};
+
+function faceSVG(px){ return FACE.replace("<svg ", `<svg width="${px}" height="${px}" `); }
+$("tbFace").innerHTML = faceSVG(34);
+
+function fit(){
+  const s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+  stage.style.transform = `translate(-50%,-50%) scale(${s})`;
+}
+window.addEventListener("resize", fit);
+fit();
+
+function fmt(t){
+  const s = Math.max(0, Math.floor(t));
+  return `T+${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`;
+}
+function tickClock(){ $("clock").textContent = fmt(baseT + (performance.now()-baseWall)/1000); }
+setInterval(tickClock, 500);
+function setBase(t){ baseT = t; baseWall = performance.now(); tickClock(); }
+
+const STATUS_WORDS = {LIVE:"live", PAUSED:"paused", REPLANNING:"replanning", RESUMED:"resumed", PASSED:"passed"};
+function setStatus(text){
+  $("statusPill").className = "tb-status " + STATUS_WORDS[text];
+  $("statusText").textContent = text;
+  const m = $("dtMState");
+  m.innerHTML = `<i></i>${text}`;
+  m.style.color = {live:"#1e7d34",paused:"#d70015",replanning:"#c93400",resumed:"#0055d4",passed:"#1e7d34"}[STATUS_WORDS[text]];
+}
+
+function typewrite(el, text, instant, cps){
+  if (el._tw){ clearInterval(el._tw); el._tw = null; }
+  if (instant){ el.textContent = text; return; }
+  const interval = 1000 / (cps || 28);
+  let i = 0;
+  el.textContent = "";
+  el._tw = setInterval(() => {
+    i++;
+    el.textContent = text.slice(0, i) + (i < text.length ? "▍" : "");
+    if (i >= text.length){ clearInterval(el._tw); el._tw = null; }
+  }, interval);
+}
+
+function rollNumber(el, target, decimals, instant){
+  if (instant){ el.textContent = target.toFixed(decimals); return; }
+  const dur = 900, start = performance.now();
+  (function frame(now){
+    const p = Math.min(1, (now - start) / dur);
+    const eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = (target * eased).toFixed(decimals);
+    if (p < 1) requestAnimationFrame(frame);
+  })(start);
+}
+
+/* ================= views ================= */
+function show(view, robotKey){
+  S.view = view;
+  if (robotKey) S.robot = robotKey;
+  for (const v of ["overview","robot","mission"])
+    $("view-" + v).classList.toggle("active", v === view);
+  if (view === "robot") renderRobotDetail();
+  if (view === "mission") renderMissionDetail();
+}
+document.querySelectorAll(".robot-card").forEach(c =>
+  c.addEventListener("click", () => show("robot", c.dataset.robot)));
+$("missionLink").addEventListener("click", () => show("mission"));
+document.querySelectorAll(".dt-back").forEach(b =>
+  b.addEventListener("click", () => show("overview")));
+
+/* ================= conversation: shot mode ================= */
+function clearChat(){
+  $("chatStage").innerHTML = "";
+}
+function showShot(node, instant){
+  const st = $("chatStage");
+  for (const c of [...st.children]){
+    c.classList.remove("in");
+    c.classList.add("out");
+    setTimeout(() => c.remove(), 360);
+  }
+  st.appendChild(node);
+  if (instant) node.classList.add("in");
+  else requestAnimationFrame(() => node.classList.add("in"));
+}
+function makeShot(){ const s = document.createElement("div"); s.className = "shot"; return s; }
+
+function shotHuman(text, instant){
+  const s = makeShot();
+  s.innerHTML = `<div class="msg human"><div class="bubble"></div></div>`;
+  typewrite(s.querySelector(".bubble"), text, instant, 24);
+  return s;
+}
+function shotOS(text, instant){
+  const s = makeShot();
+  s.innerHTML = `<div class="msg os"><div class="avatar">${faceSVG(30)}</div><div class="bubble"></div></div>`;
+  typewrite(s.querySelector(".bubble"), text, instant, 28);
+  return s;
+}
+function shotCard(innerHTML){
+  const s = makeShot();
+  s.innerHTML = `<div class="sys-card">${innerHTML}</div>`;
+  return s;
+}
+function shotQuiet(text){
+  const s = makeShot();
+  s.innerHTML = `<div class="quiet">${text}</div>`;
+  return s;
+}
+
+/* ================= timeline ================= */
+function addTimeline(t, text, cls){
+  const list = $("tlList");
+  const row = document.createElement("div");
+  row.className = "tl-row" + (cls ? " " + cls : "");
+  row.innerHTML = `<span class="tl-t">${fmt(t)}</span><span class="tl-text">${text}</span>`;
+  list.appendChild(row);
+  requestAnimationFrame(() => row.classList.add("in"));
+}
+
+/* ================= vision scenes ================= */
+function tubeFills(mode){
+  if (mode === "wake")     return [68, 68, 68, 30, 0, 0];
+  if (mode === "complete") return [68, 68, 68, 68, 68, 68];
+  return [68, 68, 68, 68, 0, 0];
+}
+function tubeColor(i, mode){
+  if (mode === "anomaly" && i === 3) return "#e5484d";
+  return RAINBOW[i];
+}
+
+function camSVG(mode){
+  const fills = tubeFills(mode);
+  let tubes = "";
+  for (let i = 0; i < 6; i++){
+    const x = TUBE_X(i), h = fills[i];
+    tubes += `<rect x="${x}" y="60" width="26" height="130" rx="11" fill="rgba(255,255,255,.55)" stroke="#c3c9d2" stroke-width="2"/>`;
+    if (h > 0)
+      tubes += `<path d="M${x+3} ${190-h} h20 v17 a9 9 0 0 1 -9 9 h-2 a9 9 0 0 1 -9 -9 z" fill="${tubeColor(i, mode)}" opacity=".88"/>`;
+    tubes += `<text x="${x+13}" y="216" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" fill="#9aa1ab">${TUBE_IDS[i]}</text>`;
+  }
+  let box = "";
+  if (mode === "anomaly")
+    box = `<rect class="ants" x="214" y="48" width="42" height="150" rx="9" fill="rgba(255,59,48,.06)" stroke="#ff3b30" stroke-width="2.5" stroke-dasharray="8 6"/>
+           <text x="214" y="40" font-family="ui-monospace,monospace" font-size="13" font-weight="700" fill="#ff3b30">tube_D ⚠ pH 4.1</text>`;
+  if (mode === "resolved" || mode === "complete")
+    box = `<rect x="214" y="48" width="42" height="150" rx="9" fill="rgba(52,199,89,.05)" stroke="#34c759" stroke-width="2.5"/>
+           <text x="214" y="40" font-family="ui-monospace,monospace" font-size="13" font-weight="700" fill="#1e7d34">tube_D pH 6.03</text>`;
+  return `<svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice">
+    <rect width="400" height="240" fill="#eef0f4"/>
+    <rect x="0" y="188" width="400" height="52" fill="#e3e6eb"/>
+    <rect x="48" y="182" width="316" height="16" rx="7" fill="#d4d9e0"/>
+    ${tubes}${box}</svg>`;
+}
+
+function depthSVG(mode){
+  let tubes = "";
+  for (let i = 0; i < 6; i++){
+    const x = TUBE_X(i);
+    const hot = (mode === "anomaly" && i === 3);
+    tubes += `<rect x="${x}" y="60" width="26" height="130" rx="11" fill="url(#dg${i})" opacity="${hot ? 1 : .92}"/>`;
+    if (hot) tubes += `<rect class="ants" x="${x-6}" y="52" width="38" height="146" rx="9" fill="none" stroke="#ff3b30" stroke-width="2.5" stroke-dasharray="8 6"/>`;
+  }
+  let defs = "";
+  const stops = ["#ffe45e","#ffd60a","#ffc53d","#f9b924","#f5a623","#ef9623"];
+  for (let i = 0; i < 6; i++)
+    defs += `<linearGradient id="dg${i}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3e63dd"/><stop offset="1" stop-color="${stops[i]}"/></linearGradient>`;
+  return `<svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice">
+    <defs>${defs}</defs>
+    <rect width="400" height="240" fill="#0d1117"/>
+    ${[40,80,120,160,200].map(y=>`<line x1="0" y1="${y}" x2="400" y2="${y}" stroke="#1c2530" stroke-width="1"/>`).join("")}
+    <rect x="48" y="182" width="316" height="16" rx="7" fill="#f76b15"/>
+    <rect x="0" y="206" width="400" height="34" fill="#7c2d12"/>
+    ${tubes}
+    <text x="12" y="228" font-family="ui-monospace,monospace" font-size="11" fill="#5b6878">0.4m</text>
+    <text x="352" y="228" font-family="ui-monospace,monospace" font-size="11" fill="#5b6878">2.6m</text></svg>`;
+}
+
+function pointcloudSVG(mode){
+  let dots = "";
+  for (let r = 0; r < 11; r++){
+    const y = 34 + r * 17;
+    const n = 12 + r * 4;
+    for (let i = 0; i < n; i++){
+      const x = 22 + (356 * i) / (n - 1);
+      dots += `<circle cx="${x.toFixed(1)}" cy="${y}" r="${(0.7 + r * 0.16).toFixed(2)}" fill="#3e63dd" opacity="${(0.2 + r * 0.05).toFixed(2)}"/>`;
+    }
+  }
+  let clusters = "";
+  for (let i = 0; i < 6; i++){
+    const cx = TUBE_X(i) + 13;
+    const hot = (mode === "anomaly" && i === 3);
+    for (let k = 0; k < 26; k++){
+      const a = k * 2.4, rr = 4 + (k % 5) * 2.6;
+      const px = cx + Math.cos(a) * rr, py = 118 + Math.sin(a) * rr * 2.1 - (k % 3) * 18;
+      clusters += `<circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="1.5" fill="${hot ? "#ff453a" : "#30d5c8"}" opacity=".85"/>`;
+    }
+    if (hot) clusters += `<rect class="ants" x="${cx-24}" y="48" width="48" height="150" rx="10" fill="none" stroke="#ff453a" stroke-width="2" stroke-dasharray="7 6"/>`;
+  }
+  return `<svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice">
+    <rect width="400" height="240" fill="#05070c"/>
+    ${dots}${clusters}
+    <text x="12" y="228" font-family="ui-monospace,monospace" font-size="11" fill="#5b6878">SLAM · 48,213 pts</text></svg>`;
+}
+
+function segSVG(mode){
+  let boxes = "";
+  for (let i = 0; i < 6; i++){
+    const x = TUBE_X(i) - 8;
+    let color = RAINBOW[i], label = `tube_${TUBE_IDS[i]}`;
+    if (mode === "anomaly" && i === 3){ color = "#ff3b30"; label = "tube_D ⚠ ANOMALY"; }
+    if ((mode === "resolved" || mode === "complete") && i === 3){ color = "#34c759"; label = "tube_D pH 6.03"; }
+    const ly = i % 2 === 0 ? 44 : 28;
+    boxes += `<rect x="${x}" y="52" width="42" height="146" rx="9" fill="${color}22" stroke="${color}" stroke-width="2"/>
+              <line x1="${x+21}" y1="52" x2="${x+21}" y2="${ly+4}" stroke="${color}" stroke-width="1" opacity=".6"/>
+              <text x="${x+21}" y="${ly}" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" font-weight="700" fill="${color}">${label}</text>`;
+  }
+  return `<svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice">
+    <rect width="400" height="240" fill="#0d1117"/>
+    ${boxes}
+    <text x="12" y="228" font-family="ui-monospace,monospace" font-size="11" fill="#5b6878">6 objects · 11ms</text></svg>`;
+}
+
+/* ================= robots ================= */
+const ROBOT_ZH = {STANDBY:"待机", SCANNING:"扫描中", ACTIVE:"作业中", MOVING:"移动中", PAUSED:"已暂停", DONE:"已完成"};
+function updateRobot(key, patch){
+  const cap = key === "dog" ? "Dog" : key.toUpperCase();
+  if (patch.state){
+    $(`rc${cap}State`).textContent = ROBOT_ZH[patch.state] || patch.state;
+    $(`rc${cap}Dot`).className = "rc-dot " + patch.cls;
+  }
+  if (patch.task) $(`rc${cap}Task`).textContent = patch.task;
+  if (patch.pos) ROBOT_META[key].pos = patch.pos;
+}
+function allRobots(state, cls, task){
+  ["dog","a","b"].forEach(k => updateRobot(k, {state, cls, task}));
+}
+
+/* ================= mission card (evolves in place) ================= */
+function setMission(statusHTML, bodyHTML, cls){
+  $("msStatus").className = "ms-status" + (cls ? " " + cls : "");
+  $("msStatus").innerHTML = statusHTML;
+  $("msBody").innerHTML = bodyHTML;
+}
+
+function showDeviation(instant){
+  S.phase = "deviation";
+  $("card-mission").classList.add("armed");
+  setMission("检测到偏差", `
+    <div class="ph-row">
+      <div class="ph"><label>EXPECTED</label><div class="num">6.0</div></div>
+      <div class="ph"><label>MEASURED</label><div class="num red" id="devMeasured">0.0</div></div>
+      <div class="ph"><label>Δ</label><div class="num red" id="devDelta">0.00</div></div>
+    </div>
+    <div class="dev-lines"><div class="dev-line">正在暂停当前计划</div></div>`, "red");
+  $("replanLine").classList.add("shown");
+  $("rlText").textContent = "第 1 轮 · 启动";
+  if (instant){
+    $("devMeasured").textContent = "4.1";
+    $("devDelta").textContent = "1.90";
+  } else {
+    rollNumber($("devMeasured"), 4.1, 1, false);
+    rollNumber($("devDelta"), 1.9, 2, false);
+  }
+}
+
+function showValidation(instant){
+  S.phase = "validation";
+  $("card-mission").classList.remove("armed");
+  setMission("验证通过", `
+    <div class="val-rows">
+      <div class="val-row"><label>TARGET pH</label><span class="v">6.0</span></div>
+      <div class="val-row"><label>RESULT pH</label><span class="v green" id="valResult">0.00</span></div>
+    </div>
+    <div class="dev-lines" style="margin-bottom:10px"><div class="dev-line ok">偏差已补偿 · 从当前状态继续</div></div>
+    <div class="val-banner">MISSION RESUMED</div>`, "green");
+  $("rlText").textContent = "第 1 轮 · 已收敛 ✓";
+  if (instant) $("valResult").textContent = "6.03";
+  else rollNumber($("valResult"), 6.03, 2, false);
+}
+
+function showStats(){
+  S.phase = "passed";
+  $("card-mission").classList.remove("armed");
+  setMission("任务通过 ✓", `
+    <div class="chk-rows">
+      <div class="chk-row"><b>✓</b>颜色梯度<span class="cv">PASS</span></div>
+      <div class="chk-row"><b>✓</b>pH 容差<span class="cv">6.03</span></div>
+      <div class="chk-row"><b>✓</b>样本顺序<span class="cv">PASS</span></div>
+    </div>
+    <div class="stats-row">
+      <div class="stat"><div class="stat-num">0</div><label>HUMAN INTERVENTION</label></div>
+      <div class="stat"><div class="stat-num">0</div><label>SCENE RESET</label></div>
+    </div>`, "green");
+}
+
+/* ================= detail: robot ================= */
+function robotLogs(key){
+  const tag = ROBOT_META[key].name;
+  return S.logs.filter(l => l.robots.includes(tag) || l.robots.includes("ALL"));
+}
+function renderRobotDetail(){
+  const m = ROBOT_META[S.robot];
+  const cap = S.robot === "dog" ? "Dog" : S.robot.toUpperCase();
+  $("dtRTitle").textContent = m.name;
+  $("dtRRole").textContent = m.role;
+  const stateTxt = $(`rc${cap}State`).textContent;
+  const dotCls = $(`rc${cap}Dot`).className.split(" ").pop();
+  $("dtRState").innerHTML = `<i></i>${stateTxt}`;
+  $("dtRState").style.color = {run:"#0055d4",paused:"#d70015",done:"#1e7d34"}[dotCls] || "#86868b";
+  $("dtRPos").textContent = m.pos;
+  $("dtRBatt").textContent = m.batt;
+  $("dtRTask").textContent = $(`rc${cap}Task`).textContent;
+  $("dtCamLabel").textContent = `CAM · ${m.name} 第一视角`;
+
+  const isDog = S.robot === "dog";
+  $("dtDepthLabel").textContent = isDog ? "POINTCLOUD · 空间点云" : "DEPTH · 深度图";
+  $("dtDepthTag").textContent = isDog ? "SLAM 48k pts" : "dToF 640×360";
+
+  const hasScene = !!S.scene;
+  for (const id of ["dtCam","dtDepth","dtSeg"]) $(id).classList.toggle("live", hasScene);
+  if (hasScene){
+    $("dtSvgCam").innerHTML = camSVG(S.scene);
+    $("dtSvgDepth").innerHTML = isDog ? pointcloudSVG(S.scene) : depthSVG(S.scene);
+    $("dtSvgSeg").innerHTML = segSVG(S.scene);
+  }
+  $("dtRLog").innerHTML = robotLogs(S.robot).map(l =>
+    `<div class="lg"><span>${fmt(l.t)}</span><span>${l.text}</span></div>`).join("") ||
+    `<div class="lg"><span>--:--</span><span>暂无事件</span></div>`;
+  $("dtRLog").scrollTop = $("dtRLog").scrollHeight;
+}
+
+/* ================= detail: mission ================= */
+const DAG = [
+  {id:"accept",   label:"任务接受"},
+  {id:"vision",   label:"现场感知"},
+  {id:"execute",  label:"样本制备"},
+  {id:"deviation",label:"偏差检出"},
+  {id:"replan",   label:"重规划"},
+  {id:"validate", label:"补偿验证"},
+  {id:"pass",     label:"验收通过"},
+];
+function dagState(id){
+  const f = S.flags;
+  switch (id){
+    case "accept":    return f.accept ? "done" : "";
+    case "vision":    return f.vision ? "done" : f.accept ? "active" : "";
+    case "execute":   return f.pass ? "done" : f.deviation ? "alert" : f.vision ? "active" : "";
+    case "deviation": return f.deviation ? "alert" : "";
+    case "replan":    return f.replanDone ? "done" : f.replan ? "active" : "";
+    case "validate":  return f.validate ? "done" : f.replanDone ? "active" : "";
+    case "pass":      return f.pass ? "done" : "";
+  }
+}
+function renderMissionDetail(){
+  const hasScene = !!S.scene;
+  $("dtMCam").classList.toggle("live", hasScene);
+  if (hasScene) $("dtMSvg").innerHTML = camSVG(S.scene);
+
+  $("dagList").innerHTML = DAG.map(d => {
+    const st = dagState(d.id);
+    const tag = st === "done" ? "✓" : st === "active" ? "进行中" : st === "alert" ? "!" : "";
+    return `<div class="dag-row ${st}"><span class="dg-dot"></span>${d.label}${tag ? `<span class="dg-tag">${tag}</span>` : ""}</div>`;
+  }).join("");
+
+  $("targetList").innerHTML = TUBE_IDS.map((id, i) => {
+    let cls = "", st = "待配制";
+    if (S.scene === "wake"){ st = i < 3 ? "已配制" : i === 3 ? "配制中" : "待配制"; if (i < 3) cls = "ok"; }
+    else if (S.scene === "anomaly"){ st = i === 3 ? "pH 4.1 · 偏差" : i < 4 ? "已配制" : "待配制"; cls = i === 3 ? "alert" : i < 4 ? "ok" : ""; }
+    else if (S.scene){ st = i === 3 ? "pH 6.03 · 已补偿" : "已配制"; cls = "ok"; }
+    return `<div class="tg-row ${cls}"><span class="tg-swatch" style="background:${RAINBOW[i]}"></span><span class="tg-name">tube_${id}</span><span class="tg-state">${st}</span></div>`;
+  }).join("");
+
+  setStateMachine(S.replanStep, S.replanNote, true);
+}
+
+function setStateMachine(step, note, instant){
+  for (let i = 0; i < 4; i++){
+    const node = $("sm" + i);
+    node.classList.remove("done", "active");
+    if (i < step) node.classList.add("done");
+    else if (i === step) node.classList.add("active");
+    if (i < 3) $("sl" + i).classList.toggle("filled", i < step);
+  }
+  if (step >= 3){ $("sm3").classList.remove("active"); $("sm3").classList.add("done"); $("sl2").classList.add("filled"); }
+  if (note) typewrite($("smNote"), "▸ " + note, instant, 32);
+  else $("smNote").textContent = "";
+}
+
+/* ================= beats ================= */
+function applyBeat(b, instant){
+  setBase(b.t);
+  switch (b.kind){
+    case "cold-data":
+      $("view-cold").classList.add("shown");
+      $("coldTitle").classList.remove("in");
+      $("coldData").classList.remove("out");
+      $("coldData").classList.add("in");
+      setStatus("PAUSED");
+      break;
+    case "cold-title":
+      $("coldData").classList.add("out");
+      $("coldTitle").classList.add("in");
+      break;
+    case "cold-end":
+      $("view-cold").classList.remove("shown");
+      $("coldData").classList.remove("in","out");
+      $("coldTitle").classList.remove("in");
+      setStatus("LIVE");
+      break;
+    case "input":
+      $("cmdRow").classList.add("shown");
+      typewrite($("cmdText"), CMD_TEXT, instant, 20);
+      if (instant) $("cmdSend").classList.add("ready");
+      else setTimeout(() => $("cmdSend").classList.add("ready"), CMD_TEXT.length / 20 * 1000);
+      break;
+    case "send":
+      typewrite($("cmdText"), "", true);
+      $("cmdRow").classList.remove("shown");
+      $("cmdSend").classList.remove("ready", "sent");
+      showShot(shotHuman(CMD_TEXT, instant), instant);
+      S.flags.accept = true;
+      S.phase = "running";
+      setMission("执行中", `<span class="ms-sub">现场理解 · 组织协作</span>`, "blue");
+      addTimeline(b.t, "任务下达");
+      break;
+    case "chat-os":
+      $("expOverlay").classList.remove("in");
+      showShot(shotOS(b.text, instant), instant);
+      break;
+    case "brief":
+      showShot(shotCard(`<div class="sys-title">SCENE UNDERSTANDING · 现场理解</div>
+        <div class="sys-line"><b>✓</b>无固定布局</div>
+        <div class="sys-line"><b>✓</b>无预设坐标</div>
+        <div class="sys-line"><b>✓</b>一个自然语言目标</div>`), instant);
+      break;
+    case "vision":
+      S.scene = "wake";
+      S.flags.vision = true;
+      clearChat();
+      addTimeline(b.t, "视觉感知上线 · 点云生成 · 6 目标分割定位");
+      break;
+    case "comm":
+      addTimeline(b.t, `${b.src} → ${b.dst} · “${b.text}”`);
+      if (b.robots) for (const [k, v] of Object.entries(b.robots)) updateRobot(k, v);
+      S.logs.push({t:b.t, robots:[b.src, b.dst], text:`${b.src} → ${b.dst} · ${b.text}`});
+      break;
+    case "deviation":
+      showDeviation(instant);
+      S.scene = "anomaly";
+      S.flags.deviation = true;
+      allRobots("PAUSED", "paused", "已暂停 · 保持安全姿态");
+      setStatus("PAUSED");
+      addTimeline(b.t, "偏差检出 · 睿尔曼主动停止倒液 · 执行暂停", "alert");
+      break;
+    case "state":
+      S.phase = "replan";
+      S.replanStep = b.step;
+      S.replanNote = b.note;
+      S.flags.replan = true;
+      if (b.step === 3){ S.flags.replanDone = true; setStatus("REPLANNING"); }
+      $("rlText").textContent = `第 1 轮 · ${b.note}`;
+      setStateMachine(b.step, b.note, S.view === "mission" ? instant : true);
+      if (b.step === 3) addTimeline(b.t, "重规划完成 · " + b.note);
+      break;
+    case "validation":
+      showValidation(instant);
+      S.scene = "resolved";
+      S.flags.validate = true;
+      clearChat();
+      allRobots("ACTIVE", "run", "继续执行剩余任务");
+      setStatus("RESUMED");
+      addTimeline(b.t, "补偿验证通过 · 任务恢复", "ok");
+      break;
+    case "stats":
+      showStats();
+      S.scene = "complete";
+      S.flags.pass = true;
+      updateRobot("dog", {state:"DONE", cls:"done", task:"巡检完成 · 样本送检", pos:"(6.2, 1.4)"});
+      updateRobot("a",   {state:"DONE", cls:"done", task:"成品托盘已送入验收区", pos:"(5.5, 2.6)"});
+      updateRobot("b",   {state:"DONE", cls:"done", task:"六级 pH 彩虹配制完成", pos:"(4.1, 2.2)"});
+      setStatus("PASSED");
+      addTimeline(b.t, "三重验收通过 · 0 人工干预 · 0 场景重置", "ok");
+      break;
+    case "experience":
+      $("expOverlay").classList.add("in");
+      break;
+    case "emotion":
+      $("expOverlay").classList.remove("in");
+      showShot(shotQuiet("“不是任务指令，也没有任何系统提示。”"), instant);
+      addTimeline(b.t, "非任务交互 · ROBOT A 轻拍了拍 DOG 的背");
+      break;
+    case "finale":
+      $("expOverlay").classList.remove("in");
+      $("view-finale").classList.add("active");
+      requestAnimationFrame(() => $("view-finale").classList.add("in"));
+      break;
+  }
+  if (S.view === "robot") renderRobotDetail();
+  if (S.view === "mission") renderMissionDetail();
+}
+
+function resetDOM(){
+  clearChat();
+  $("cmdRow").classList.remove("shown");
+  typewrite($("cmdText"), "", true);
+  $("cmdSend").classList.remove("ready", "sent");
+  $("tlList").innerHTML = "";
+  $("card-mission").classList.remove("armed");
+  setMission("待命中", `<span class="ms-sub">等待任务指令</span>`, "");
+  $("replanLine").classList.remove("shown");
+  S.scene = null; S.phase = "idle"; S.replanStep = -1; S.replanNote = "";
+  S.flags = {}; S.logs = [];
+  for (let i = 0; i < 4; i++) $("sm" + i).classList.remove("done","active");
+  for (let i = 0; i < 3; i++) $("sl" + i).classList.remove("filled");
+  $("smNote").textContent = "";
+  updateRobot("dog", {state:"STANDBY", cls:"", task:"待命", pos:"(0.0, 0.0)"});
+  updateRobot("a",   {state:"STANDBY", cls:"", task:"待命", pos:"(1.2, 3.0)"});
+  updateRobot("b",   {state:"STANDBY", cls:"", task:"待命", pos:"(4.1, 2.2)"});
+  ["dtCam","dtDepth","dtSeg","dtMCam"].forEach(id => $(id).classList.remove("live"));
+  $("view-cold").classList.remove("shown");
+  $("coldData").classList.remove("in","out");
+  $("coldTitle").classList.remove("in");
+  $("expOverlay").classList.remove("in");
+  $("view-finale").classList.remove("active","in");
+  setStatus("LIVE");
+  setBase(0);
+}
+
+function updateHint(){
+  const total = TIMELINE.length;
+  $("progressBar").style.width = (idx / total * 100) + "%";
+  if (autoTimer !== null) $("hintText").textContent = `▶ AUTO ${idx}/${total}`;
+  else if (idx >= total) $("hintText").textContent = "■ END · R 重置";
+  else $("hintText").textContent = `▸ ${idx + 1}/${total}`;
+}
+
+function stopAuto(){
+  if (autoTimer !== null){ clearTimeout(autoTimer); autoTimer = null; }
+}
+
+function next(){
+  stopAuto();
+  if (idx >= TIMELINE.length){ updateHint(); return; }
+  applyBeat(TIMELINE[idx], false);
+  idx++;
+  updateHint();
+}
+
+function rebuild(target){
+  stopAuto();
+  stage.classList.add("noanim");
+  resetDOM();
+  idx = 0;
+  while (idx < target){
+    applyBeat(TIMELINE[idx], true);
+    idx++;
+  }
+  updateHint();
+  requestAnimationFrame(() => requestAnimationFrame(() => stage.classList.remove("noanim")));
+}
+
+function toggleAuto(){
+  if (autoTimer !== null){ stopAuto(); updateHint(); return; }
+  if (idx >= TIMELINE.length) return;
+  const step = () => {
+    if (idx >= TIMELINE.length){ autoTimer = null; updateHint(); return; }
+    const b = TIMELINE[idx];
+    const prev = idx > 0 ? TIMELINE[idx-1].t : 0;
+    updateHint();
+    autoTimer = setTimeout(() => {
+      applyBeat(b, false);
+      idx++;
+      autoTimer = 0;
+      step();
+    }, Math.max(0, (b.t - prev) * 1000));
+  };
+  step();
+}
+
+function toggleFullscreen(){
+  if (document.fullscreenElement) document.exitFullscreen();
+  else document.documentElement.requestFullscreen();
+}
+
+document.addEventListener("keydown", e => {
+  if (e.code === "Space" || e.code === "ArrowRight" || e.code === "Enter"){ e.preventDefault(); next(); }
+  else if (e.code === "ArrowLeft"){ e.preventDefault(); rebuild(Math.max(0, idx - 1)); }
+  else if (e.key === "Escape"){ if (S.view !== "overview") show("overview"); }
+  else if (e.key === "1") show("robot", "dog");
+  else if (e.key === "2") show("robot", "a");
+  else if (e.key === "3") show("robot", "b");
+  else if (e.key === "m" || e.key === "M") show("mission");
+  else if (e.key === "a" || e.key === "A") toggleAuto();
+  else if (e.key === "r" || e.key === "R") rebuild(0);
+  else if (e.key === "h" || e.key === "H") document.body.classList.toggle("clean");
+  else if (e.key === "f" || e.key === "F") toggleFullscreen();
+});
+
+let cursorTimer = null;
+document.addEventListener("mousemove", () => {
+  document.body.classList.remove("idle-cursor");
+  clearTimeout(cursorTimer);
+  cursorTimer = setTimeout(() => document.body.classList.add("idle-cursor"), 2500);
+});
+
+resetDOM();
+updateHint();
+
+const startBeat = parseInt(new URLSearchParams(location.search).get("beat") || "0", 10);
+if (startBeat > 0) rebuild(Math.min(startBeat, TIMELINE.length));
+</script>
+</body>
+</html>

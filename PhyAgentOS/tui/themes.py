@@ -63,6 +63,21 @@ THEMES: dict[str, Theme] = {
         error="#b0515c",
         dark=False,
     ),
+    "moss": Theme(
+        name="moss",
+        primary="#ffa028",
+        secondary="#8a5a19",
+        accent="#ffc25e",
+        foreground="#ffd9a0",
+        background="#050505",
+        surface="#0d0b08",
+        panel="#14110b",
+        boost="#2a2214",
+        success="#35c759",
+        warning="#ffb340",
+        error="#ff4a3d",
+        dark=True,
+    ),
 }
 
 THEME_LABELS: dict[str, str] = {
@@ -70,6 +85,7 @@ THEME_LABELS: dict[str, str] = {
     "morandi-dark": "Morandi Dark",
     "morandi-sage": "Morandi Sage",
     "morandi-rose": "Morandi Rose",
+    "moss": "MOSS",
 }
 
 DEFAULT_THEME = "morandi"
