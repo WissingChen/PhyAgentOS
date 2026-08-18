@@ -83,6 +83,7 @@ body.clean #hint,body.clean #progress{display:none}
 .rc-name{font-size:18px;font-weight:650;letter-spacing:.5px}
 .rc-batt{margin-left:auto;font-family:var(--mono);font-size:13px;color:var(--ink2);font-variant-numeric:tabular-nums}
 .rc-row2{font-size:13.5px;color:var(--ink2);margin-top:5px}
+.rc-model{font-family:var(--mono);font-size:11.5px;color:var(--ink3);margin-top:4px;letter-spacing:.3px}
 .rc-task{font-size:14.5px;font-weight:450;margin-top:9px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 /* center: conversation (shot mode) */
@@ -178,7 +179,8 @@ body.clean #hint,body.clean #progress{display:none}
 
 #card-timeline{flex:1;min-height:0;margin-top:14px;display:flex;flex-direction:column}
 .tl-title{flex:none;font-size:12px;font-weight:600;letter-spacing:2px;color:var(--ink3);margin-bottom:12px}
-#tlList{flex:1;min-height:0;overflow:hidden;display:flex;flex-direction:column;gap:10px}
+#tlList{flex:1;min-height:0;overflow-y:auto;scrollbar-width:none;display:flex;flex-direction:column;gap:10px}
+#tlList::-webkit-scrollbar{display:none}
 .tl-row{display:flex;align-items:baseline;gap:12px;font-size:14px;opacity:0;transform:translateY(6px);transition:opacity .3s var(--ease),transform .3s var(--ease)}
 .tl-row.in{opacity:1;transform:none}
 .tl-t{font-family:var(--mono);font-size:12px;color:var(--ink3);flex:none;font-variant-numeric:tabular-nums}
@@ -235,6 +237,7 @@ body.clean #hint,body.clean #progress{display:none}
 }
 .vp-content{position:absolute;inset:0;opacity:0;transition:opacity .5s ease}
 .vp-content svg{position:absolute;inset:0;width:100%;height:100%}
+.vp-content>img,.vp-content>canvas,.vp-content>video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .vpanel.live .vp-standby{display:none}
 .vpanel.live .vp-content{opacity:1}
 @keyframes breathe{0%,100%{opacity:.35}50%{opacity:1}}
@@ -398,19 +401,22 @@ body.clean #hint,body.clean #progress{display:none}
       <div id="robotList">
         <div class="robot-card" data-robot="dog">
           <span class="rc-arrow">›</span>
-          <div class="rc-row1"><span class="rc-dot" id="rcDogDot"></span><span class="rc-name">DOG</span><span class="rc-batt">87%</span></div>
+          <div class="rc-row1"><span class="rc-dot" id="rcDogDot"></span><span class="rc-name">DOG</span><span class="rc-batt" id="rcDogBatt">87%</span></div>
+          <div class="rc-model" id="rcDogModel">Unitree Go2</div>
           <div class="rc-row2">四足巡检 · <span id="rcDogState">待机</span></div>
           <div class="rc-task" id="rcDogTask">待命</div>
         </div>
         <div class="robot-card" data-robot="a">
           <span class="rc-arrow">›</span>
-          <div class="rc-row1"><span class="rc-dot" id="rcADot"></span><span class="rc-name">ROBOT A</span><span class="rc-batt">76%</span></div>
+          <div class="rc-row1"><span class="rc-dot" id="rcADot"></span><span class="rc-name">ROBOT A</span><span class="rc-batt" id="rcABatt">76%</span></div>
+          <div class="rc-model" id="rcAModel">RealMan</div>
           <div class="rc-row2">抓取运输 · <span id="rcAState">待机</span></div>
           <div class="rc-task" id="rcATask">待命</div>
         </div>
         <div class="robot-card" data-robot="b">
           <span class="rc-arrow">›</span>
-          <div class="rc-row1"><span class="rc-dot" id="rcBDot"></span><span class="rc-name">ROBOT B</span><span class="rc-batt">91%</span></div>
+          <div class="rc-row1"><span class="rc-dot" id="rcBDot"></span><span class="rc-name">ROBOT B</span><span class="rc-batt" id="rcBBatt">91%</span></div>
+          <div class="rc-model" id="rcBModel">RealMan</div>
           <div class="rc-row2">精细操作 · <span id="rcBState">待机</span></div>
           <div class="rc-task" id="rcBTask">待命</div>
         </div>
@@ -620,9 +626,9 @@ const TUBE_X = i => 66 + i * 52;
 const RAINBOW = ["#e5484d", "#f76b15", "#ffc53d", "#46a758", "#3e63dd", "#8e4ec6"];
 const TUBE_IDS = ["A", "B", "C", "D", "E", "F"];
 const ROBOT_META = {
-  dog: {name:"DOG",     role:"四足巡检", batt:"87%", pos:"(0.0, 0.0)"},
-  a:   {name:"ROBOT A", role:"抓取运输", batt:"76%", pos:"(1.2, 3.0)"},
-  b:   {name:"ROBOT B", role:"精细操作", batt:"91%", pos:"(4.1, 2.2)"},
+  dog: {name:"DOG",     model:"Unitree Go2", role:"四足巡检", batt:"87%", pos:"(0.0, 0.0)"},
+  a:   {name:"ROBOT A", model:"RealMan",     role:"抓取运输", batt:"76%", pos:"(1.2, 3.0)"},
+  b:   {name:"ROBOT B", model:"RealMan",     role:"精细操作", batt:"91%", pos:"(4.1, 2.2)"},
 };
 
 const $ = id => document.getElementById(id);
@@ -756,7 +762,7 @@ function addTimeline(t, text, cls){
   row.className = "tl-row" + (cls ? " " + cls : "");
   row.innerHTML = `<span class="tl-t">${fmt(t)}</span><span class="tl-text">${text}</span>`;
   list.appendChild(row);
-  requestAnimationFrame(() => row.classList.add("in"));
+  requestAnimationFrame(() => { row.classList.add("in"); list.scrollTop = list.scrollHeight; });
 }
 
 /* ================= vision scenes ================= */
@@ -868,10 +874,13 @@ function updateRobot(key, patch){
   const cap = key === "dog" ? "Dog" : key.toUpperCase();
   if (patch.state){
     $(`rc${cap}State`).textContent = ROBOT_ZH[patch.state] || patch.state;
-    $(`rc${cap}Dot`).className = "rc-dot " + patch.cls;
+    const cls = patch.cls ?? {SCANNING:"run",ACTIVE:"run",MOVING:"run",PAUSED:"paused",DONE:"done"}[patch.state] ?? "";
+    $(`rc${cap}Dot`).className = "rc-dot" + (cls ? " " + cls : "");
   }
   if (patch.task) $(`rc${cap}Task`).textContent = patch.task;
   if (patch.pos) ROBOT_META[key].pos = patch.pos;
+  if (patch.batt){ ROBOT_META[key].batt = patch.batt; $(`rc${cap}Batt`).textContent = patch.batt; }
+  if (patch.model){ ROBOT_META[key].model = patch.model; $(`rc${cap}Model`).textContent = patch.model; }
 }
 function allRobots(state, cls, task){
   ["dog","a","b"].forEach(k => updateRobot(k, {state, cls, task}));
@@ -884,12 +893,15 @@ function setMission(statusHTML, bodyHTML, cls){
   $("msBody").innerHTML = bodyHTML;
 }
 
-function showDeviation(instant){
+function showDeviation(instant, expected, measured){
+  expected = expected == null ? 6.0 : +expected;
+  measured = measured == null ? 4.1 : +measured;
+  const delta = Math.abs(expected - measured);
   S.phase = "deviation";
   $("card-mission").classList.add("armed");
   setMission("检测到偏差", `
     <div class="ph-row">
-      <div class="ph"><label>EXPECTED</label><div class="num">6.0</div></div>
+      <div class="ph"><label>EXPECTED</label><div class="num">${expected.toFixed(1)}</div></div>
       <div class="ph"><label>MEASURED</label><div class="num red" id="devMeasured">0.0</div></div>
       <div class="ph"><label>Δ</label><div class="num red" id="devDelta">0.00</div></div>
     </div>
@@ -897,27 +909,29 @@ function showDeviation(instant){
   $("replanLine").classList.add("shown");
   $("rlText").textContent = "第 1 轮 · 启动";
   if (instant){
-    $("devMeasured").textContent = "4.1";
-    $("devDelta").textContent = "1.90";
+    $("devMeasured").textContent = measured.toFixed(1);
+    $("devDelta").textContent = delta.toFixed(2);
   } else {
-    rollNumber($("devMeasured"), 4.1, 1, false);
-    rollNumber($("devDelta"), 1.9, 2, false);
+    rollNumber($("devMeasured"), measured, 1, false);
+    rollNumber($("devDelta"), delta, 2, false);
   }
 }
 
-function showValidation(instant){
+function showValidation(instant, target, result){
+  target = target == null ? 6.0 : +target;
+  result = result == null ? 6.03 : +result;
   S.phase = "validation";
   $("card-mission").classList.remove("armed");
   setMission("验证通过", `
     <div class="val-rows">
-      <div class="val-row"><label>TARGET pH</label><span class="v">6.0</span></div>
+      <div class="val-row"><label>TARGET pH</label><span class="v">${target.toFixed(1)}</span></div>
       <div class="val-row"><label>RESULT pH</label><span class="v green" id="valResult">0.00</span></div>
     </div>
     <div class="dev-lines" style="margin-bottom:10px"><div class="dev-line ok">偏差已补偿 · 从当前状态继续</div></div>
     <div class="val-banner">MISSION RESUMED</div>`, "green");
   $("rlText").textContent = "第 1 轮 · 已收敛 ✓";
-  if (instant) $("valResult").textContent = "6.03";
-  else rollNumber($("valResult"), 6.03, 2, false);
+  if (instant) $("valResult").textContent = result.toFixed(2);
+  else rollNumber($("valResult"), result, 2, false);
 }
 
 function showStats(){
@@ -935,6 +949,80 @@ function showStats(){
     </div>`, "green");
 }
 
+/* ================= live media store ================= */
+const MEDIA = {dog:{}, a:{}, b:{}, mission:{}};
+
+function lerpColor(a, b, t){
+  const pa = [1,3,5].map(i => parseInt(a.substr(i,2),16));
+  const pb = [1,3,5].map(i => parseInt(b.substr(i,2),16));
+  return "#" + pa.map((v,i) => Math.round(v+(pb[i]-v)*t).toString(16).padStart(2,"0")).join("");
+}
+
+function pointsSVG(points, opts){
+  opts = opts || {};
+  const axes = {x:0, y:1, z:2}, hi = axes[opts.h || "x"], vi = axes[opts.v || "z"];
+  const P = points.map(p => Array.isArray(p)
+    ? {h:+p[hi], v:+p[vi], c:null}
+    : {h:+p[opts.h || "x"], v:+p[opts.v || "z"], c:p.c || p.color || null});
+  let dots = "";
+  if (P.length){
+    let h0=Infinity,h1=-Infinity,v0=Infinity,v1=-Infinity;
+    for (const p of P){ if(p.h<h0)h0=p.h; if(p.h>h1)h1=p.h; if(p.v<v0)v0=p.v; if(p.v>v1)v1=p.v; }
+    const sw = Math.max(1e-6, h1-h0), sh = Math.max(1e-6, v1-v0);
+    for (const p of P){
+      const t = (p.v-v0)/sh;
+      const x = 16 + ((p.h-h0)/sw) * 368, y = 224 - t * 208;
+      dots += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="1.7" fill="${p.c || lerpColor("#3e63dd","#30d5c8",t)}" opacity="${(0.45+0.55*t).toFixed(2)}"/>`;
+    }
+  }
+  return `<svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice">
+    <rect width="400" height="240" fill="#05070c"/>${dots}
+    <text x="12" y="228" font-family="ui-monospace,monospace" font-size="11" fill="#5b6878">POINTCLOUD · ${P.length} pts</text></svg>`;
+}
+
+function segBoxesSVG(boxes, bg){
+  const bgEl = bg
+    ? `<image href="${bg}" x="0" y="0" width="400" height="240" preserveAspectRatio="xMidYMid slice"/>`
+    : `<rect width="400" height="240" fill="#0d1117"/>`;
+  const rects = (boxes || []).map(b => {
+    const x = b.x*400, y = b.y*240, w = (b.w ?? 0)*400, h = (b.h ?? 0)*240;
+    const c = b.color || "#30d5c8";
+    const conf = b.conf != null ? ` ${(b.conf*100).toFixed(0)}%` : "";
+    return `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" rx="6" fill="${c}22" stroke="${c}" stroke-width="2"/>
+      <text x="${(x+5).toFixed(1)}" y="${Math.max(13, y-7).toFixed(1)}" font-family="ui-monospace,monospace" font-size="12" font-weight="700" fill="${c}">${b.label || ""}${conf}</text>`;
+  }).join("");
+  return `<svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice">${bgEl}${rects}</svg>`;
+}
+
+function mediaContent(v){
+  if (v == null) return null;
+  if (typeof v === "string") return {img: v};
+  if (v instanceof Element) return {el: v};
+  if (v.points) return {svg: pointsSVG(v.points, v)};
+  if (v.boxes)  return {svg: segBoxesSVG(v.boxes, v.image)};
+  if (v.image)  return {img: v.image};
+  return null;
+}
+
+function setPanel(panelId, contentId, content){
+  $(panelId).classList.toggle("live", !!content);
+  if (!content) return;
+  const box = $(contentId);
+  if (content.el) box.replaceChildren(content.el);
+  else if (content.img != null){
+    let img = box.querySelector("img");
+    if (!img){ box.replaceChildren(); img = document.createElement("img"); img.alt = ""; box.appendChild(img); }
+    if (img.dataset.cur !== content.img){ img.src = content.img; img.dataset.cur = content.img; }
+  }
+  else if (content.svg != null) box.innerHTML = content.svg;
+}
+
+function setMedia(robot, slot, v){
+  if (!MEDIA[robot]) MEDIA[robot] = {};
+  MEDIA[robot][slot] = v;
+  if (S.view === "robot" && S.robot === robot) renderRobotDetail();
+}
+
 /* ================= detail: robot ================= */
 function robotLogs(key){
   const tag = ROBOT_META[key].name;
@@ -944,7 +1032,7 @@ function renderRobotDetail(){
   const m = ROBOT_META[S.robot];
   const cap = S.robot === "dog" ? "Dog" : S.robot.toUpperCase();
   $("dtRTitle").textContent = m.name;
-  $("dtRRole").textContent = m.role;
+  $("dtRRole").textContent = `${m.role} · ${m.model}`;
   const stateTxt = $(`rc${cap}State`).textContent;
   const dotCls = $(`rc${cap}Dot`).className.split(" ").pop();
   $("dtRState").innerHTML = `<i></i>${stateTxt}`;
@@ -958,13 +1046,10 @@ function renderRobotDetail(){
   $("dtDepthLabel").textContent = isDog ? "POINTCLOUD · 空间点云" : "DEPTH · 深度图";
   $("dtDepthTag").textContent = isDog ? "SLAM 48k pts" : "dToF 640×360";
 
-  const hasScene = !!S.scene;
-  for (const id of ["dtCam","dtDepth","dtSeg"]) $(id).classList.toggle("live", hasScene);
-  if (hasScene){
-    $("dtSvgCam").innerHTML = camSVG(S.scene);
-    $("dtSvgDepth").innerHTML = isDog ? pointcloudSVG(S.scene) : depthSVG(S.scene);
-    $("dtSvgSeg").innerHTML = segSVG(S.scene);
-  }
+  const M = MEDIA[S.robot] || {};
+  setPanel("dtCam",   "dtSvgCam",   M.cam   != null ? mediaContent(M.cam)   : S.scene ? {svg: camSVG(S.scene)} : null);
+  setPanel("dtDepth", "dtSvgDepth", M.depth != null ? mediaContent(M.depth) : S.scene ? {svg: isDog ? pointcloudSVG(S.scene) : depthSVG(S.scene)} : null);
+  setPanel("dtSeg",   "dtSvgSeg",   M.seg   != null ? mediaContent(M.seg)   : S.scene ? {svg: segSVG(S.scene)} : null);
   $("dtRLog").innerHTML = robotLogs(S.robot).map(l =>
     `<div class="lg"><span>${fmt(l.t)}</span><span>${l.text}</span></div>`).join("") ||
     `<div class="lg"><span>--:--</span><span>暂无事件</span></div>`;
@@ -994,9 +1079,8 @@ function dagState(id){
   }
 }
 function renderMissionDetail(){
-  const hasScene = !!S.scene;
-  $("dtMCam").classList.toggle("live", hasScene);
-  if (hasScene) $("dtMSvg").innerHTML = camSVG(S.scene);
+  setPanel("dtMCam", "dtMSvg",
+    MEDIA.mission.cam != null ? mediaContent(MEDIA.mission.cam) : S.scene ? {svg: camSVG(S.scene)} : null);
 
   $("dagList").innerHTML = DAG.map(d => {
     const st = dagState(d.id);
@@ -1245,11 +1329,134 @@ document.addEventListener("mousemove", () => {
   cursorTimer = setTimeout(() => document.body.classList.add("idle-cursor"), 2500);
 });
 
+/* ================================================================
+   LIVE DATA API — window.HUD
+   真实运行时通过控制台 / 外部脚本 / WebSocket 注入真实数据；
+   未注入的面板回退到内置合成画面。
+
+   图像参数统一支持：data URL / blob URL / http(s) URL 字符串，
+   或 HTMLImageElement / HTMLCanvasElement / HTMLVideoElement。
+
+   HUD.camera(robot, image)                robot: "dog"|"a"|"b"|"mission"
+   HUD.depth(robot, image)
+   HUD.pointcloud(robot, points, opts?)    points: [{x,y,z,c?}] 或 [[x,y,z]..]; opts: {h:"x", v:"z"} 指定投影轴
+   HUD.segmentation(robot, boxes, image?)  boxes: [{x,y,w,h,label?,color?,conf?}]，0..1 归一化坐标
+   HUD.missionCamera(image)
+   HUD.robot(robot, {state?, task?, pos?, batt?, model?})   state: STANDBY/SCANNING/ACTIVE/MOVING/PAUSED/DONE
+   HUD.say(text) / HUD.human(text) / HUD.card(html) / HUD.quiet(text) / HUD.clearChat()
+   HUD.mission(statusHTML, bodyHTML, cls?)  cls: ""|"red"|"green"|"blue"
+   HUD.deviation(expected, measured)
+   HUD.validation(target, result)
+   HUD.passed()
+   HUD.replan(step, note)                  step: 0..3 = OBSERVE/PAUSE/DIAGNOSE/REPLAN
+   HUD.scene(mode)                         "wake"|"anomaly"|"resolved"|"complete"|null
+   HUD.timeline(text, cls?)                cls: "alert"|"ok"
+   HUD.log(robots, text)                   robots: "DOG" | ["DOG","OS"] ...
+   HUD.status(text)                        LIVE/PAUSED/REPLANNING/RESUMED/PASSED
+   HUD.view(name, robot?)                  "overview"|"robot"|"mission"
+   HUD.clock(seconds)
+   HUD.reset()
+   HUD.connect(wsUrl)                      WebSocket JSON 推送，type 与上述方法同名；
+                                           或用 URL 参数 ?ws=ws://host:port 自动连接
+   消息示例:
+     {"type":"camera","robot":"b","image":"data:image/jpeg;base64,..."}
+     {"type":"pointcloud","robot":"dog","points":[[1.2,0.3,0.8],...]}
+     {"type":"segmentation","robot":"b","boxes":[{"x":0.5,"y":0.2,"w":0.1,"h":0.6,"label":"tube_D","conf":0.93}]}
+     {"type":"robot","robot":"a","state":"ACTIVE","task":"抓取缓冲液","batt":"74%"}
+     {"type":"deviation","expected":6.0,"measured":4.1}
+   ================================================================ */
+const HUD = {
+  camera(robot, image){ robot === "mission" ? HUD.missionCamera(image) : setMedia(robot, "cam", image); },
+  depth:  (robot, image) => setMedia(robot, "depth", image),
+  pointcloud: (robot, points, opts) => setMedia(robot, "depth", Object.assign({points}, opts)),
+  segmentation: (robot, boxes, image) => setMedia(robot, "seg", {boxes, image}),
+  segImage: (robot, image) => setMedia(robot, "seg", image),
+  missionCamera(image){ MEDIA.mission.cam = image; if (S.view === "mission") renderMissionDetail(); },
+
+  robot(key, patch){
+    updateRobot(key, patch);
+    if (S.view === "robot" && S.robot === key) renderRobotDetail();
+  },
+
+  say:   t => showShot(shotOS(t, false)),
+  human: t => showShot(shotHuman(t, false)),
+  card:  h => showShot(shotCard(h)),
+  quiet: t => showShot(shotQuiet(t)),
+  clearChat,
+
+  mission: setMission,
+  deviation: (expected, measured) => showDeviation(false, expected, measured),
+  validation: (target, result) => showValidation(false, target, result),
+  passed(){ showStats(); },
+  replan(step, note){
+    S.replanStep = step; S.replanNote = note || "";
+    setStateMachine(step, note, false);
+  },
+  scene(mode){ S.scene = mode; rerender(); },
+
+  timeline(text, cls){ addTimeline(baseT + (performance.now() - baseWall) / 1000, text, cls); },
+  log(robots, text){
+    S.logs.push({t: baseT + (performance.now() - baseWall) / 1000, robots: [].concat(robots), text});
+    if (S.view === "robot") renderRobotDetail();
+  },
+
+  status: setStatus,
+  view: show,
+  clock: setBase,
+  reset(){
+    for (const k in MEDIA) MEDIA[k] = {};
+    rebuild(0);
+  },
+
+  connect(url){
+    const ws = new WebSocket(url);
+    ws.onopen = () => console.log("[HUD] ws connected:", url);
+    ws.onclose = () => console.log("[HUD] ws closed:", url);
+    ws.onmessage = ev => {
+      let m; try { m = JSON.parse(ev.data); } catch { return; }
+      switch (m.type){
+        case "camera":       HUD.camera(m.robot, m.image); break;
+        case "depth":        HUD.depth(m.robot, m.image); break;
+        case "pointcloud":   HUD.pointcloud(m.robot, m.points, m); break;
+        case "segmentation": HUD.segmentation(m.robot, m.boxes, m.image); break;
+        case "segImage":     HUD.segImage(m.robot, m.image); break;
+        case "missionCamera":HUD.missionCamera(m.image); break;
+        case "robot":        HUD.robot(m.robot, m); break;
+        case "say":          HUD.say(m.text); break;
+        case "human":        HUD.human(m.text); break;
+        case "card":         HUD.card(m.html); break;
+        case "quiet":        HUD.quiet(m.text); break;
+        case "mission":      HUD.mission(m.status, m.body, m.cls); break;
+        case "deviation":    HUD.deviation(m.expected, m.measured); break;
+        case "validation":   HUD.validation(m.target, m.result); break;
+        case "passed":       HUD.passed(); break;
+        case "replan":       HUD.replan(m.step, m.note); break;
+        case "scene":        HUD.scene(m.mode); break;
+        case "timeline":     HUD.timeline(m.text, m.cls); break;
+        case "log":          HUD.log(m.robots, m.text); break;
+        case "status":       HUD.status(m.text); break;
+        case "view":         HUD.view(m.view, m.robot); break;
+        case "clock":        HUD.clock(m.t); break;
+        case "reset":        HUD.reset(); break;
+      }
+    };
+    return ws;
+  },
+};
+window.HUD = HUD;
+
+function rerender(){
+  if (S.view === "robot") renderRobotDetail();
+  if (S.view === "mission") renderMissionDetail();
+}
+
 resetDOM();
 updateHint();
 
-const startBeat = parseInt(new URLSearchParams(location.search).get("beat") || "0", 10);
+const urlParams = new URLSearchParams(location.search);
+const startBeat = parseInt(urlParams.get("beat") || "0", 10);
 if (startBeat > 0) rebuild(Math.min(startBeat, TIMELINE.length));
+if (urlParams.get("ws")) HUD.connect(urlParams.get("ws"));
 </script>
 </body>
 </html>

@@ -1,0 +1,209 @@
+/* ---------- MOSS Mission HUD ---------- */
+MissionScreen {
+    background: #050505;
+    layout: vertical;
+    layers: base finale;
+}
+
+MissionHeader {
+    height: 1;
+    padding: 0 1;
+    background: #14110b;
+}
+
+.mh-title {
+    width: 1fr;
+    color: #ffa028;
+    text-style: bold;
+}
+
+.mh-clock {
+    width: auto;
+    color: #8a5a19;
+    padding-right: 2;
+}
+
+.mh-lamp {
+    width: auto;
+    color: #35c759;
+    text-style: bold;
+}
+
+.mh-lamp.-paused {
+    color: #ff4a3d;
+}
+
+.mh-lamp.-replanning {
+    color: #ffa028;
+}
+
+.mh-lamp.-passed {
+    color: #35c759;
+}
+
+#mission-main {
+    width: 100%;
+    height: 1fr;
+    layout: horizontal;
+}
+
+#mission-left {
+    width: 3fr;
+    height: 100%;
+}
+
+#mission-right {
+    width: 2fr;
+    height: 100%;
+}
+
+MissionPanel {
+    height: auto;
+    margin: 1 1 0 1;
+    padding: 0 1;
+    border: round #8a5a19;
+    background: #0d0b08;
+}
+
+.panel-title {
+    height: 1;
+    color: #ffc25e;
+    text-style: bold;
+}
+
+.panel-body {
+    color: #ffd9a0;
+    padding: 0 1 1 1;
+}
+
+DeviationAlert {
+    border: heavy #ff4a3d;
+    background: #160604;
+}
+
+DeviationAlert.-alert-on {
+    background: #2a0a05;
+}
+
+DeviationAlert .panel-title {
+    color: #ff4a3d;
+}
+
+ReplanStateMachine {
+    height: auto;
+    margin: 1 1 0 1;
+    padding: 0 1 1 1;
+    border: round #8a5a19;
+    background: #0d0b08;
+}
+
+.sm-nodes {
+    height: 3;
+    margin-top: 1;
+}
+
+.sm-node {
+    width: auto;
+    height: 3;
+    padding: 0 1;
+    border: solid #8a5a19;
+    color: #6b5a3a;
+    content-align: center middle;
+}
+
+.sm-node.-done {
+    border: solid #ffa028;
+    color: #ffa028;
+}
+
+.sm-node.-active {
+    border: heavy #ffa028;
+    background: #1f1508;
+    color: #ffc25e;
+    text-style: bold;
+}
+
+.sm-link {
+    width: auto;
+    height: 3;
+    padding: 1 1 0 1;
+    color: #8a5a19;
+}
+
+.sm-note {
+    height: 1;
+    margin-top: 1;
+    color: #ffd9a0;
+}
+
+CommsFeed {
+    height: 1fr;
+    margin: 1 1 0 1;
+    padding: 0 1;
+    border: round #8a5a19;
+    background: #0d0b08;
+}
+
+.comms-lines {
+    height: 1fr;
+    padding: 0 1;
+    color: #ffd9a0;
+}
+
+.comm-line {
+    height: auto;
+    color: #ffd9a0;
+}
+
+SystemVoice {
+    height: 3;
+    margin: 1 1 0 1;
+    padding: 1 2 0 2;
+    border-top: heavy #ffa028;
+    background: #0d0b08;
+    color: #ffc25e;
+    text-style: bold;
+}
+
+#mission-hint {
+    height: 1;
+    padding: 0 2;
+    color: #6b5a3a;
+    content-align: right middle;
+}
+
+FinaleOverlay {
+    layer: finale;
+    width: 100%;
+    height: 100%;
+    background: #050505 96%;
+    align: center middle;
+}
+
+FinaleOverlay Static {
+    width: auto;
+    content-align: center middle;
+}
+
+.finale-title {
+    height: auto;
+    padding: 1 4;
+    border: heavy #ffa028;
+    color: #ffa028;
+    text-style: bold;
+}
+
+.finale-subtitle {
+    padding-top: 1;
+    color: #ffd9a0;
+}
+
+.finale-lines {
+    padding-top: 1;
+    color: #b07a2a;
+}
+
+.finale-footer {
+    padding-top: 1;
+    color: #6b5a3a;
+}

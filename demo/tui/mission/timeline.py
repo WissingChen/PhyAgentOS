@@ -1,12 +1,11 @@
 """Timeline loading and step/auto playback for demo shoots."""
 
 import json
-from importlib import resources
 from pathlib import Path
 
-from PhyAgentOS.tui.mission.events import MissionEvent
+from mission.events import MissionEvent
 
-DEFAULT_TIMELINE = "replan3.json"
+DEFAULT_TIMELINE = Path(__file__).parent / "replan3.json"
 
 
 class Timeline:
@@ -21,11 +20,7 @@ class Timeline:
         if path:
             text = Path(path).expanduser().read_text(encoding="utf-8")
         else:
-            text = (
-                resources.files("PhyAgentOS.tui.mission")
-                .joinpath(DEFAULT_TIMELINE)
-                .read_text(encoding="utf-8")
-            )
+            text = DEFAULT_TIMELINE.read_text(encoding="utf-8")
         raw = json.loads(text)
         steps = [
             (

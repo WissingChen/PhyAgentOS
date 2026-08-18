@@ -8,9 +8,9 @@ from textual.containers import Horizontal, Vertical
 from textual.screen import Screen
 from textual.widgets import Static
 
-from PhyAgentOS.tui.mission.events import MissionEvent
-from PhyAgentOS.tui.mission.timeline import Timeline
-from PhyAgentOS.tui.mission.widgets import (
+from mission.events import MissionEvent
+from mission.timeline import Timeline
+from mission.widgets import (
     CommsFeed,
     DeviationAlert,
     ExperienceCard,
