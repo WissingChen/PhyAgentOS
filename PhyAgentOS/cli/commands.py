@@ -953,18 +953,11 @@ def channels_login():
 @app.command()
 def tui(
     config: str | None = typer.Option(None, "--config", "-c", help="Config file path"),
-    demo: bool = typer.Option(
-        False, "--demo", help="Launch directly into the REPLAN3 mission HUD (clean mode)"
-    ),
-    timeline: str | None = typer.Option(
-        None, "--timeline", help="Custom mission timeline JSON (defaults to REPLAN3)"
-    ),
 ):
     """Launch the PhyAgentOS Terminal User Interface."""
-
     from PhyAgentOS.tui.app import run_tui
 
-    run_tui(config_path=config, demo=demo, timeline_path=timeline)
+    run_tui(config_path=config)
 
 
 # ============================================================================

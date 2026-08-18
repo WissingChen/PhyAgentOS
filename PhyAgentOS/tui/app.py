@@ -29,15 +29,9 @@ class PhyAgentOSApp(App):
         Binding("ctrl+2", "switch_screen('providers')", "Providers", show=False),
         Binding("ctrl+3", "switch_screen('channels')", "Channels", show=False),
         Binding("ctrl+4", "switch_screen('settings')", "Settings", show=False),
-        Binding("ctrl+5", "switch_screen('mission')", "Mission", show=False),
     ]
 
-    def __init__(
-        self,
-        config_path: str | None = None,
-        demo: bool = False,
-        timeline_path: str | None = None,
-    ):
+    def __init__(self, config_path: str | None = None):
         super().__init__()
         for theme in THEMES.values():
             self.register_theme(theme)
@@ -45,13 +39,11 @@ class PhyAgentOSApp(App):
         self._config: Config | None = None
         self._gateway_service = None
         self._esc_last = 0.0
-        self._demo = demo
-        self._timeline_path = timeline_path
         if config_path:
             from PhyAgentOS.config.loader import set_config_path
 
             set_config_path(Path(config_path).expanduser())
-        self.theme = "moss" if demo else get_theme_name(self.config.tui.theme)
+        self.theme = get_theme_name(self.config.tui.theme)
 
     @property
     def config(self) -> Config:
@@ -73,9 +65,6 @@ class PhyAgentOSApp(App):
         yield from ()
 
     def on_mount(self) -> None:
-        if self._demo:
-            self.switch_to_mission()
-            return
         self._start_gateway()
         self.switch_to_chat()
 
@@ -119,19 +108,10 @@ class PhyAgentOSApp(App):
         from PhyAgentOS.tui.screens.chat import ChatScreen
         self.push_screen(ChatScreen())
 
-    def switch_to_mission(self) -> None:
-        from PhyAgentOS.tui.screens.mission import MissionScreen
-        self.push_screen(
-            MissionScreen(timeline_path=self._timeline_path, demo=self._demo)
-        )
-
     def action_back_or_quit(self) -> None:
         """Esc: close menu, go back from sub-screens, double-press to quit."""
         from PhyAgentOS.tui.screens.chat import ChatScreen
 
-        if self._demo:
-            self.exit()
-            return
         if isinstance(self.screen, ChatScreen):
             if self.screen.menu_open:
                 self.screen.close_menu()
@@ -153,7 +133,6 @@ class PhyAgentOSApp(App):
             "providers": self._get_providers_screen,
             "channels": self._get_channels_screen,
             "settings": self._get_settings_screen,
-            "mission": self._get_mission_screen,
         }
         factory = screen_map.get(screen_name)
         if factory:
@@ -175,20 +154,12 @@ class PhyAgentOSApp(App):
         from PhyAgentOS.tui.screens.settings import SettingsScreen
         return SettingsScreen()
 
-    def _get_mission_screen(self) -> Screen:
-        from PhyAgentOS.tui.screens.mission import MissionScreen
-        return MissionScreen(timeline_path=self._timeline_path, demo=self._demo)
-
     async def on_unmount(self) -> None:
         if self._gateway_service is not None:
             await self._gateway_service.stop()
 
 
-def run_tui(
-    config_path: str | None = None,
-    demo: bool = False,
-    timeline_path: str | None = None,
-) -> None:
+def run_tui(config_path: str | None = None) -> None:
     """Run the PhyAgentOS TUI."""
-    app = PhyAgentOSApp(config_path=config_path, demo=demo, timeline_path=timeline_path)
+    app = PhyAgentOSApp(config_path=config_path)
     app.run()
