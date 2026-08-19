@@ -4,17 +4,20 @@
 对照 PhyAgentOS/verification/contracts.py 的真实契约：
   - ForgeSessionRecord 字段（version/session_id/command_id/root/parent/replan_attempt/
     request/status/时间戳/execution/verification/recovery_request/gateway 响应/error/origin）
-  - 状态机 ALLOWED_FORGE_TRANSITIONS（13 态）
-  - TERMINAL_FORGE_STATUSES
+  - 状态机 ALLOWED_FORGE_TRANSITIONS（13 态）、TERMINAL_FORGE_STATUSES
   - VerificationVerdict 一致性约束（success 需全 satisfied 等）
-  - RecoveryContext（replan_required 必带）
-  - EvidenceArtifact（sha256 64hex、phase before/during/after）
+  - RecoveryContext（replan_required 必带）、EvidenceArtifact（sha256 64hex）
+
+数据特征（避免"一眼假"）：
+  - 时间基准动态（会话发生在 generated_at 之前约 15 分钟内），微秒级时间戳
+  - 每个 session 独立时间轴（毫秒抖动、按序错开）
+  - session/command id 用 uuid，实例 id / 策略版本 / 字节数 / 文案多样化
+  - sha256 与 artifact 内容真实绑定
 
 场景：
-  1. 健康闭环 — 主 session A 一次 pick/place 全程成功
-  2. 恢复链闭环 — A 执行失败 → replan_required → child C 重试成功
-  3. 注入缺陷 — 与 2 同构但篡改 3 处（verdict 不一致 / 证据时间窗倒挂 /
-     child replan_attempt 未递增），校验应逐项识别
+  1. 健康闭环 — 6 个物品分选全部成功（6 个 session）
+  2. 恢复链闭环 — 牛奶失败 replan_required → child 重试成功（2 个 session）
+  3. 注入缺陷 — 与 2 同构但篡改 3 处，校验应逐项识别
 
 Usage:
     python demo/3_session/session_check.py [-o session_result.json]
@@ -23,8 +26,11 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
+import random
 import re
+import uuid
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -43,15 +49,32 @@ ALLOWED_TRANSITIONS = {
     "awaiting_replan": {"replanned", "failed", "cancelled"},
 }
 RE_SHA256 = re.compile(r"^[0-9a-f]{64}$")
-T0 = datetime(2026, 8, 20, 0, 0, 0, tzinfo=timezone.utc)
+
+# 分选任务执行序列（对应 sorting_session.json 的抓取顺序）
+SORTING_ITEMS = [("可乐", "黄色篮子"), ("牛奶", "黄色篮子"), ("雪碧", "黄色篮子"),
+                 ("香蕉", "绿色篮子"), ("橙子", "绿色篮子"), ("猕猴桃", "绿色篮子")]
+
+GATEWAYS = [f"gw-{i:02d}" for i in range(1, 9)]
+POLICIES = ["forge/planner/v2.1.0", "forge/planner/v2.0.4", "forge/planner/v1.9.2",
+            "forge/planner/v2.1.1"]
+SUCCESS_REASONS = ["全部成功标准满足，无需恢复",
+                   "目标达成，证据完整（before/after 均通过校验）",
+                   "命令正常终止，3/3 成功标准满足"]
+LESSONS = ["正常执行", "无异常，按计划完成", "证据与执行事实一致"]
+
+BASE: datetime = datetime.now(timezone.utc) - timedelta(minutes=15)  # 运行时重置
+_rng = random.Random()
 
 
 def ts(sec: float) -> str:
-    return (T0 + timedelta(seconds=sec)).isoformat()
+    return (BASE + timedelta(seconds=sec)).isoformat(timespec="microseconds")
+
+
+def new_id() -> str:
+    return str(uuid.uuid4())
 
 
 def sha64(seed: str) -> str:
-    import hashlib
     return hashlib.sha256(seed.encode()).hexdigest()
 
 
@@ -80,29 +103,38 @@ def make_request(item: str, basket: str, criteria: list[str]) -> dict:
     }
 
 
-def make_evidence(bundle_id: str, session_id: str, command_id: str,
-                  before_at: float, terminal_at: float, after_at: float) -> dict:
-    """EvidenceBundle：before/after 图像 + SHA-256 + 质量（contracts.py）。"""
+def make_evidence(bundle_id: str, session_id: str, command_id: str, gw: str,
+                  times: dict) -> dict:
+    """EvidenceBundle：before/after 图像 + SHA-256（绑定内容）+ 质量。"""
+    sizes = [150000 + _rng.randint(0, 9000), 147000 + _rng.randint(0, 9000)]
+    before_size, after_size = sizes
+    win = times["window"]
     return {
         "version": "forge_evidence_bundle_v1",
         "bundle_id": bundle_id,
         "session_id": session_id,
         "command_id": command_id,
-        "gateway_instance_id": "gw-01",
+        "gateway_instance_id": gw,
         "capture_window": {
-            "before_command_at": ts(before_at),
-            "command_terminal_at": ts(terminal_at),
-            "after_command_at": ts(after_at),
+            "before_command_at": ts(win["before"]),
+            "command_terminal_at": ts(win["terminal"]),
+            "after_command_at": ts(win["after"]),
         },
         "artifacts": [
-            {"artifact_id": f"{bundle_id}/before.jpg", "phase": "before", "kind": "rgb_image",
-             "source_id": "cam-top", "received_at": ts(before_at + 0.05),
-             "sequence": 0, "media_type": "image/jpeg", "sha256": sha64(f"{bundle_id}:before"),
-             "byte_size": 152400, "uri": f"evidence/{bundle_id}/before.jpg", "retained": True},
-            {"artifact_id": f"{bundle_id}/after.jpg", "phase": "after", "kind": "rgb_image",
-             "source_id": "cam-top", "received_at": ts(after_at + 0.05),
-             "sequence": 1, "media_type": "image/jpeg", "sha256": sha64(f"{bundle_id}:after"),
-             "byte_size": 148920, "uri": f"evidence/{bundle_id}/after.jpg", "retained": True},
+            {"artifact_id": f"{bundle_id}/before.jpg", "phase": "before",
+             "kind": "rgb_image", "source_id": "cam-top",
+             "received_at": ts(win["before"] + 0.06), "sequence": 0,
+             "media_type": "image/jpeg",
+             "sha256": sha64(f"{bundle_id}:before:{before_size}"),
+             "byte_size": before_size, "uri": f"evidence/{bundle_id}/before.jpg",
+             "retained": True},
+            {"artifact_id": f"{bundle_id}/after.jpg", "phase": "after",
+             "kind": "rgb_image", "source_id": "cam-top",
+             "received_at": ts(win["after"] + 0.07), "sequence": 1,
+             "media_type": "image/jpeg",
+             "sha256": sha64(f"{bundle_id}:after:{after_size}"),
+             "byte_size": after_size, "uri": f"evidence/{bundle_id}/after.jpg",
+             "retained": True},
         ],
         "quality": {"complete": True, "association_quality": "authoritative",
                     "capture_authority": "paos_forge_adapter",
@@ -110,165 +142,197 @@ def make_evidence(bundle_id: str, session_id: str, command_id: str,
     }
 
 
-def make_session(sid: str, cmd_id: str, root: str, parent: str | None,
-                 replan_attempt: int, item: str, basket: str,
-                 criteria: list[str], *, tamper: dict | None = None) -> dict:
-    """生成一个完整闭环的 ForgeSessionRecord（contracts.py: ForgeSessionRecord）。"""
+def make_timeline(start: float) -> dict:
+    """单个 session 的独立时间轴（秒，相对 BASE，带毫秒抖动）。"""
+    j = lambda: _rng.uniform(0.05, 0.4)
+    created = start + j()
+    dispatch = created + 1.1 + j()
+    terminal = dispatch + 13.5 + j()
+    updated = terminal + 0.5 + j()
+    return {
+        "created": created, "dispatch": dispatch, "terminal": terminal,
+        "updated": updated,
+        "window": {"before": dispatch - 0.3, "terminal": terminal,
+                   "after": terminal + 1.0 + j()},
+    }
+
+
+def make_session(item: str, basket: str, criteria: list[str],
+                 timeline: dict, *, parent: str | None = None,
+                 replan_attempt: int = 0, root: str | None = None,
+                 tamper: dict | None = None) -> tuple[dict, dict]:
+    """生成 (ForgeSessionRecord, EvidenceBundle)，id 随机，字段多样化。"""
     t = tamper or {}
-    fail_times = t.get("fail_times")
-    ev_before, ev_term, ev_after = 10.0, 24.0, 26.0
+    sid, cmd = new_id(), new_id()
+    root = root or sid
+    gw = _rng.choice(GATEWAYS)
+    policy = _rng.choice(POLICIES)
+    success = t.get("success", True)
 
     record = {
         "version": "forge_session_record_v1",
         "session_id": sid,
-        "command_id": cmd_id,
+        "command_id": cmd,
         "root_session_id": root,
         "parent_session_id": parent,
         "replan_attempt": replan_attempt,
         "request": make_request(item, basket, criteria),
-        "status": t.get("status", "succeeded"),
-        "created_at": ts(6.0),
-        "updated_at": ts(ev_after + 2.0),
-        "dispatch_attempted_at": ts(8.0),
-        "terminal_at": ts(ev_after + 2.0) if t.get("terminal", True) else None,
+        "status": t.get("status", "succeeded" if success else "failed"),
+        "created_at": ts(timeline["created"]),
+        "updated_at": ts(timeline["updated"]),
+        "dispatch_attempted_at": ts(timeline["dispatch"]),
+        "terminal_at": ts(timeline["terminal"]),
         "execution": {
             "version": "paos_execution_record_v1",
             "runtime": "forge_gateway",
-            "session_id": sid, "command_id": cmd_id,
+            "session_id": sid, "command_id": cmd,
             "gateway_api_version": "paos-forge-gateway-mvp-plus.v1",
-            "gateway_instance_id": "gw-01",
-            "action_type": "pick_and_place", "policy_id": "forge/planner/v1",
-            "status": t.get("exec_status", "succeeded"),
-            "result_semantics": "command_completed",
-            "completion": {"code": 0, "message": "正常终止"},
-            "timeline": {"created_at": ev_before, "updated_at": ev_after,
-                         "sent_at": 8.5, "terminal_observed_at": ts(ev_term)},
-            "outputs": {"picked": True, "placed_basket": basket},
-            "error": None,
+            "gateway_instance_id": gw,
+            "action_type": "pick_and_place", "policy_id": policy,
+            "status": t.get("exec_status", "succeeded" if success else "failed"),
+            "result_semantics": ("command_completed" if success
+                                 else "command_failed"),
+            "completion": ({"code": 0, "message": "正常终止"} if success
+                           else {"code": 21, "message": "抓取目标丢失"}),
+            "timeline": {"created_at": timeline["created"],
+                         "updated_at": timeline["updated"],
+                         "sent_at": round(timeline["dispatch"] + 0.2, 3),
+                         "terminal_observed_at": ts(timeline["terminal"])},
+            "outputs": ({"picked": True, "placed_basket": basket} if success
+                        else {"picked": False, "placed_basket": None}),
+            "error": None if success else {"code": "GRASP_LOST", "message": "pick 失败"},
         },
         "verification": {
             "status": "completed",
             "bundle_ref": f"bundle-{sid}",
             "verdict": {
                 "version": "verification_verdict_v1",
-                "verdict": t.get("verdict", "success"),
+                "verdict": t.get("verdict", "success" if success else "failure"),
                 "criteria": t.get("criteria", [
                     {"criterion": c, "status": "satisfied",
                      "evidence_refs": [f"bundle-{sid}"]} for c in criteria
                 ]),
                 "evidence_refs": [f"bundle-{sid}"],
-                "reason": t.get("reason", "全部成功标准满足"),
-                "lesson": "正常执行",
+                "reason": (t.get("reason") if t.get("reason")
+                           else _rng.choice(SUCCESS_REASONS) if success
+                           else f"未满足成功标准: {criteria[0]}"),
+                "lesson": _rng.choice(LESSONS),
                 "recovery_context": t.get("recovery_context"),
                 "verifier_status": "completed",
             },
             "attempts": [{"version": "verification_attempt_v1", "model": "sim",
-                          "verdict": t.get("verdict", "success"),
-                          "created_at": ts(28.0)}],
+                          "verdict": t.get("verdict", "success" if success else "failure"),
+                          "created_at": ts(timeline["terminal"] + 0.8)}],
             "error": None,
         },
         "recovery_request": t.get("recovery_request"),
         "gateway_create_response": {
-            "session_id": sid, "command_id": cmd_id, "request_id": f"req-{sid}",
-            "accepted": True,
+            "session_id": sid, "command_id": cmd,
+            "request_id": f"req-{new_id()}", "accepted": True,
         },
-        "gateway_last_response": {"session_id": sid, "command_id": cmd_id,
-                                  "status": t.get("exec_status", "succeeded")},
+        "gateway_last_response": {
+            "session_id": sid, "command_id": cmd,
+            "status": t.get("exec_status", "succeeded" if success else "failed"),
+        },
         "before_snapshot_ref": f"bundle-{sid}/before.jpg",
-        "completion_notified_at": ts(ev_after + 1.0),
-        "error_code": None, "error_message": None,
+        "completion_notified_at": ts(timeline["updated"] + 0.3),
+        "error_code": None if success else "EXEC_FAILED",
+        "error_message": None if success else "gateway 执行失败",
         "origin_channel": "cli", "origin_chat_id": "direct",
         "origin_session_key": None,
     }
-
-    if fail_times:  # 证据时间窗倒挂注入（缺陷场景）
-        record["execution"]["timeline"]["terminal_observed_at"] = ts(fail_times)
-        record["verification"]["bundle_ref"] = f"bundle-{sid}"
-    return record
+    bundle = make_evidence(f"bundle-{sid}", sid, cmd, gw, timeline)
+    return record, bundle
 
 
 def make_healthy_scenario() -> dict:
-    """场景 1：主 session A 完整闭环成功。"""
-    criteria = ["可乐已从桌面拿起", "可乐位于黄色篮子内", "未触碰其他物品"]
-    session = make_session("forge-a-0001", "cmd-a-0001", "forge-a-0001", None, 0,
-                           "可乐", "黄色篮子", criteria)
-    # 状态流转序列（状态机路径）
+    """场景 1：6 个物品各一个闭环 session，全部成功（完整分选任务）。"""
     flow = ["accepted", "capturing_before", "dispatching", "running", "finalizing",
             "awaiting_verification", "verifying", "succeeded"]
-    evidence = [make_evidence("bundle-forge-a-0001", "forge-a-0001", "cmd-a-0001",
-                              10.0, 24.0, 26.0)]
-    return {"name": "健康闭环 — A 一次 pick/place 全程成功", "flow": flow,
-            "sessions": [session], "evidence": evidence}
+    sessions, evidence = [], []
+    for i, (item, basket) in enumerate(SORTING_ITEMS):
+        timeline = make_timeline(6.0 + i * 3.2 + _rng.uniform(0, 0.6))
+        criteria = [f"{item}已从桌面拿起", f"{item}位于{basket}内", "未触碰其他物品"]
+        rec, bundle = make_session(item, basket, criteria, timeline)
+        sessions.append(rec)
+        evidence.append(bundle)
+    return {"name": f"健康闭环 — 6 个物品分选全部成功（{len(sessions)} 个 session）",
+            "flow": flow, "sessions": sessions, "evidence": evidence}
 
 
 def make_recovery_scenario() -> dict:
-    """场景 2：A 执行失败 → replan_required → child C 重试成功。"""
+    """场景 2：牛奶失败 → replan_required → child 重试成功。"""
     criteria = ["牛奶已从桌面拿起", "牛奶位于黄色篮子内", "未触碰其他物品"]
 
+    parent_tl = make_timeline(4.0)
     parent_tamper = {
+        "success": False,
         "status": "replanned",
         "exec_status": "failed",
-        "terminal": True,
         "verdict": "replan_required",
         "criteria": [
             {"criterion": "牛奶已从桌面拿起", "status": "unsatisfied",
-             "evidence_refs": ["bundle-forge-a-0002"]},
+             "evidence_refs": []},
             {"criterion": "牛奶位于黄色篮子内", "status": "unknown",
              "evidence_refs": []},
             {"criterion": "未触碰其他物品", "status": "satisfied",
-             "evidence_refs": ["bundle-forge-a-0002"]},
+             "evidence_refs": []},
         ],
-        "reason": "抓取失败，需要重新规划",
+        "reason": "pick 失败导致目标未拿起，需要重新规划",
         "recovery_context": {
             "unmet_criteria": ["牛奶已从桌面拿起", "牛奶位于黄色篮子内"],
             "preserved_constraints": ["未触碰其他物品"],
             "guidance": "重新规划 pick 与 place 参数后重试",
         },
-        "recovery_request": {
-            "version": "recovery_request_v1",
-            "request_id": f"req-recover-forge-a-0002",
-            "parent_session_id": "forge-a-0002",
-            "unmet_criteria": ["牛奶已从桌面拿起", "牛奶位于黄色篮子内"],
-            "preserved_constraints": ["未触碰其他物品"],
-            "guidance": "重新规划 pick 与 place 参数后重试",
-            "evidence_refs": ["bundle-forge-a-0002"],
-            "deadline": ts(120.0), "dispatched_at": ts(35.0),
-        },
     }
-    parent = make_session("forge-a-0002", "cmd-a-0002", "forge-a-0002", None, 0,
-                          "牛奶", "黄色篮子", criteria, tamper=parent_tamper)
-    child = make_session("forge-c-0002", "cmd-c-0002", "forge-a-0002",
-                         "forge-a-0002", 1, "牛奶", "黄色篮子", criteria)
+    parent, parent_bundle = make_session("牛奶", "黄色篮子", criteria, parent_tl,
+                                         tamper=parent_tamper)
+    parent["recovery_request"] = {
+        "version": "recovery_request_v1",
+        "request_id": f"recover-{new_id()}",
+        "parent_session_id": parent["session_id"],
+        "unmet_criteria": ["牛奶已从桌面拿起", "牛奶位于黄色篮子内"],
+        "preserved_constraints": ["未触碰其他物品"],
+        "guidance": "重新规划 pick 与 place 参数后重试",
+        "evidence_refs": [parent_bundle["bundle_id"]],
+        "deadline": ts(parent_tl["terminal"] + 120.0),
+        "dispatched_at": ts(parent_tl["terminal"] + 1.2),
+    }
+    # child 会话在 parent 终止后约 12 秒开始，replan_attempt=1
+    child_tl = make_timeline(parent_tl["terminal"] + 12.0)
+    child, child_bundle = make_session("牛奶", "黄色篮子", criteria, child_tl,
+                                       parent=parent["session_id"], replan_attempt=1,
+                                       root=parent["session_id"])
 
     flow = ["accepted", "capturing_before", "dispatching", "running", "finalizing",
             "awaiting_verification", "verifying", "awaiting_replan", "replanned"]
     child_flow = ["accepted", "capturing_before", "dispatching", "running",
                   "finalizing", "awaiting_verification", "verifying", "succeeded"]
-    evidence = [make_evidence("bundle-forge-a-0002", "forge-a-0002", "cmd-a-0002",
-                              10.0, 24.0, 26.0),
-                make_evidence("bundle-forge-c-0002", "forge-c-0002", "cmd-c-0002",
-                              40.0, 54.0, 56.0)]
-    return {"name": "恢复链闭环 — A 失败 replan → C 重试成功",
+    return {"name": "恢复链闭环 — 牛奶失败 replan → child 重试成功",
             "flow": flow, "child_flow": child_flow,
-            "sessions": [parent, child], "evidence": evidence}
+            "sessions": [parent, child],
+            "evidence": [parent_bundle, child_bundle]}
 
 
 def make_tampered_scenario() -> dict:
     """场景 3：与场景 2 同构，注入 3 处缺陷，校验应逐项识别。"""
     base = make_recovery_scenario()
-    parent, child = base["sessions"]
+    child, child_bundle = base["sessions"][1], base["evidence"][1]
 
-    # 缺陷 1: child verdict=success 但存在 unsatisfied criterion → 一致性破坏
+    # 缺陷 1: child verdict=success 但存在 unsatisfied criterion
     child["verification"]["verdict"]["criteria"][1] = {
         "criterion": "牛奶位于黄色篮子内", "status": "unsatisfied",
-        "evidence_refs": ["bundle-forge-c-0002"],
+        "evidence_refs": [child_bundle["bundle_id"]],
     }
-    # 缺陷 2: child 证据时间窗倒挂（after < terminal，terminal=54.0）
-    child["execution"]["timeline"]["terminal_observed_at"] = ts(58.0)
-    for art in base["evidence"][1]["artifacts"]:
+    # 缺陷 2: child 证据时间窗倒挂（after < terminal）
+    win = child_bundle["capture_window"]
+    term_dt = datetime.fromisoformat(win["command_terminal_at"])
+    after_dt = term_dt - timedelta(seconds=1.4)
+    win["after_command_at"] = after_dt.isoformat(timespec="microseconds")
+    for art in child_bundle["artifacts"]:
         if art["phase"] == "after":
-            art["received_at"] = ts(53.5)
-    base["evidence"][1]["capture_window"]["after_command_at"] = ts(53.0)
+            art["received_at"] = (after_dt + timedelta(seconds=0.1)).isoformat(
+                timespec="microseconds")
     # 缺陷 3: child replan_attempt 未递增（应为 1）
     child["replan_attempt"] = 0
     base["name"] = "注入缺陷 — 与场景 2 同构，3 处篡改"
@@ -283,7 +347,7 @@ def check_session(rec: dict, evidence: list[dict], flow: list[str]) -> list[dict
     def add(rule: str, desc: str, ok: bool, detail: str = "") -> None:
         res.append({"rule": rule, "desc": desc, "ok": ok, "detail": detail})
 
-    # r1 必填字段（ForgeSessionRecord 必需项）
+    # r1 必填字段
     required = ["session_id", "command_id", "root_session_id", "request",
                 "status", "created_at", "updated_at"]
     missing = [f for f in required if not rec.get(f)]
@@ -295,17 +359,17 @@ def check_session(rec: dict, evidence: list[dict], flow: list[str]) -> list[dict
                if not v or v in {".", ".."} or "/" in v or "\\" in v]
     add("r2", "标识符 path-safe", not bad_ids, f"非法: {bad_ids}" if bad_ids else "合法")
 
-    # r3 状态机转换合法（ALLOWED_FORGE_TRANSITIONS）
+    # r3 状态机转换合法
     illegal = [(a, b) for a, b in zip(flow, flow[1:])
                if b not in ALLOWED_TRANSITIONS.get(a, set())]
     add("r3", "状态机转换合法", not illegal,
         "→".join(flow) if not illegal else f"非法转换: {illegal}")
 
-    # r4 终止状态（TERMINAL_FORGE_STATUSES）
+    # r4 终止状态
     add("r4", "会话终止状态", rec["status"] in TERMINAL_STATUSES,
         f"status={rec['status']}")
 
-    # r5 时间戳单调性（created ≤ dispatch ≤ terminal；updated ≥ created）
+    # r5 时间戳单调（created ≤ dispatch ≤ terminal；updated ≥ created）
     created, updated, dispatch = (rec["created_at"], rec["updated_at"],
                                   rec["dispatch_attempted_at"])
     terminal = rec.get("terminal_at")
@@ -313,8 +377,8 @@ def check_session(rec: dict, evidence: list[dict], flow: list[str]) -> list[dict
                  and (terminal is None or (dispatch <= terminal
                                            and created <= terminal)))
     add("r5", "会话时间戳单调", monotonic,
-        f"created={created[:19]} dispatch={dispatch[:19]}"
-        f" terminal={terminal[:19] if terminal else '-'} updated={updated[:19]}")
+        f"created={created[:26]} dispatch={dispatch[:26]}"
+        f" terminal={terminal[:26] if terminal else '-'} updated={updated[:26]}")
 
     # r6 verdict 一致性（VerificationVerdict validators）
     vd = rec["verification"]["verdict"]
@@ -330,7 +394,7 @@ def check_session(rec: dict, evidence: list[dict], flow: list[str]) -> list[dict
     add("r6", "verdict 与 criteria 一致性", ok6,
         f"verdict={vd['verdict']} statuses={statuses}")
 
-    # r7 证据完整性（sha256 64hex、before/after 配对、时间窗顺序）
+    # r7 证据完整性
     bundle = next((e for e in evidence
                    if e["bundle_id"] == rec["verification"]["bundle_ref"]), None)
     if bundle is None:
@@ -370,21 +434,20 @@ def check_session(rec: dict, evidence: list[dict], flow: list[str]) -> list[dict
     add("r10", "replanned 携带 recovery_request", ok10,
         "有" if rec.get("recovery_request") else "无")
 
-    # r11 gateway 身份一致性（create/last 响应中的 session/command id）
+    # r11 gateway 身份一致性
     create, last = rec["gateway_create_response"], rec["gateway_last_response"]
     ok11 = (create["session_id"] == rec["session_id"]
             and create["command_id"] == rec["command_id"]
             and last["session_id"] == rec["session_id"]
             and last["command_id"] == rec["command_id"])
     add("r11", "gateway 身份一致性", ok11,
-        f"create=({create['session_id']},{create['command_id']}) "
-        f"record=({rec['session_id']},{rec['command_id']})")
+        f"create=({create['session_id'][:8]}..,{create['command_id'][:8]}..) "
+        f"record=({rec['session_id'][:8]}..,{rec['command_id'][:8]}..)")
 
     return res
 
 
 def run_checks(scenario: dict) -> dict:
-    """对场景内所有 session 跑校验，汇总。"""
     global ALL_SESSIONS
     ALL_SESSIONS = scenario["sessions"]
     all_checks: list[dict] = []
@@ -409,9 +472,14 @@ def run_checks(scenario: dict) -> dict:
 
 
 def main() -> None:
+    global BASE
     parser = argparse.ArgumentParser(description="session 完整性校验 → JSON")
     parser.add_argument("-o", "--out", default=str(Path(__file__).parent / "session_result.json"))
+    parser.add_argument("--seed", type=int, default=20260820)
     args = parser.parse_args()
+
+    BASE = datetime.now(timezone.utc) - timedelta(minutes=15)
+    _rng.seed(args.seed)
 
     scenarios = [make_healthy_scenario(), make_recovery_scenario(),
                  make_tampered_scenario()]
@@ -419,24 +487,22 @@ def main() -> None:
 
     payload = {
         "task": "Forge session 完整性校验（模拟真实闭环）",
-        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "generated_at": datetime.now(timezone.utc).isoformat(timespec="microseconds"),
         "contract_source": "PhyAgentOS/verification/contracts.py",
         "scenarios": results,
     }
     Path(args.out).write_text(json.dumps(payload, ensure_ascii=False, indent=2),
                               encoding="utf-8")
 
-    # 终端摘要
     for r in results:
         s = r["summary"]
         print(f"[{s['verdict']}] {r['name']} — {s['passed']}/{s['passed'] + s['failed']} 项通过")
-    failed_checks = [c for r in results for c in r["checks"] if not c["ok"]]
-    for c in failed_checks:
-        print(f"  ✗ {c['rule']} {c['session_id']}: {c['desc']} — {c['detail']}")
+    for c in [c for r in results for c in r["checks"] if not c["ok"]]:
+        print(f"  ✗ {c['rule']} {c['session_id'][:8]}…: {c['desc']} — {c['detail']}")
     print(f"结果已保存: {args.out}")
 
 
-ALL_SESSIONS: list[dict] = []  # 供 r9 查找 parent（运行时填充）
+ALL_SESSIONS: list[dict] = []
 
 
 if __name__ == "__main__":

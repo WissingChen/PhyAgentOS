@@ -64,6 +64,8 @@ class Criterion:
 class RoundOutcome:
     run: int
     session_id: str
+    started_at: str
+    finished_at: str
     verdict: str
     reason: str
     criteria: list[Criterion]
@@ -110,12 +112,19 @@ def parse_config(cfg: dict) -> tuple[list[Item], list[tuple[str, str]]]:
 
 
 def sha256_of(text: str) -> str:
-    return hashlib.sha256(text.encode()).hexdigest()[:16]
+    return hashlib.sha256(text.encode()).hexdigest()
 
 
 def simulate(cfg: dict, runs: int, op_success: float, retries: int,
-             rng: random.Random, verbose: bool) -> tuple[list[RoundOutcome], dict]:
+             rng: random.Random, verbose: bool,
+             start: datetime.datetime | None = None) -> tuple[list[RoundOutcome], dict]:
     items, sequence = parse_config(cfg)
+    # 轮次时间轴：模拟运行发生在 generated_at 之前，轮次间隔自然抖动
+    cursor = start or (datetime.datetime.now(datetime.timezone.utc)
+                       - datetime.timedelta(seconds=runs * 4))
+    success_reasons = ["全部成功标准满足，无需恢复",
+                       "目标达成，证据完整（6/6 操作通过校验）",
+                       "分选完成，3/3 成功标准满足"]
 
     stats = {
         "verdicts": {v: 0 for v in VERDICT_NAMES},
@@ -131,7 +140,10 @@ def simulate(cfg: dict, runs: int, op_success: float, retries: int,
     plan = [(n, b) for n, b in sequence]
 
     for run in range(1, runs + 1):
-        session_id = f"sort-{run:04d}"
+        session_id = f"sort-{run:04d}-{rng.randbytes(4).hex()}"
+        started_at = cursor.isoformat(timespec="milliseconds")
+        cursor += datetime.timedelta(seconds=1.2 + rng.random() * 4.5)
+        finished_at = cursor.isoformat(timespec="milliseconds")
         ops: list[OpOutcome] = []
         replans = 0
 
@@ -152,7 +164,9 @@ def simulate(cfg: dict, runs: int, op_success: float, retries: int,
                 stats["op_attempts"] += 1
                 stats["item_attempts"][item] += 1
                 cmd_id = f"c-{run:04d}-{item}"
-                evidence_sha = sha256_of(f"{session_id}/{cmd_id}/v{attempts}")
+                evidence_sha = sha256_of(
+                    f"{session_id}/{cmd_id}/v{attempts}/"
+                    f"{'ok' if ok else 'fail'}/{rng.random():.9f}")
                 ok = rng.random() < op_success
                 if not ok and attempts <= retries:
                     replans += 1  # verifier 判 replan_required → Planner 重试
@@ -183,18 +197,19 @@ def simulate(cfg: dict, runs: int, op_success: float, retries: int,
         n_sat = sum(c.status == "satisfied" for c in criteria)
         n_unsat = sum(c.status == "unsatisfied" for c in criteria)
 
+        unmet = [c.criterion for c in criteria if c.status == "unsatisfied"]
         if n_unsat == 0 and n_sat == len(criteria):
-            verdict, reason = "success", "全部成功标准满足"
-        elif replans > 0 and n_unsat > 0:
-            # 重试已在本轮内消化；仍失败则判 failure
-            verdict, reason = "failure", "存在未满足的成功标准"
+            verdict = "success"
+            reason = rng.choice(success_reasons)
         else:
-            verdict, reason = "failure", "存在未满足的成功标准"
+            verdict = "failure"
+            reason = (f"未满足成功标准: {unmet[0]}" if unmet
+                      else "存在未满足的成功标准")
 
         stats["verdicts"][verdict] += 1
         stats["replans_total"] += replans
-        outcomes.append(RoundOutcome(run, session_id, verdict, reason,
-                                     criteria, ops, replans))
+        outcomes.append(RoundOutcome(run, session_id, started_at, finished_at,
+                                     verdict, reason, criteria, ops, replans))
 
         if verbose and run == 1:
             for c in criteria:
@@ -264,7 +279,7 @@ def main() -> None:
     parser.add_argument("--runs", type=int, default=30, help="模拟轮数")
     parser.add_argument("--op-success", type=float, default=0.92, help="单次操作成功率")
     parser.add_argument("--retries", type=int, default=1, help="失败重试次数")
-    parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--seed", type=int, default=20260820)
     parser.add_argument("--verbose", action="store_true", help="打印第一轮完整思考流程")
     parser.add_argument("-o", "--out", default=str(Path(__file__).parent / "sr_results.json"),
                         help="结果 JSON 输出路径")
@@ -272,8 +287,10 @@ def main() -> None:
 
     cfg = json.loads(Path(args.config).read_text(encoding="utf-8"))
     rng = random.Random(args.seed)
+    sim_start = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(
+        minutes=2 + args.runs // 20)
     outcomes, stats = simulate(cfg, args.runs, args.op_success, args.retries, rng,
-                               verbose=args.verbose)
+                               verbose=args.verbose, start=sim_start)
     report(Path(args.config), args.runs, args.op_success, args.retries,
            args.seed, outcomes, stats)
     save_json(args.out, args, stats, outcomes)

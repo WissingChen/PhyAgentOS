@@ -1,53 +1,55 @@
 {
   "task": "分选任务成功率统计",
-  "generated_at": "2026-08-20T00:01:32",
+  "generated_at": "2026-08-20T01:08:49",
   "config": {
     "config_path": "/data2/chenweixing/Agent/Embodied/PhyAgentOS_page/PhyAgentOS/demo/cli/sorting_session.json",
     "runs": 30,
     "op_success": 0.92,
     "retries": 1,
-    "seed": 42
+    "seed": 20260820
   },
   "summary": {
-    "task_success": 30,
-    "task_success_rate": 1.0,
+    "task_success": 29,
+    "task_success_rate": 0.9667,
     "verdicts": {
-      "success": 30,
-      "failure": 0,
+      "success": 29,
+      "failure": 1,
       "replan_required": 0,
       "inconclusive": 0
     },
-    "op_attempts": 195,
-    "op_ok": 180,
-    "op_success_rate": 0.9231,
+    "op_attempts": 193,
+    "op_ok": 179,
+    "op_success_rate": 0.9275,
     "item_success_rate": {
-      "可乐": 0.9375,
-      "橙子": 0.9677,
-      "香蕉": 0.8824,
-      "牛奶": 0.8824,
-      "猕猴桃": 0.9375,
-      "雪碧": 0.9375
+      "可乐": 0.9677,
+      "橙子": 0.8529,
+      "香蕉": 0.9677,
+      "牛奶": 0.9677,
+      "猕猴桃": 0.9677,
+      "雪碧": 0.8571
     },
-    "replans_total": 15,
-    "replans_avg": 0.5
+    "replans_total": 13,
+    "replans_avg": 0.4333
   },
   "rounds": [
     {
       "run": 1,
-      "session_id": "sort-0001",
+      "session_id": "sort-0001-2e1105ea",
+      "started_at": "2026-08-19T17:05:48.996+00:00",
+      "finished_at": "2026-08-19T17:05:54.411+00:00",
       "verdict": "success",
-      "reason": "全部成功标准满足",
+      "reason": "分选完成，3/3 成功标准满足",
       "criteria": [
         {
           "criterion": "全部目标物品已被抓取",
           "status": "satisfied",
           "evidence_refs": [
-            "evidence:6776e8754e9c28c9",
-            "evidence:fb2ab913b2f97389",
-            "evidence:3c7fc3bad112632e",
-            "evidence:e5ae4dc6dfa150b9",
-            "evidence:280af7b94c852c25",
-            "evidence:23181b897aa4c6a0"
+            "evidence:d0948b98cbc3a6e8574c48929a3504ef7bc7c2dc8989498a7f3f814b3b4b6ab5",
+            "evidence:9b107933334bec18fd813d049264f670cc35f1ec2a761a0a1cd5134b7cd39f7d",
+            "evidence:0fac84d57ede5f635fb3322bfd00d350b082c59bb22e1060fea9e76b4409297d",
+            "evidence:9f5c52427fe984bcffbf5410b83258dccf172f5ff40994406ed54883ec708d50",
+            "evidence:cc225c6e92851c876bb194bdf30d5a178647b21f53d0536f504e1430dbbb2b96",
+            "evidence:cf5e5ac47530162badd222ef6d83493839f35216883ba203c6b394eff4772e29"
           ]
         },
         {
@@ -68,7 +70,7 @@
           "command_id": "c-0001-可乐",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "6776e8754e9c28c9"
+          "evidence_sha": "d0948b98cbc3a6e8574c48929a3504ef7bc7c2dc8989498a7f3f814b3b4b6ab5"
         },
         {
           "item": "牛奶",
@@ -76,7 +78,7 @@
           "command_id": "c-0001-牛奶",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "fb2ab913b2f97389"
+          "evidence_sha": "9b107933334bec18fd813d049264f670cc35f1ec2a761a0a1cd5134b7cd39f7d"
         },
         {
           "item": "雪碧",
@@ -84,7 +86,7 @@
           "command_id": "c-0001-雪碧",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "3c7fc3bad112632e"
+          "evidence_sha": "0fac84d57ede5f635fb3322bfd00d350b082c59bb22e1060fea9e76b4409297d"
         },
         {
           "item": "香蕉",
@@ -92,7 +94,7 @@
           "command_id": "c-0001-香蕉",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "e5ae4dc6dfa150b9"
+          "evidence_sha": "9f5c52427fe984bcffbf5410b83258dccf172f5ff40994406ed54883ec708d50"
         },
         {
           "item": "橙子",
@@ -100,7 +102,7 @@
           "command_id": "c-0001-橙子",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "280af7b94c852c25"
+          "evidence_sha": "cc225c6e92851c876bb194bdf30d5a178647b21f53d0536f504e1430dbbb2b96"
         },
         {
           "item": "猕猴桃",
@@ -108,27 +110,29 @@
           "command_id": "c-0001-猕猴桃",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "23181b897aa4c6a0"
+          "evidence_sha": "cf5e5ac47530162badd222ef6d83493839f35216883ba203c6b394eff4772e29"
         }
       ],
       "replans": 0
     },
     {
       "run": 2,
-      "session_id": "sort-0002",
+      "session_id": "sort-0002-8a24cef4",
+      "started_at": "2026-08-19T17:05:54.411+00:00",
+      "finished_at": "2026-08-19T17:05:56.482+00:00",
       "verdict": "success",
-      "reason": "全部成功标准满足",
+      "reason": "目标达成，证据完整（6/6 操作通过校验）",
       "criteria": [
         {
           "criterion": "全部目标物品已被抓取",
           "status": "satisfied",
           "evidence_refs": [
-            "evidence:8a28824c3ff5729d",
-            "evidence:a830f478e16b80e3",
-            "evidence:e825b67d5d0b7362",
-            "evidence:2eb5721d95e93a8b",
-            "evidence:abd1b38c7dbb31a6",
-            "evidence:32a5057ccb6c2bb0"
+            "evidence:64e271c755ff56e3c7bc248f44d8e2f55107c4492e99c4cc53d42bf8867a9d31",
+            "evidence:45a496119d0f6a04390bebe68af05d17f0edfd5138cd5284d4c083b7bec59ea9",
+            "evidence:ca926bc06bcb5cd2054892e69bcd62f78f97aef0a6495cdaa1a2705f812851d6",
+            "evidence:fae66ebf643080f16bd5412992ac0532e267e84c9482975631e5d3017cc3cb51",
+            "evidence:2223feedf4f34a337d6f79828599d1ebf9d4c39d3f8c70112672481e968c0dc1",
+            "evidence:c39ba6d1cd9c7e0a494c19617f0fccaeb1e52380c2f9a33812d631eb529111a5"
           ]
         },
         {
@@ -149,15 +153,15 @@
           "command_id": "c-0002-可乐",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "8a28824c3ff5729d"
+          "evidence_sha": "64e271c755ff56e3c7bc248f44d8e2f55107c4492e99c4cc53d42bf8867a9d31"
         },
         {
           "item": "牛奶",
           "basket": "黄色",
           "command_id": "c-0002-牛奶",
           "success": true,
-          "attempts": 1,
-          "evidence_sha": "a830f478e16b80e3"
+          "attempts": 2,
+          "evidence_sha": "45a496119d0f6a04390bebe68af05d17f0edfd5138cd5284d4c083b7bec59ea9"
         },
         {
           "item": "雪碧",
@@ -165,7 +169,7 @@
           "command_id": "c-0002-雪碧",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "e825b67d5d0b7362"
+          "evidence_sha": "ca926bc06bcb5cd2054892e69bcd62f78f97aef0a6495cdaa1a2705f812851d6"
         },
         {
           "item": "香蕉",
@@ -173,7 +177,7 @@
           "command_id": "c-0002-香蕉",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "2eb5721d95e93a8b"
+          "evidence_sha": "fae66ebf643080f16bd5412992ac0532e267e84c9482975631e5d3017cc3cb51"
         },
         {
           "item": "橙子",
@@ -181,7 +185,7 @@
           "command_id": "c-0002-橙子",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "abd1b38c7dbb31a6"
+          "evidence_sha": "2223feedf4f34a337d6f79828599d1ebf9d4c39d3f8c70112672481e968c0dc1"
         },
         {
           "item": "猕猴桃",
@@ -189,27 +193,29 @@
           "command_id": "c-0002-猕猴桃",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "32a5057ccb6c2bb0"
+          "evidence_sha": "c39ba6d1cd9c7e0a494c19617f0fccaeb1e52380c2f9a33812d631eb529111a5"
         }
       ],
-      "replans": 0
+      "replans": 1
     },
     {
       "run": 3,
-      "session_id": "sort-0003",
+      "session_id": "sort-0003-3a467c4f",
+      "started_at": "2026-08-19T17:05:56.482+00:00",
+      "finished_at": "2026-08-19T17:05:58.974+00:00",
       "verdict": "success",
-      "reason": "全部成功标准满足",
+      "reason": "分选完成，3/3 成功标准满足",
       "criteria": [
         {
           "criterion": "全部目标物品已被抓取",
           "status": "satisfied",
           "evidence_refs": [
-            "evidence:ef5ed88b23120673",
-            "evidence:d2f0d6b83d71a6f5",
-            "evidence:886875d279d9bcef",
-            "evidence:bdbb8f310593e9b5",
-            "evidence:66084b1baeaa9345",
-            "evidence:dd54bb3733a04518"
+            "evidence:20554b1ad1a5f45033188390a7bdaf60d15a01475bd9b7a813679a9ef992e107",
+            "evidence:9e9cf604ecdf802cc8c14b60e1dc4895677d29f185c170cc4b4604f8b0b0dc9b",
+            "evidence:43e82ffdebf924b80fe6bea38ccd3eece21d1e3f3087017d9002dc8317a7c779",
+            "evidence:175871a3ce3bb9b633b21fee0a6a0ac98c1a373e0be275425a5c349bfd7146a2",
+            "evidence:7d14cba245918671f22e03def22e409f2518978c2d18f9c0a6b4735b2c12eeb5",
+            "evidence:07acd799e1fa4de84feb6a7881054798d685067c12db3478b24bd9e63f969bf2"
           ]
         },
         {
@@ -230,7 +236,7 @@
           "command_id": "c-0003-可乐",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "ef5ed88b23120673"
+          "evidence_sha": "20554b1ad1a5f45033188390a7bdaf60d15a01475bd9b7a813679a9ef992e107"
         },
         {
           "item": "牛奶",
@@ -238,7 +244,7 @@
           "command_id": "c-0003-牛奶",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "d2f0d6b83d71a6f5"
+          "evidence_sha": "9e9cf604ecdf802cc8c14b60e1dc4895677d29f185c170cc4b4604f8b0b0dc9b"
         },
         {
           "item": "雪碧",
@@ -246,7 +252,7 @@
           "command_id": "c-0003-雪碧",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "886875d279d9bcef"
+          "evidence_sha": "43e82ffdebf924b80fe6bea38ccd3eece21d1e3f3087017d9002dc8317a7c779"
         },
         {
           "item": "香蕉",
@@ -254,7 +260,7 @@
           "command_id": "c-0003-香蕉",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "bdbb8f310593e9b5"
+          "evidence_sha": "175871a3ce3bb9b633b21fee0a6a0ac98c1a373e0be275425a5c349bfd7146a2"
         },
         {
           "item": "橙子",
@@ -262,7 +268,7 @@
           "command_id": "c-0003-橙子",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "66084b1baeaa9345"
+          "evidence_sha": "7d14cba245918671f22e03def22e409f2518978c2d18f9c0a6b4735b2c12eeb5"
         },
         {
           "item": "猕猴桃",
@@ -270,27 +276,29 @@
           "command_id": "c-0003-猕猴桃",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "dd54bb3733a04518"
+          "evidence_sha": "07acd799e1fa4de84feb6a7881054798d685067c12db3478b24bd9e63f969bf2"
         }
       ],
       "replans": 0
     },
     {
       "run": 4,
-      "session_id": "sort-0004",
+      "session_id": "sort-0004-f7f55437",
+      "started_at": "2026-08-19T17:05:58.974+00:00",
+      "finished_at": "2026-08-19T17:06:03.929+00:00",
       "verdict": "success",
-      "reason": "全部成功标准满足",
+      "reason": "目标达成，证据完整（6/6 操作通过校验）",
       "criteria": [
         {
           "criterion": "全部目标物品已被抓取",
           "status": "satisfied",
           "evidence_refs": [
-            "evidence:f17d5f07dddd3623",
-            "evidence:3c3a8d69b6129b6b",
-            "evidence:ff40fb2f73d2d43f",
-            "evidence:8463849f6b110f52",
-            "evidence:c96a743a36b68d35",
-            "evidence:5504557a7a8db273"
+            "evidence:f73148b93227154d46a9984e53fc30041602e1bf7e53a3a046b489afdb022f86",
+            "evidence:3ae566974b47cf4913c19fada13cbef676f120ff2f6fe99eeaa56048d6016a97",
+            "evidence:fec2cbd7dc358147c54c2a11453331b74f826cf969b492094ec601f84f704346",
+            "evidence:f418f7f8c5cde44b2ddc4e1a0ff2c7291363a488efc4d978b09c7f8fa581475d",
+            "evidence:414b943967c1b0e7b2885dd200240eb9de9bf0c6bbe2a9fb7af96946f41e1e2a",
+            "evidence:609122492c6aa5a8d6398f2db78a728126dcb3ed0aec4612f1261b6039fb5e5f"
           ]
         },
         {
@@ -311,7 +319,7 @@
           "command_id": "c-0004-可乐",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "f17d5f07dddd3623"
+          "evidence_sha": "f73148b93227154d46a9984e53fc30041602e1bf7e53a3a046b489afdb022f86"
         },
         {
           "item": "牛奶",
@@ -319,7 +327,7 @@
           "command_id": "c-0004-牛奶",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "3c3a8d69b6129b6b"
+          "evidence_sha": "3ae566974b47cf4913c19fada13cbef676f120ff2f6fe99eeaa56048d6016a97"
         },
         {
           "item": "雪碧",
@@ -327,7 +335,7 @@
           "command_id": "c-0004-雪碧",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "ff40fb2f73d2d43f"
+          "evidence_sha": "fec2cbd7dc358147c54c2a11453331b74f826cf969b492094ec601f84f704346"
         },
         {
           "item": "香蕉",
@@ -335,7 +343,7 @@
           "command_id": "c-0004-香蕉",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "8463849f6b110f52"
+          "evidence_sha": "f418f7f8c5cde44b2ddc4e1a0ff2c7291363a488efc4d978b09c7f8fa581475d"
         },
         {
           "item": "橙子",
@@ -343,7 +351,7 @@
           "command_id": "c-0004-橙子",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "c96a743a36b68d35"
+          "evidence_sha": "414b943967c1b0e7b2885dd200240eb9de9bf0c6bbe2a9fb7af96946f41e1e2a"
         },
         {
           "item": "猕猴桃",
@@ -351,27 +359,29 @@
           "command_id": "c-0004-猕猴桃",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "5504557a7a8db273"
+          "evidence_sha": "609122492c6aa5a8d6398f2db78a728126dcb3ed0aec4612f1261b6039fb5e5f"
         }
       ],
       "replans": 0
     },
     {
       "run": 5,
-      "session_id": "sort-0005",
+      "session_id": "sort-0005-7f5cf9bc",
+      "started_at": "2026-08-19T17:06:03.929+00:00",
+      "finished_at": "2026-08-19T17:06:08.386+00:00",
       "verdict": "success",
-      "reason": "全部成功标准满足",
+      "reason": "目标达成，证据完整（6/6 操作通过校验）",
       "criteria": [
         {
           "criterion": "全部目标物品已被抓取",
           "status": "satisfied",
           "evidence_refs": [
-            "evidence:8892b9e61ddcddf8",
-            "evidence:27f12bc30aee4ac8",
-            "evidence:a259e2d014865753",
-            "evidence:2c04561e6f45f17f",
-            "evidence:ee2cdfd67c36b55d",
-            "evidence:16f87b348dfd9cfe"
+            "evidence:d4f475596e2a9e247fcfd200c10b31cd5569a79d86e9ac3c22d705a9d19d3bad",
+            "evidence:65d12b0f76add9ac74c2b0c08c2e07c88e7cf21a668b5f7217c4afda657ffca7",
+            "evidence:36041c59364e159205d0fd2b941c2c4b7d6006312c30a38bb29e5dc7df09d44a",
+            "evidence:50522dffe857ebdef53c26647f2134207f1e66941ae80659db6380f18d0d5298",
+            "evidence:09bb47e08fc69f6721515b9100b587a77d5d8628502b95c4b56274667c1ade10",
+            "evidence:addd2127b274b774acd8f0da169ca1b15c48e0f41c51d311c99c1f81ea147ad1"
           ]
         },
         {
@@ -391,8 +401,8 @@
           "basket": "黄色",
           "command_id": "c-0005-可乐",
           "success": true,
-          "attempts": 2,
-          "evidence_sha": "8892b9e61ddcddf8"
+          "attempts": 1,
+          "evidence_sha": "d4f475596e2a9e247fcfd200c10b31cd5569a79d86e9ac3c22d705a9d19d3bad"
         },
         {
           "item": "牛奶",
@@ -400,15 +410,15 @@
           "command_id": "c-0005-牛奶",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "27f12bc30aee4ac8"
+          "evidence_sha": "65d12b0f76add9ac74c2b0c08c2e07c88e7cf21a668b5f7217c4afda657ffca7"
         },
         {
           "item": "雪碧",
           "basket": "黄色",
           "command_id": "c-0005-雪碧",
           "success": true,
-          "attempts": 1,
-          "evidence_sha": "a259e2d014865753"
+          "attempts": 2,
+          "evidence_sha": "36041c59364e159205d0fd2b941c2c4b7d6006312c30a38bb29e5dc7df09d44a"
         },
         {
           "item": "香蕉",
@@ -416,7 +426,7 @@
           "command_id": "c-0005-香蕉",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "2c04561e6f45f17f"
+          "evidence_sha": "50522dffe857ebdef53c26647f2134207f1e66941ae80659db6380f18d0d5298"
         },
         {
           "item": "橙子",
@@ -424,7 +434,7 @@
           "command_id": "c-0005-橙子",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "ee2cdfd67c36b55d"
+          "evidence_sha": "09bb47e08fc69f6721515b9100b587a77d5d8628502b95c4b56274667c1ade10"
         },
         {
           "item": "猕猴桃",
@@ -432,27 +442,29 @@
           "command_id": "c-0005-猕猴桃",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "16f87b348dfd9cfe"
+          "evidence_sha": "addd2127b274b774acd8f0da169ca1b15c48e0f41c51d311c99c1f81ea147ad1"
         }
       ],
       "replans": 1
     },
     {
       "run": 6,
-      "session_id": "sort-0006",
+      "session_id": "sort-0006-4ff25b86",
+      "started_at": "2026-08-19T17:06:08.386+00:00",
+      "finished_at": "2026-08-19T17:06:11.857+00:00",
       "verdict": "success",
-      "reason": "全部成功标准满足",
+      "reason": "目标达成，证据完整（6/6 操作通过校验）",
       "criteria": [
         {
           "criterion": "全部目标物品已被抓取",
           "status": "satisfied",
           "evidence_refs": [
-            "evidence:2a1a949b4545547f",
-            "evidence:4c20badaa974e264",
-            "evidence:bd8843cf2735f076",
-            "evidence:0ddc725ff1506673",
-            "evidence:16dfc927301a8985",
-            "evidence:e638bf0ddee261b7"
+            "evidence:cfb1cde689aeed6e0e327250e47ad6284f2e18478e62404f5a53e540a11a1220",
+            "evidence:be81bb2242cad44502461a0cedab59a2d40ce2f76129370c5c783b29d87e54e8",
+            "evidence:3e73f2eff554fb2362101767bb4279330e2f6165202493d496870e510739073e",
+            "evidence:350543d91a938fba99bd71073f1bfdd441a8d974c5984629e6d71e8b0daa1e02",
+            "evidence:d5fe8ecf84c1f9014b643649c7ddb8687916fa72c467fca090f723db3ca0f801",
+            "evidence:cf5f5e2a453aecced8ee1f2c333cce324504647068215bbb5d83cfde40a2ed96"
           ]
         },
         {
@@ -473,7 +485,7 @@
           "command_id": "c-0006-可乐",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "2a1a949b4545547f"
+          "evidence_sha": "cfb1cde689aeed6e0e327250e47ad6284f2e18478e62404f5a53e540a11a1220"
         },
         {
           "item": "牛奶",
@@ -481,15 +493,15 @@
           "command_id": "c-0006-牛奶",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "4c20badaa974e264"
+          "evidence_sha": "be81bb2242cad44502461a0cedab59a2d40ce2f76129370c5c783b29d87e54e8"
         },
         {
           "item": "雪碧",
           "basket": "黄色",
           "command_id": "c-0006-雪碧",
           "success": true,
-          "attempts": 2,
-          "evidence_sha": "bd8843cf2735f076"
+          "attempts": 1,
+          "evidence_sha": "3e73f2eff554fb2362101767bb4279330e2f6165202493d496870e510739073e"
         },
         {
           "item": "香蕉",
@@ -497,7 +509,7 @@
           "command_id": "c-0006-香蕉",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "0ddc725ff1506673"
+          "evidence_sha": "350543d91a938fba99bd71073f1bfdd441a8d974c5984629e6d71e8b0daa1e02"
         },
         {
           "item": "橙子",
@@ -505,7 +517,7 @@
           "command_id": "c-0006-橙子",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "16dfc927301a8985"
+          "evidence_sha": "d5fe8ecf84c1f9014b643649c7ddb8687916fa72c467fca090f723db3ca0f801"
         },
         {
           "item": "猕猴桃",
@@ -513,27 +525,29 @@
           "command_id": "c-0006-猕猴桃",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "e638bf0ddee261b7"
+          "evidence_sha": "cf5f5e2a453aecced8ee1f2c333cce324504647068215bbb5d83cfde40a2ed96"
         }
       ],
-      "replans": 1
+      "replans": 0
     },
     {
       "run": 7,
-      "session_id": "sort-0007",
+      "session_id": "sort-0007-385ef49a",
+      "started_at": "2026-08-19T17:06:11.857+00:00",
+      "finished_at": "2026-08-19T17:06:14.012+00:00",
       "verdict": "success",
-      "reason": "全部成功标准满足",
+      "reason": "全部成功标准满足，无需恢复",
       "criteria": [
         {
           "criterion": "全部目标物品已被抓取",
           "status": "satisfied",
           "evidence_refs": [
-            "evidence:cef63da2a5c51c90",
-            "evidence:ea41c230bbf9f539",
-            "evidence:66bf5c0b020ec00d",
-            "evidence:d602593e4c289e2b",
-            "evidence:23639a908b9c3a9d",
-            "evidence:d01bb78d3cae273e"
+            "evidence:a58584cdfc31a0a5f293c028fbe2c0a8f6f7101a18aad03ce3f1065c687bd468",
+            "evidence:ec65cdddf0c8e571ce11a74c5a6c17a5673c77f66f00ab4e27fd55326528f01f",
+            "evidence:736a143625e3cb7016c18723d0e26254bb07442a303b86da8d800a3e7248b429",
+            "evidence:ac691a696900590c9c5e9956ee2c6a948b2e52f38e27d2f25f8453efca99aecf",
+            "evidence:abc26f0b1d7867bea2450e1c27c75b764a3d3adec6e4e207b10c401139711e5e",
+            "evidence:828b80d47d4d27df9ce5b45385ae7206e2a74abf2ee43e542f80aa5b0a20043d"
           ]
         },
         {
@@ -554,7 +568,7 @@
           "command_id": "c-0007-可乐",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "cef63da2a5c51c90"
+          "evidence_sha": "a58584cdfc31a0a5f293c028fbe2c0a8f6f7101a18aad03ce3f1065c687bd468"
         },
         {
           "item": "牛奶",
@@ -562,7 +576,7 @@
           "command_id": "c-0007-牛奶",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "ea41c230bbf9f539"
+          "evidence_sha": "ec65cdddf0c8e571ce11a74c5a6c17a5673c77f66f00ab4e27fd55326528f01f"
         },
         {
           "item": "雪碧",
@@ -570,7 +584,7 @@
           "command_id": "c-0007-雪碧",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "66bf5c0b020ec00d"
+          "evidence_sha": "736a143625e3cb7016c18723d0e26254bb07442a303b86da8d800a3e7248b429"
         },
         {
           "item": "香蕉",
@@ -578,7 +592,7 @@
           "command_id": "c-0007-香蕉",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "d602593e4c289e2b"
+          "evidence_sha": "ac691a696900590c9c5e9956ee2c6a948b2e52f38e27d2f25f8453efca99aecf"
         },
         {
           "item": "橙子",
@@ -586,7 +600,7 @@
           "command_id": "c-0007-橙子",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "23639a908b9c3a9d"
+          "evidence_sha": "abc26f0b1d7867bea2450e1c27c75b764a3d3adec6e4e207b10c401139711e5e"
         },
         {
           "item": "猕猴桃",
@@ -594,27 +608,29 @@
           "command_id": "c-0007-猕猴桃",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "d01bb78d3cae273e"
+          "evidence_sha": "828b80d47d4d27df9ce5b45385ae7206e2a74abf2ee43e542f80aa5b0a20043d"
         }
       ],
       "replans": 0
     },
     {
       "run": 8,
-      "session_id": "sort-0008",
+      "session_id": "sort-0008-ca58d2f5",
+      "started_at": "2026-08-19T17:06:14.012+00:00",
+      "finished_at": "2026-08-19T17:06:18.479+00:00",
       "verdict": "success",
-      "reason": "全部成功标准满足",
+      "reason": "目标达成，证据完整（6/6 操作通过校验）",
       "criteria": [
         {
           "criterion": "全部目标物品已被抓取",
           "status": "satisfied",
           "evidence_refs": [
-            "evidence:9045d70fda7c09db",
-            "evidence:ac73148d9b0b7dd7",
-            "evidence:287b5d1538acd484",
-            "evidence:777ceb4246e1f386",
-            "evidence:1343834d00f8875b",
-            "evidence:4135eb63aa67c072"
+            "evidence:091303187b97cba69148b931df08d271c98ff53acbd527b69857ed8a922bdc89",
+            "evidence:a1aea5b2c0620a10d92139e97b7571ad04a872779646cbc17835a1d46a9d2fbc",
+            "evidence:fe1b24fb72cd90df26b1fe57b8c8f5187c5f0ca4decdb48cd9852179aa5ba4d1",
+            "evidence:9ec5b2a9b060719b9f06d04476939401098182e37c0ad07827292b9f8e9e1d38",
+            "evidence:644cd2263a5d0faba342659ed152bc0782fa42656c2883a7e4b31cfe6568fa90",
+            "evidence:03f740dd8505c9861fae76f95a94e881ffed5c3318121e80c3a9192373024788"
           ]
         },
         {
@@ -635,7 +651,7 @@
           "command_id": "c-0008-可乐",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "9045d70fda7c09db"
+          "evidence_sha": "091303187b97cba69148b931df08d271c98ff53acbd527b69857ed8a922bdc89"
         },
         {
           "item": "牛奶",
@@ -643,15 +659,15 @@
           "command_id": "c-0008-牛奶",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "ac73148d9b0b7dd7"
+          "evidence_sha": "a1aea5b2c0620a10d92139e97b7571ad04a872779646cbc17835a1d46a9d2fbc"
         },
         {
           "item": "雪碧",
           "basket": "黄色",
           "command_id": "c-0008-雪碧",
           "success": true,
-          "attempts": 1,
-          "evidence_sha": "287b5d1538acd484"
+          "attempts": 2,
+          "evidence_sha": "fe1b24fb72cd90df26b1fe57b8c8f5187c5f0ca4decdb48cd9852179aa5ba4d1"
         },
         {
           "item": "香蕉",
@@ -659,7 +675,7 @@
           "command_id": "c-0008-香蕉",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "777ceb4246e1f386"
+          "evidence_sha": "9ec5b2a9b060719b9f06d04476939401098182e37c0ad07827292b9f8e9e1d38"
         },
         {
           "item": "橙子",
@@ -667,7 +683,7 @@
           "command_id": "c-0008-橙子",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "1343834d00f8875b"
+          "evidence_sha": "644cd2263a5d0faba342659ed152bc0782fa42656c2883a7e4b31cfe6568fa90"
         },
         {
           "item": "猕猴桃",
@@ -675,32 +691,34 @@
           "command_id": "c-0008-猕猴桃",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "4135eb63aa67c072"
+          "evidence_sha": "03f740dd8505c9861fae76f95a94e881ffed5c3318121e80c3a9192373024788"
         }
       ],
-      "replans": 0
+      "replans": 1
     },
     {
       "run": 9,
-      "session_id": "sort-0009",
-      "verdict": "success",
-      "reason": "全部成功标准满足",
+      "session_id": "sort-0009-c974ffbd",
+      "started_at": "2026-08-19T17:06:18.479+00:00",
+      "finished_at": "2026-08-19T17:06:23.089+00:00",
+      "verdict": "failure",
+      "reason": "未满足成功标准: 全部目标物品已被抓取",
       "criteria": [
         {
           "criterion": "全部目标物品已被抓取",
-          "status": "satisfied",
+          "status": "unsatisfied",
           "evidence_refs": [
-            "evidence:d024023104e2ea5d",
-            "evidence:c85b72150afc42c5",
-            "evidence:ec4444f038017d42",
-            "evidence:74db531fc6c716a8",
-            "evidence:372f87a526bb367a",
-            "evidence:3e8b42bb2619a6c5"
+            "evidence:aeeb0528e2ed7f7e4d398696dd9db7e215f5462ada57a8c8fc35dc333b244abc",
+            "evidence:df591d459022bd83887752cad8fab9c5c137c941fc261b6937b5137743587c6b",
+            "evidence:d1c7da8b9067540573558849d6fed6deede33fd7a6b63200083a660437f7e300",
+            "evidence:9df4ed752df76e7c1fad6ae8666483ddf411860a052a20b3658f2dd2c9899854",
+            "evidence:bc78b5970a983130248849da29e2ac479bca3f5bfde96dc0f1d08423a872b33e",
+            "evidence:cc805ae3729e454e9b0118d1667a3592684f2a0052a34ce2beda48be9ad9994a"
           ]
         },
         {
           "criterion": "每个物品放入正确篮子",
-          "status": "satisfied",
+          "status": "unsatisfied",
           "evidence_refs": []
         },
         {
@@ -716,7 +734,7 @@
           "command_id": "c-0009-可乐",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "d024023104e2ea5d"
+          "evidence_sha": "aeeb0528e2ed7f7e4d398696dd9db7e215f5462ada57a8c8fc35dc333b244abc"
         },
         {
           "item": "牛奶",
@@ -724,7 +742,7 @@
           "command_id": "c-0009-牛奶",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "c85b72150afc42c5"
+          "evidence_sha": "df591d459022bd83887752cad8fab9c5c137c941fc261b6937b5137743587c6b"
         },
         {
           "item": "雪碧",
@@ -732,23 +750,23 @@
           "command_id": "c-0009-雪碧",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "ec4444f038017d42"
+          "evidence_sha": "d1c7da8b9067540573558849d6fed6deede33fd7a6b63200083a660437f7e300"
         },
         {
           "item": "香蕉",
           "basket": "绿色",
           "command_id": "c-0009-香蕉",
           "success": true,
-          "attempts": 2,
-          "evidence_sha": "74db531fc6c716a8"
+          "attempts": 1,
+          "evidence_sha": "9df4ed752df76e7c1fad6ae8666483ddf411860a052a20b3658f2dd2c9899854"
         },
         {
           "item": "橙子",
           "basket": "绿色",
           "command_id": "c-0009-橙子",
-          "success": true,
-          "attempts": 1,
-          "evidence_sha": "372f87a526bb367a"
+          "success": false,
+          "attempts": 2,
+          "evidence_sha": "bc78b5970a983130248849da29e2ac479bca3f5bfde96dc0f1d08423a872b33e"
         },
         {
           "item": "猕猴桃",
@@ -756,27 +774,29 @@
           "command_id": "c-0009-猕猴桃",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "3e8b42bb2619a6c5"
+          "evidence_sha": "cc805ae3729e454e9b0118d1667a3592684f2a0052a34ce2beda48be9ad9994a"
         }
       ],
       "replans": 1
     },
     {
       "run": 10,
-      "session_id": "sort-0010",
+      "session_id": "sort-0010-e481d949",
+      "started_at": "2026-08-19T17:06:23.089+00:00",
+      "finished_at": "2026-08-19T17:06:24.551+00:00",
       "verdict": "success",
-      "reason": "全部成功标准满足",
+      "reason": "目标达成，证据完整（6/6 操作通过校验）",
       "criteria": [
         {
           "criterion": "全部目标物品已被抓取",
           "status": "satisfied",
           "evidence_refs": [
-            "evidence:9bf29794064ab47b",
-            "evidence:ed88f70986e30bb9",
-            "evidence:7b9bda869aa74c0e",
-            "evidence:f22bd6ad58593a87",
-            "evidence:4b3227b7b56ad0ce",
-            "evidence:fc6222b3df21c0e2"
+            "evidence:18ed2582a21f713fa31ad61647ed5fef1ade57f34c58bfcb69a85b64aacb222e",
+            "evidence:9bc16fbf4c890a44b973b45495524e481708f4fe4ca2d7af96cd354d82c24f98",
+            "evidence:3da0d144a1bbd29aec468ace86fcfc6e5299fedf278405f10e6ec43eb0d37ab0",
+            "evidence:13ec0cc845e59fd1cf3b6b9232d5e2dfa92e59e6cbee1e84c53e9ea67d632598",
+            "evidence:30d795bd1dfc470eba42ca35c57032bf7fd4d7e1e4fa625a474f2431b4de4140",
+            "evidence:77adee43fe89d93dd1e7503b7c183620d1d538a4e07e205dcca085ec551b136b"
           ]
         },
         {
@@ -797,7 +817,7 @@
           "command_id": "c-0010-可乐",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "9bf29794064ab47b"
+          "evidence_sha": "18ed2582a21f713fa31ad61647ed5fef1ade57f34c58bfcb69a85b64aacb222e"
         },
         {
           "item": "牛奶",
@@ -805,7 +825,7 @@
           "command_id": "c-0010-牛奶",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "ed88f70986e30bb9"
+          "evidence_sha": "9bc16fbf4c890a44b973b45495524e481708f4fe4ca2d7af96cd354d82c24f98"
         },
         {
           "item": "雪碧",
@@ -813,15 +833,15 @@
           "command_id": "c-0010-雪碧",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "7b9bda869aa74c0e"
+          "evidence_sha": "3da0d144a1bbd29aec468ace86fcfc6e5299fedf278405f10e6ec43eb0d37ab0"
         },
         {
           "item": "香蕉",
           "basket": "绿色",
           "command_id": "c-0010-香蕉",
           "success": true,
-          "attempts": 2,
-          "evidence_sha": "f22bd6ad58593a87"
+          "attempts": 1,
+          "evidence_sha": "13ec0cc845e59fd1cf3b6b9232d5e2dfa92e59e6cbee1e84c53e9ea67d632598"
         },
         {
           "item": "橙子",
@@ -829,7 +849,7 @@
           "command_id": "c-0010-橙子",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "4b3227b7b56ad0ce"
+          "evidence_sha": "30d795bd1dfc470eba42ca35c57032bf7fd4d7e1e4fa625a474f2431b4de4140"
         },
         {
           "item": "猕猴桃",
@@ -837,27 +857,29 @@
           "command_id": "c-0010-猕猴桃",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "fc6222b3df21c0e2"
+          "evidence_sha": "77adee43fe89d93dd1e7503b7c183620d1d538a4e07e205dcca085ec551b136b"
         }
       ],
-      "replans": 1
+      "replans": 0
     },
     {
       "run": 11,
-      "session_id": "sort-0011",
+      "session_id": "sort-0011-65c19dd8",
+      "started_at": "2026-08-19T17:06:24.551+00:00",
+      "finished_at": "2026-08-19T17:06:28.542+00:00",
       "verdict": "success",
-      "reason": "全部成功标准满足",
+      "reason": "全部成功标准满足，无需恢复",
       "criteria": [
         {
           "criterion": "全部目标物品已被抓取",
           "status": "satisfied",
           "evidence_refs": [
-            "evidence:219bccd1f5b4d1c6",
-            "evidence:81f728f210cdbc96",
-            "evidence:b1809d4f94cbaaa4",
-            "evidence:d4f6f2d3a7493fe7",
-            "evidence:172897ad22c35dd2",
-            "evidence:7cd03c973ff5e0e6"
+            "evidence:b4de1c69ed4a0612f44d47afe5738c0f222f1d3f33006e2012f8caf85248368a",
+            "evidence:415db16cfa2dd0a71a04600cfbcf9b635ed587e6f56df9ea9c3b6582f8c7d150",
+            "evidence:39379c3e32ff84dc2f35b77a51d990032d6d7b6e5509a73f137b4330055b5358",
+            "evidence:c0882e4e2aca1f90d30aff7b0f6c8dbc06cd377b776b412d10d2406d03ced44d",
+            "evidence:ad111d556708c1bb8535044e47870f33b8b81a52ba1c3f7fce248b0e2a47c7cd",
+            "evidence:b22b914cc8f84ad766e22b1235a87713a5841772af200209dbf471e104ae1fb3"
           ]
         },
         {
@@ -878,7 +900,7 @@
           "command_id": "c-0011-可乐",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "219bccd1f5b4d1c6"
+          "evidence_sha": "b4de1c69ed4a0612f44d47afe5738c0f222f1d3f33006e2012f8caf85248368a"
         },
         {
           "item": "牛奶",
@@ -886,15 +908,15 @@
           "command_id": "c-0011-牛奶",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "81f728f210cdbc96"
+          "evidence_sha": "415db16cfa2dd0a71a04600cfbcf9b635ed587e6f56df9ea9c3b6582f8c7d150"
         },
         {
           "item": "雪碧",
           "basket": "黄色",
           "command_id": "c-0011-雪碧",
           "success": true,
-          "attempts": 1,
-          "evidence_sha": "b1809d4f94cbaaa4"
+          "attempts": 2,
+          "evidence_sha": "39379c3e32ff84dc2f35b77a51d990032d6d7b6e5509a73f137b4330055b5358"
         },
         {
           "item": "香蕉",
@@ -902,15 +924,15 @@
           "command_id": "c-0011-香蕉",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "d4f6f2d3a7493fe7"
+          "evidence_sha": "c0882e4e2aca1f90d30aff7b0f6c8dbc06cd377b776b412d10d2406d03ced44d"
         },
         {
           "item": "橙子",
           "basket": "绿色",
           "command_id": "c-0011-橙子",
           "success": true,
-          "attempts": 1,
-          "evidence_sha": "172897ad22c35dd2"
+          "attempts": 2,
+          "evidence_sha": "ad111d556708c1bb8535044e47870f33b8b81a52ba1c3f7fce248b0e2a47c7cd"
         },
         {
           "item": "猕猴桃",
@@ -918,27 +940,29 @@
           "command_id": "c-0011-猕猴桃",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "7cd03c973ff5e0e6"
+          "evidence_sha": "b22b914cc8f84ad766e22b1235a87713a5841772af200209dbf471e104ae1fb3"
         }
       ],
-      "replans": 0
+      "replans": 2
     },
     {
       "run": 12,
-      "session_id": "sort-0012",
+      "session_id": "sort-0012-d9df5239",
+      "started_at": "2026-08-19T17:06:28.542+00:00",
+      "finished_at": "2026-08-19T17:06:34.095+00:00",
       "verdict": "success",
-      "reason": "全部成功标准满足",
+      "reason": "分选完成，3/3 成功标准满足",
       "criteria": [
         {
           "criterion": "全部目标物品已被抓取",
           "status": "satisfied",
           "evidence_refs": [
-            "evidence:0bc67ecd2cde1cb9",
-            "evidence:eea775d90c4c3cfd",
-            "evidence:34eaca35836e9323",
-            "evidence:baa1202a85c9d644",
-            "evidence:61e273df5091ca63",
-            "evidence:eb9616c57470573c"
+            "evidence:04c3ef9474fa0eaf5f5c4a10610e056505344fef88494a832e23f02b976ac59e",
+            "evidence:4a48c7a9626364b654610322e0117644492c1f01ec5777a2001a320b00c761d6",
+            "evidence:b264b810c0e14305ca1d5a05518bda0fe67bea2b12a8a0f46700cf374a40f197",
+            "evidence:2d0cbb74271313bb75b57dbcdba843081481e2573dc1e7d042121beb79b01ec8",
+            "evidence:9270c6efad54a4e33c4ad3394af7d92beee03f7e3978ff14b6a4295b095555dd",
+            "evidence:e8fd6efd0fdf73c7c80206163761ecb141dc6a37d8599e8827e9df7ac1af15b2"
           ]
         },
         {
@@ -959,15 +983,15 @@
           "command_id": "c-0012-可乐",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "0bc67ecd2cde1cb9"
+          "evidence_sha": "04c3ef9474fa0eaf5f5c4a10610e056505344fef88494a832e23f02b976ac59e"
         },
         {
           "item": "牛奶",
           "basket": "黄色",
           "command_id": "c-0012-牛奶",
           "success": true,
-          "attempts": 2,
-          "evidence_sha": "eea775d90c4c3cfd"
+          "attempts": 1,
+          "evidence_sha": "4a48c7a9626364b654610322e0117644492c1f01ec5777a2001a320b00c761d6"
         },
         {
           "item": "雪碧",
@@ -975,7 +999,7 @@
           "command_id": "c-0012-雪碧",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "34eaca35836e9323"
+          "evidence_sha": "b264b810c0e14305ca1d5a05518bda0fe67bea2b12a8a0f46700cf374a40f197"
         },
         {
           "item": "香蕉",
@@ -983,7 +1007,7 @@
           "command_id": "c-0012-香蕉",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "baa1202a85c9d644"
+          "evidence_sha": "2d0cbb74271313bb75b57dbcdba843081481e2573dc1e7d042121beb79b01ec8"
         },
         {
           "item": "橙子",
@@ -991,7 +1015,7 @@
           "command_id": "c-0012-橙子",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "61e273df5091ca63"
+          "evidence_sha": "9270c6efad54a4e33c4ad3394af7d92beee03f7e3978ff14b6a4295b095555dd"
         },
         {
           "item": "猕猴桃",
@@ -999,27 +1023,29 @@
           "command_id": "c-0012-猕猴桃",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "eb9616c57470573c"
+          "evidence_sha": "e8fd6efd0fdf73c7c80206163761ecb141dc6a37d8599e8827e9df7ac1af15b2"
         }
       ],
-      "replans": 1
+      "replans": 0
     },
     {
       "run": 13,
-      "session_id": "sort-0013",
+      "session_id": "sort-0013-fb724133",
+      "started_at": "2026-08-19T17:06:34.095+00:00",
+      "finished_at": "2026-08-19T17:06:37.227+00:00",
       "verdict": "success",
-      "reason": "全部成功标准满足",
+      "reason": "分选完成，3/3 成功标准满足",
       "criteria": [
         {
           "criterion": "全部目标物品已被抓取",
           "status": "satisfied",
           "evidence_refs": [
-            "evidence:a9013f45b7283df7",
-            "evidence:07e29e01ce1ad530",
-            "evidence:f9a7ced59fde843d",
-            "evidence:2258107b9f9ac1ff",
-            "evidence:8af64dbf6454ba62",
-            "evidence:acddd03892cf99df"
+            "evidence:f746b7a38498dabb688fe55e699515fcbdc7813b3d6ccd25a6df58e0dfc0b992",
+            "evidence:6a1554d89f926b22f89bd9217f2009589fe52ed87ccdfc61781bf4931b6a633d",
+            "evidence:47ca13437fb33ff3a8f0ce6dbba04edae27e3d0722e98445ad2609228b4ef5e7",
+            "evidence:53f775ef8acb5d6e8c35877d00c0025a75799b0c07f6dc63b166ce2a6ea66cd3",
+            "evidence:385906eaae472a2362f7cf62c5b42fde2d19a5f980f3284d6badbf4472a4b3b8",
+            "evidence:84378d6e99868611b5d2a892302fb3168b283d7fd83c9b30c821042e67c47638"
           ]
         },
         {
@@ -1039,8 +1065,8 @@
           "basket": "黄色",
           "command_id": "c-0013-可乐",
           "success": true,
-          "attempts": 1,
-          "evidence_sha": "a9013f45b7283df7"
+          "attempts": 2,
+          "evidence_sha": "f746b7a38498dabb688fe55e699515fcbdc7813b3d6ccd25a6df58e0dfc0b992"
         },
         {
           "item": "牛奶",
@@ -1048,7 +1074,7 @@
           "command_id": "c-0013-牛奶",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "07e29e01ce1ad530"
+          "evidence_sha": "6a1554d89f926b22f89bd9217f2009589fe52ed87ccdfc61781bf4931b6a633d"
         },
         {
           "item": "雪碧",
@@ -1056,7 +1082,7 @@
           "command_id": "c-0013-雪碧",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "f9a7ced59fde843d"
+          "evidence_sha": "47ca13437fb33ff3a8f0ce6dbba04edae27e3d0722e98445ad2609228b4ef5e7"
         },
         {
           "item": "香蕉",
@@ -1064,7 +1090,7 @@
           "command_id": "c-0013-香蕉",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "2258107b9f9ac1ff"
+          "evidence_sha": "53f775ef8acb5d6e8c35877d00c0025a75799b0c07f6dc63b166ce2a6ea66cd3"
         },
         {
           "item": "橙子",
@@ -1072,7 +1098,7 @@
           "command_id": "c-0013-橙子",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "8af64dbf6454ba62"
+          "evidence_sha": "385906eaae472a2362f7cf62c5b42fde2d19a5f980f3284d6badbf4472a4b3b8"
         },
         {
           "item": "猕猴桃",
@@ -1080,27 +1106,29 @@
           "command_id": "c-0013-猕猴桃",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "acddd03892cf99df"
+          "evidence_sha": "84378d6e99868611b5d2a892302fb3168b283d7fd83c9b30c821042e67c47638"
         }
       ],
-      "replans": 0
+      "replans": 1
     },
     {
       "run": 14,
-      "session_id": "sort-0014",
+      "session_id": "sort-0014-bc001f1f",
+      "started_at": "2026-08-19T17:06:37.227+00:00",
+      "finished_at": "2026-08-19T17:06:41.690+00:00",
       "verdict": "success",
-      "reason": "全部成功标准满足",
+      "reason": "目标达成，证据完整（6/6 操作通过校验）",
       "criteria": [
         {
           "criterion": "全部目标物品已被抓取",
           "status": "satisfied",
           "evidence_refs": [
-            "evidence:805959e6ccc42ec9",
-            "evidence:2c54c0d74b03aa77",
-            "evidence:7f72cd701abdf4e1",
-            "evidence:a7cd9946b00ded65",
-            "evidence:47dadcf45c499ed1",
-            "evidence:103b4b4943ff24c7"
+            "evidence:690957f7d2e4e27ac45576ec120faeba602bd4ce1bd2573d5ccb9f647d104a74",
+            "evidence:7ee4684266b46db53958d5ac35d3fd969bf3a3a2cae4464d7faeb96bdf5834bf",
+            "evidence:dfe2813442155fa0de8300d34bdcef59421853e24ccabfbd11386739853b717b",
+            "evidence:7731fb80ff5a73d531800606262a86d80b26b9ae798945649e6ff1ea264349a1",
+            "evidence:ecb5762795decee9f8e3b922bd3e1fb27c670178dc7310def5447b421cab499f",
+            "evidence:0d06a691af8efca259e63b6ccec950be35858796b9b306ffcd536dc6c3a8adea"
           ]
         },
         {
@@ -1121,7 +1149,7 @@
           "command_id": "c-0014-可乐",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "805959e6ccc42ec9"
+          "evidence_sha": "690957f7d2e4e27ac45576ec120faeba602bd4ce1bd2573d5ccb9f647d104a74"
         },
         {
           "item": "牛奶",
@@ -1129,7 +1157,7 @@
           "command_id": "c-0014-牛奶",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "2c54c0d74b03aa77"
+          "evidence_sha": "7ee4684266b46db53958d5ac35d3fd969bf3a3a2cae4464d7faeb96bdf5834bf"
         },
         {
           "item": "雪碧",
@@ -1137,15 +1165,15 @@
           "command_id": "c-0014-雪碧",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "7f72cd701abdf4e1"
+          "evidence_sha": "dfe2813442155fa0de8300d34bdcef59421853e24ccabfbd11386739853b717b"
         },
         {
           "item": "香蕉",
           "basket": "绿色",
           "command_id": "c-0014-香蕉",
           "success": true,
-          "attempts": 2,
-          "evidence_sha": "a7cd9946b00ded65"
+          "attempts": 1,
+          "evidence_sha": "7731fb80ff5a73d531800606262a86d80b26b9ae798945649e6ff1ea264349a1"
         },
         {
           "item": "橙子",
@@ -1153,7 +1181,7 @@
           "command_id": "c-0014-橙子",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "47dadcf45c499ed1"
+          "evidence_sha": "ecb5762795decee9f8e3b922bd3e1fb27c670178dc7310def5447b421cab499f"
         },
         {
           "item": "猕猴桃",
@@ -1161,27 +1189,29 @@
           "command_id": "c-0014-猕猴桃",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "103b4b4943ff24c7"
+          "evidence_sha": "0d06a691af8efca259e63b6ccec950be35858796b9b306ffcd536dc6c3a8adea"
         }
       ],
-      "replans": 1
+      "replans": 0
     },
     {
       "run": 15,
-      "session_id": "sort-0015",
+      "session_id": "sort-0015-668c720c",
+      "started_at": "2026-08-19T17:06:41.690+00:00",
+      "finished_at": "2026-08-19T17:06:44.476+00:00",
       "verdict": "success",
-      "reason": "全部成功标准满足",
+      "reason": "目标达成，证据完整（6/6 操作通过校验）",
       "criteria": [
         {
           "criterion": "全部目标物品已被抓取",
           "status": "satisfied",
           "evidence_refs": [
-            "evidence:d1d947e01fe2665e",
-            "evidence:f8900e3b52e7fd94",
-            "evidence:4b0edacf43731737",
-            "evidence:eed405e26af49671",
-            "evidence:9ca74fb67d4e32ba",
-            "evidence:3d63ea3f98054697"
+            "evidence:57f3a44bf74a145d9c7db3a6476b0bbfde6237fc436bebfd3ff7c0811298e73c",
+            "evidence:e1d9165753ab681c960bc5ae6eae99fe5754374953c42bbf59ec313b2af71a68",
+            "evidence:6dbd65070a4578827d4144f33335a9928f19857d68f1f4a09a54b639ea67998a",
+            "evidence:7d5edd5719a57e7cc4a23f869d1a69c90e067b7885b1e24be2f4d29686626866",
+            "evidence:585e483a4d0373cf00e894a1906073e3d4de0dc154b0ecdc58ccb11087054103",
+            "evidence:6e46ac33f63005351cdba13347373efad41f7404371fd15656e29f09ac385230"
           ]
         },
         {
@@ -1202,7 +1232,7 @@
           "command_id": "c-0015-可乐",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "d1d947e01fe2665e"
+          "evidence_sha": "57f3a44bf74a145d9c7db3a6476b0bbfde6237fc436bebfd3ff7c0811298e73c"
         },
         {
           "item": "牛奶",
@@ -1210,7 +1240,7 @@
           "command_id": "c-0015-牛奶",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "f8900e3b52e7fd94"
+          "evidence_sha": "e1d9165753ab681c960bc5ae6eae99fe5754374953c42bbf59ec313b2af71a68"
         },
         {
           "item": "雪碧",
@@ -1218,7 +1248,7 @@
           "command_id": "c-0015-雪碧",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "4b0edacf43731737"
+          "evidence_sha": "6dbd65070a4578827d4144f33335a9928f19857d68f1f4a09a54b639ea67998a"
         },
         {
           "item": "香蕉",
@@ -1226,7 +1256,7 @@
           "command_id": "c-0015-香蕉",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "eed405e26af49671"
+          "evidence_sha": "7d5edd5719a57e7cc4a23f869d1a69c90e067b7885b1e24be2f4d29686626866"
         },
         {
           "item": "橙子",
@@ -1234,7 +1264,7 @@
           "command_id": "c-0015-橙子",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "9ca74fb67d4e32ba"
+          "evidence_sha": "585e483a4d0373cf00e894a1906073e3d4de0dc154b0ecdc58ccb11087054103"
         },
         {
           "item": "猕猴桃",
@@ -1242,27 +1272,29 @@
           "command_id": "c-0015-猕猴桃",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "3d63ea3f98054697"
+          "evidence_sha": "6e46ac33f63005351cdba13347373efad41f7404371fd15656e29f09ac385230"
         }
       ],
       "replans": 0
     },
     {
       "run": 16,
-      "session_id": "sort-0016",
+      "session_id": "sort-0016-58a1f22a",
+      "started_at": "2026-08-19T17:06:44.476+00:00",
+      "finished_at": "2026-08-19T17:06:46.848+00:00",
       "verdict": "success",
-      "reason": "全部成功标准满足",
+      "reason": "目标达成，证据完整（6/6 操作通过校验）",
       "criteria": [
         {
           "criterion": "全部目标物品已被抓取",
           "status": "satisfied",
           "evidence_refs": [
-            "evidence:4fa8e580f9763786",
-            "evidence:305f847e5dbf32c9",
-            "evidence:dd4e2c67042b893b",
-            "evidence:887a6d31d862079e",
-            "evidence:78e0b5b104307902",
-            "evidence:6dab236ce416101e"
+            "evidence:72c63bf25db8c350c8c84ccc451d4aa63f29a9066562864c6789a781eb13eb4d",
+            "evidence:1d298a5b4f16540320358b102730d8273143aaa1f858c4457cd19a034826721e",
+            "evidence:e6ad0640d2e20148b096932e7ec1fd909e557eea452987179ab324d758e4b044",
+            "evidence:3897150195698f63a2d9fdd3c5c4fa34461af6719c53f6651c1b4f4806cde771",
+            "evidence:9a888873f72eb36a0ae8ed3cdee1ff27550a6ed724f315763ba9ba6b1e26a3bf",
+            "evidence:300c49ea5a80fab4af1166c102c87b01c3418e2b20cb84d646ad3398abf93265"
           ]
         },
         {
@@ -1282,16 +1314,16 @@
           "basket": "黄色",
           "command_id": "c-0016-可乐",
           "success": true,
-          "attempts": 2,
-          "evidence_sha": "4fa8e580f9763786"
+          "attempts": 1,
+          "evidence_sha": "72c63bf25db8c350c8c84ccc451d4aa63f29a9066562864c6789a781eb13eb4d"
         },
         {
           "item": "牛奶",
           "basket": "黄色",
           "command_id": "c-0016-牛奶",
           "success": true,
-          "attempts": 2,
-          "evidence_sha": "305f847e5dbf32c9"
+          "attempts": 1,
+          "evidence_sha": "1d298a5b4f16540320358b102730d8273143aaa1f858c4457cd19a034826721e"
         },
         {
           "item": "雪碧",
@@ -1299,7 +1331,7 @@
           "command_id": "c-0016-雪碧",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "dd4e2c67042b893b"
+          "evidence_sha": "e6ad0640d2e20148b096932e7ec1fd909e557eea452987179ab324d758e4b044"
         },
         {
           "item": "香蕉",
@@ -1307,7 +1339,7 @@
           "command_id": "c-0016-香蕉",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "887a6d31d862079e"
+          "evidence_sha": "3897150195698f63a2d9fdd3c5c4fa34461af6719c53f6651c1b4f4806cde771"
         },
         {
           "item": "橙子",
@@ -1315,35 +1347,37 @@
           "command_id": "c-0016-橙子",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "78e0b5b104307902"
+          "evidence_sha": "9a888873f72eb36a0ae8ed3cdee1ff27550a6ed724f315763ba9ba6b1e26a3bf"
         },
         {
           "item": "猕猴桃",
           "basket": "绿色",
           "command_id": "c-0016-猕猴桃",
           "success": true,
-          "attempts": 1,
-          "evidence_sha": "6dab236ce416101e"
+          "attempts": 2,
+          "evidence_sha": "300c49ea5a80fab4af1166c102c87b01c3418e2b20cb84d646ad3398abf93265"
         }
       ],
-      "replans": 2
+      "replans": 1
     },
     {
       "run": 17,
-      "session_id": "sort-0017",
+      "session_id": "sort-0017-b9ebf333",
+      "started_at": "2026-08-19T17:06:46.848+00:00",
+      "finished_at": "2026-08-19T17:06:51.657+00:00",
       "verdict": "success",
-      "reason": "全部成功标准满足",
+      "reason": "分选完成，3/3 成功标准满足",
       "criteria": [
         {
           "criterion": "全部目标物品已被抓取",
           "status": "satisfied",
           "evidence_refs": [
-            "evidence:64000fe1dbdb1fae",
-            "evidence:7c914ffd6b08fb2b",
-            "evidence:5dfe7db74a5898e0",
-            "evidence:a7a044302f8ad0c6",
-            "evidence:9f4e4f370422a659",
-            "evidence:270a0e2f3726b0c8"
+            "evidence:d2d9ec1735f0febfef17d3fd8a0a405c16b918d0f648055e48aa2363fc225d0f",
+            "evidence:0c49043b71951b0bed6d28e3831e6d794992f692a46f6e2398fadfc2553af279",
+            "evidence:64a0a849bd90092eb83a0c545841d142889def70a35b5b4459d063cf55b2ede9",
+            "evidence:371536196d6ad6d431890ec1e7e90fc5cf419978a81f752f0cde1628a64da78d",
+            "evidence:ee523c4a8ad2059c17ea2b1f8b37a4873bcc500940947bf1fe2df13f7e3847a8",
+            "evidence:7ad5232b46437605cd42e9309bd37217ff7060c6e820c586950311267c5a830a"
           ]
         },
         {
@@ -1364,7 +1398,7 @@
           "command_id": "c-0017-可乐",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "64000fe1dbdb1fae"
+          "evidence_sha": "d2d9ec1735f0febfef17d3fd8a0a405c16b918d0f648055e48aa2363fc225d0f"
         },
         {
           "item": "牛奶",
@@ -1372,7 +1406,7 @@
           "command_id": "c-0017-牛奶",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "7c914ffd6b08fb2b"
+          "evidence_sha": "0c49043b71951b0bed6d28e3831e6d794992f692a46f6e2398fadfc2553af279"
         },
         {
           "item": "雪碧",
@@ -1380,7 +1414,7 @@
           "command_id": "c-0017-雪碧",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "5dfe7db74a5898e0"
+          "evidence_sha": "64a0a849bd90092eb83a0c545841d142889def70a35b5b4459d063cf55b2ede9"
         },
         {
           "item": "香蕉",
@@ -1388,7 +1422,7 @@
           "command_id": "c-0017-香蕉",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "a7a044302f8ad0c6"
+          "evidence_sha": "371536196d6ad6d431890ec1e7e90fc5cf419978a81f752f0cde1628a64da78d"
         },
         {
           "item": "橙子",
@@ -1396,35 +1430,37 @@
           "command_id": "c-0017-橙子",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "9f4e4f370422a659"
+          "evidence_sha": "ee523c4a8ad2059c17ea2b1f8b37a4873bcc500940947bf1fe2df13f7e3847a8"
         },
         {
           "item": "猕猴桃",
           "basket": "绿色",
           "command_id": "c-0017-猕猴桃",
           "success": true,
-          "attempts": 2,
-          "evidence_sha": "270a0e2f3726b0c8"
+          "attempts": 1,
+          "evidence_sha": "7ad5232b46437605cd42e9309bd37217ff7060c6e820c586950311267c5a830a"
         }
       ],
-      "replans": 1
+      "replans": 0
     },
     {
       "run": 18,
-      "session_id": "sort-0018",
+      "session_id": "sort-0018-1db243c1",
+      "started_at": "2026-08-19T17:06:51.657+00:00",
+      "finished_at": "2026-08-19T17:06:55.623+00:00",
       "verdict": "success",
-      "reason": "全部成功标准满足",
+      "reason": "目标达成，证据完整（6/6 操作通过校验）",
       "criteria": [
         {
           "criterion": "全部目标物品已被抓取",
           "status": "satisfied",
           "evidence_refs": [
-            "evidence:a6078ea31a36d2d2",
-            "evidence:9943451d9a22056d",
-            "evidence:dc82dd20539befbe",
-            "evidence:aed2f08ce23b52b1",
-            "evidence:f9d157b33cc225a3",
-            "evidence:19f0d29ece21954c"
+            "evidence:05ebd0e7282f91806e57d9b0fd879f572218efdf27d9c01f7db201748d02e26e",
+            "evidence:3f98f0ff943b1cc402492d981c144edec980fbb6d5e0247ff4283ebb1e350141",
+            "evidence:3e715d81e9d3e4e81a20be759449315b31257c177c11844853b155c537449390",
+            "evidence:9863a6ce37b5130dba4337f2470805a3fc25f85047fdf355503e0b631c89a732",
+            "evidence:d759497697d1e32f60119740003b7ab61982443e4252425598036b2461f65f6b",
+            "evidence:03f2635cbc8099cdb31ae53931955585d6e29dfab03ca0a53b8f06acb05cc6f9"
           ]
         },
         {
@@ -1445,7 +1481,7 @@
           "command_id": "c-0018-可乐",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "a6078ea31a36d2d2"
+          "evidence_sha": "05ebd0e7282f91806e57d9b0fd879f572218efdf27d9c01f7db201748d02e26e"
         },
         {
           "item": "牛奶",
@@ -1453,7 +1489,7 @@
           "command_id": "c-0018-牛奶",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "9943451d9a22056d"
+          "evidence_sha": "3f98f0ff943b1cc402492d981c144edec980fbb6d5e0247ff4283ebb1e350141"
         },
         {
           "item": "雪碧",
@@ -1461,7 +1497,7 @@
           "command_id": "c-0018-雪碧",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "dc82dd20539befbe"
+          "evidence_sha": "3e715d81e9d3e4e81a20be759449315b31257c177c11844853b155c537449390"
         },
         {
           "item": "香蕉",
@@ -1469,7 +1505,7 @@
           "command_id": "c-0018-香蕉",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "aed2f08ce23b52b1"
+          "evidence_sha": "9863a6ce37b5130dba4337f2470805a3fc25f85047fdf355503e0b631c89a732"
         },
         {
           "item": "橙子",
@@ -1477,7 +1513,7 @@
           "command_id": "c-0018-橙子",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "f9d157b33cc225a3"
+          "evidence_sha": "d759497697d1e32f60119740003b7ab61982443e4252425598036b2461f65f6b"
         },
         {
           "item": "猕猴桃",
@@ -1485,27 +1521,29 @@
           "command_id": "c-0018-猕猴桃",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "19f0d29ece21954c"
+          "evidence_sha": "03f2635cbc8099cdb31ae53931955585d6e29dfab03ca0a53b8f06acb05cc6f9"
         }
       ],
       "replans": 0
     },
     {
       "run": 19,
-      "session_id": "sort-0019",
+      "session_id": "sort-0019-69c342d2",
+      "started_at": "2026-08-19T17:06:55.623+00:00",
+      "finished_at": "2026-08-19T17:07:00.279+00:00",
       "verdict": "success",
-      "reason": "全部成功标准满足",
+      "reason": "全部成功标准满足，无需恢复",
       "criteria": [
         {
           "criterion": "全部目标物品已被抓取",
           "status": "satisfied",
           "evidence_refs": [
-            "evidence:95609de58f1753e0",
-            "evidence:2face248f87641ac",
-            "evidence:7e821eac9429aa0f",
-            "evidence:97f1315edc3490b1",
-            "evidence:7c502153ce562989",
-            "evidence:c41298252aa562a4"
+            "evidence:051fb34e27c42e943374f919ddd3f23d3603332b24f17159494eb4ab3685ebf2",
+            "evidence:7068fe048e3fc6d6fba803b33595cbe1f2bdccf2bb9f224247333f1975a57753",
+            "evidence:837b64441a3d838becd9a46cf97173cf6590b46ccb95e48fb31893d71f4f0fb0",
+            "evidence:c8c8a7495dd981891dd8ebd5dc5569d38d2942e07216ad773ce53cbe3b41b907",
+            "evidence:528e7b450853f61737e27602cac0231a0b52961760e8aab2810e71fbfa656acc",
+            "evidence:2b4be385e1214aaa402d209c90087d98295c1f7abeee3d35708b754d7310da3d"
           ]
         },
         {
@@ -1526,7 +1564,7 @@
           "command_id": "c-0019-可乐",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "95609de58f1753e0"
+          "evidence_sha": "051fb34e27c42e943374f919ddd3f23d3603332b24f17159494eb4ab3685ebf2"
         },
         {
           "item": "牛奶",
@@ -1534,7 +1572,7 @@
           "command_id": "c-0019-牛奶",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "2face248f87641ac"
+          "evidence_sha": "7068fe048e3fc6d6fba803b33595cbe1f2bdccf2bb9f224247333f1975a57753"
         },
         {
           "item": "雪碧",
@@ -1542,7 +1580,7 @@
           "command_id": "c-0019-雪碧",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "7e821eac9429aa0f"
+          "evidence_sha": "837b64441a3d838becd9a46cf97173cf6590b46ccb95e48fb31893d71f4f0fb0"
         },
         {
           "item": "香蕉",
@@ -1550,7 +1588,7 @@
           "command_id": "c-0019-香蕉",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "97f1315edc3490b1"
+          "evidence_sha": "c8c8a7495dd981891dd8ebd5dc5569d38d2942e07216ad773ce53cbe3b41b907"
         },
         {
           "item": "橙子",
@@ -1558,7 +1596,7 @@
           "command_id": "c-0019-橙子",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "7c502153ce562989"
+          "evidence_sha": "528e7b450853f61737e27602cac0231a0b52961760e8aab2810e71fbfa656acc"
         },
         {
           "item": "猕猴桃",
@@ -1566,27 +1604,29 @@
           "command_id": "c-0019-猕猴桃",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "c41298252aa562a4"
+          "evidence_sha": "2b4be385e1214aaa402d209c90087d98295c1f7abeee3d35708b754d7310da3d"
         }
       ],
       "replans": 0
     },
     {
       "run": 20,
-      "session_id": "sort-0020",
+      "session_id": "sort-0020-d36d9b19",
+      "started_at": "2026-08-19T17:07:00.279+00:00",
+      "finished_at": "2026-08-19T17:07:02.814+00:00",
       "verdict": "success",
-      "reason": "全部成功标准满足",
+      "reason": "分选完成，3/3 成功标准满足",
       "criteria": [
         {
           "criterion": "全部目标物品已被抓取",
           "status": "satisfied",
           "evidence_refs": [
-            "evidence:bc49b453d8484f4e",
-            "evidence:d6006359f4a81250",
-            "evidence:5742e34f64fb2211",
-            "evidence:f6bd9953fe089558",
-            "evidence:169b0360899bcda1",
-            "evidence:c86dfedd6f18c5dd"
+            "evidence:f9c80c71cb7328d7cf6d979ff26599acc8a6e80ea05d48e082ec4ab90af06836",
+            "evidence:0d1b877bace329102ff98eeb4be342db1595054290f317be4dfbddcac803f392",
+            "evidence:12a82bba869868482858fb0b1327b304ce16f21ebc8944a3843477865855d4ee",
+            "evidence:d4785d8d81f640d22778e806143492fd4f5c55d1957a5038ee29bf5575287f1b",
+            "evidence:49fd968ec8af0fca54d1902fe924f8d377c9cdd226a24585ba78ff4c6836e68a",
+            "evidence:f2d05fd2c4b9b83c3798770371260753e0f607e2e99291cf2e16a9bf211f6d6c"
           ]
         },
         {
@@ -1607,7 +1647,7 @@
           "command_id": "c-0020-可乐",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "bc49b453d8484f4e"
+          "evidence_sha": "f9c80c71cb7328d7cf6d979ff26599acc8a6e80ea05d48e082ec4ab90af06836"
         },
         {
           "item": "牛奶",
@@ -1615,7 +1655,7 @@
           "command_id": "c-0020-牛奶",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "d6006359f4a81250"
+          "evidence_sha": "0d1b877bace329102ff98eeb4be342db1595054290f317be4dfbddcac803f392"
         },
         {
           "item": "雪碧",
@@ -1623,7 +1663,7 @@
           "command_id": "c-0020-雪碧",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "5742e34f64fb2211"
+          "evidence_sha": "12a82bba869868482858fb0b1327b304ce16f21ebc8944a3843477865855d4ee"
         },
         {
           "item": "香蕉",
@@ -1631,15 +1671,15 @@
           "command_id": "c-0020-香蕉",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "f6bd9953fe089558"
+          "evidence_sha": "d4785d8d81f640d22778e806143492fd4f5c55d1957a5038ee29bf5575287f1b"
         },
         {
           "item": "橙子",
           "basket": "绿色",
           "command_id": "c-0020-橙子",
           "success": true,
-          "attempts": 2,
-          "evidence_sha": "169b0360899bcda1"
+          "attempts": 1,
+          "evidence_sha": "49fd968ec8af0fca54d1902fe924f8d377c9cdd226a24585ba78ff4c6836e68a"
         },
         {
           "item": "猕猴桃",
@@ -1647,27 +1687,29 @@
           "command_id": "c-0020-猕猴桃",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "c86dfedd6f18c5dd"
+          "evidence_sha": "f2d05fd2c4b9b83c3798770371260753e0f607e2e99291cf2e16a9bf211f6d6c"
         }
       ],
-      "replans": 1
+      "replans": 0
     },
     {
       "run": 21,
-      "session_id": "sort-0021",
+      "session_id": "sort-0021-b204a4d6",
+      "started_at": "2026-08-19T17:07:02.814+00:00",
+      "finished_at": "2026-08-19T17:07:05.002+00:00",
       "verdict": "success",
-      "reason": "全部成功标准满足",
+      "reason": "全部成功标准满足，无需恢复",
       "criteria": [
         {
           "criterion": "全部目标物品已被抓取",
           "status": "satisfied",
           "evidence_refs": [
-            "evidence:75be0dffb104ae65",
-            "evidence:d1b1dfa29df59cb8",
-            "evidence:b168a77c61aa9fe0",
-            "evidence:da4e8ff6dcac2477",
-            "evidence:8da1dab9710ecdb7",
-            "evidence:1996ef19ff041ff7"
+            "evidence:47686dae7ecbc55f3438c39769b614f273d59b80d5c9db7f61cea5b0324e889a",
+            "evidence:c9a6836af1aa919f887a1982247fb5229c558ca45dea3dcd0a47e797e7c3be09",
+            "evidence:7c7202ba328057443cc246c7e0657e20443e2bdcb2cb693f5f43f08bd17c5caa",
+            "evidence:97a99238a0b85e3633581f87229255c51073997ccbbbeabe99c0c46df0532017",
+            "evidence:a0c7d9f89314959bbcc16b306289b605a21dba62777ea45b8421d0da2c00fe2f",
+            "evidence:c4d5f9d43e51286c231a1f2706ee82c9c453731da877669b2d745d2cc78579c5"
           ]
         },
         {
@@ -1688,7 +1730,7 @@
           "command_id": "c-0021-可乐",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "75be0dffb104ae65"
+          "evidence_sha": "47686dae7ecbc55f3438c39769b614f273d59b80d5c9db7f61cea5b0324e889a"
         },
         {
           "item": "牛奶",
@@ -1696,7 +1738,7 @@
           "command_id": "c-0021-牛奶",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "d1b1dfa29df59cb8"
+          "evidence_sha": "c9a6836af1aa919f887a1982247fb5229c558ca45dea3dcd0a47e797e7c3be09"
         },
         {
           "item": "雪碧",
@@ -1704,23 +1746,23 @@
           "command_id": "c-0021-雪碧",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "b168a77c61aa9fe0"
+          "evidence_sha": "7c7202ba328057443cc246c7e0657e20443e2bdcb2cb693f5f43f08bd17c5caa"
         },
         {
           "item": "香蕉",
           "basket": "绿色",
           "command_id": "c-0021-香蕉",
           "success": true,
-          "attempts": 2,
-          "evidence_sha": "da4e8ff6dcac2477"
+          "attempts": 1,
+          "evidence_sha": "97a99238a0b85e3633581f87229255c51073997ccbbbeabe99c0c46df0532017"
         },
         {
           "item": "橙子",
           "basket": "绿色",
           "command_id": "c-0021-橙子",
           "success": true,
-          "attempts": 1,
-          "evidence_sha": "8da1dab9710ecdb7"
+          "attempts": 2,
+          "evidence_sha": "a0c7d9f89314959bbcc16b306289b605a21dba62777ea45b8421d0da2c00fe2f"
         },
         {
           "item": "猕猴桃",
@@ -1728,27 +1770,29 @@
           "command_id": "c-0021-猕猴桃",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "1996ef19ff041ff7"
+          "evidence_sha": "c4d5f9d43e51286c231a1f2706ee82c9c453731da877669b2d745d2cc78579c5"
         }
       ],
       "replans": 1
     },
     {
       "run": 22,
-      "session_id": "sort-0022",
+      "session_id": "sort-0022-58811523",
+      "started_at": "2026-08-19T17:07:05.002+00:00",
+      "finished_at": "2026-08-19T17:07:06.247+00:00",
       "verdict": "success",
-      "reason": "全部成功标准满足",
+      "reason": "分选完成，3/3 成功标准满足",
       "criteria": [
         {
           "criterion": "全部目标物品已被抓取",
           "status": "satisfied",
           "evidence_refs": [
-            "evidence:ee070e5364afdcea",
-            "evidence:f452299c6afd1100",
-            "evidence:fa1bb23763e10614",
-            "evidence:ddd5a6e4b29ea452",
-            "evidence:4ed30b4d14b074b3",
-            "evidence:57096c64a25408e8"
+            "evidence:f045674df48cdddadaaf023afdb5d784feb8c9fcfcde109a8275fec52489568d",
+            "evidence:ae19c1441fb057c37962c0e3a9972d06818098a1f362b8daab0a59af2c1fe75d",
+            "evidence:f12162586af596bb816c9dace69a92ffc5d3a1bdf1b6d0ffeeede15481cfa997",
+            "evidence:307425ae8e730cbdae5d73f86a2afd6add70ab2eac0993ba45d68e75d943d79b",
+            "evidence:c0fb08e6f42d5d2caa8a0d351d84175f389032704e23708baf1b1c1231429919",
+            "evidence:36643acfd8257f41d84cfef5cef38baf57050bf20bd608a43c8e283753cdb558"
           ]
         },
         {
@@ -1769,7 +1813,7 @@
           "command_id": "c-0022-可乐",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "ee070e5364afdcea"
+          "evidence_sha": "f045674df48cdddadaaf023afdb5d784feb8c9fcfcde109a8275fec52489568d"
         },
         {
           "item": "牛奶",
@@ -1777,7 +1821,7 @@
           "command_id": "c-0022-牛奶",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "f452299c6afd1100"
+          "evidence_sha": "ae19c1441fb057c37962c0e3a9972d06818098a1f362b8daab0a59af2c1fe75d"
         },
         {
           "item": "雪碧",
@@ -1785,7 +1829,7 @@
           "command_id": "c-0022-雪碧",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "fa1bb23763e10614"
+          "evidence_sha": "f12162586af596bb816c9dace69a92ffc5d3a1bdf1b6d0ffeeede15481cfa997"
         },
         {
           "item": "香蕉",
@@ -1793,7 +1837,7 @@
           "command_id": "c-0022-香蕉",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "ddd5a6e4b29ea452"
+          "evidence_sha": "307425ae8e730cbdae5d73f86a2afd6add70ab2eac0993ba45d68e75d943d79b"
         },
         {
           "item": "橙子",
@@ -1801,7 +1845,7 @@
           "command_id": "c-0022-橙子",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "4ed30b4d14b074b3"
+          "evidence_sha": "c0fb08e6f42d5d2caa8a0d351d84175f389032704e23708baf1b1c1231429919"
         },
         {
           "item": "猕猴桃",
@@ -1809,27 +1853,29 @@
           "command_id": "c-0022-猕猴桃",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "57096c64a25408e8"
+          "evidence_sha": "36643acfd8257f41d84cfef5cef38baf57050bf20bd608a43c8e283753cdb558"
         }
       ],
       "replans": 0
     },
     {
       "run": 23,
-      "session_id": "sort-0023",
+      "session_id": "sort-0023-aee247c4",
+      "started_at": "2026-08-19T17:07:06.247+00:00",
+      "finished_at": "2026-08-19T17:07:08.971+00:00",
       "verdict": "success",
-      "reason": "全部成功标准满足",
+      "reason": "分选完成，3/3 成功标准满足",
       "criteria": [
         {
           "criterion": "全部目标物品已被抓取",
           "status": "satisfied",
           "evidence_refs": [
-            "evidence:75399f5cb695bd9c",
-            "evidence:823b93778d5e1d69",
-            "evidence:412d4489e13de604",
-            "evidence:827974d2fc80e36d",
-            "evidence:83ffeb1259dded6d",
-            "evidence:3824d19f0ed69fc5"
+            "evidence:b15307f1780dec379a45938f5e9f9ceea17d2775e5fb024f890110828c423261",
+            "evidence:64d4c1d972f55120190d71bcd9b6be5cfea1f1e0641ad0b15ad1390c31dbf1eb",
+            "evidence:77540531d27469070f442c16bf8ecaf25e4f8581edb84260873035cd8ce96306",
+            "evidence:e9e344763514feccfdd5a9fc92f374dcd6f4294b1c3c33a137ca1272117b0cb7",
+            "evidence:41fc0ada83c654733b41485db0386c163c0f9853653587c6c782133b3b756426",
+            "evidence:f1aa720f1a917c0c5e9584c4db3c46800c0e65201d2bbcc0493f2edd999ff031"
           ]
         },
         {
@@ -1850,7 +1896,7 @@
           "command_id": "c-0023-可乐",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "75399f5cb695bd9c"
+          "evidence_sha": "b15307f1780dec379a45938f5e9f9ceea17d2775e5fb024f890110828c423261"
         },
         {
           "item": "牛奶",
@@ -1858,15 +1904,15 @@
           "command_id": "c-0023-牛奶",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "823b93778d5e1d69"
+          "evidence_sha": "64d4c1d972f55120190d71bcd9b6be5cfea1f1e0641ad0b15ad1390c31dbf1eb"
         },
         {
           "item": "雪碧",
           "basket": "黄色",
           "command_id": "c-0023-雪碧",
           "success": true,
-          "attempts": 1,
-          "evidence_sha": "412d4489e13de604"
+          "attempts": 2,
+          "evidence_sha": "77540531d27469070f442c16bf8ecaf25e4f8581edb84260873035cd8ce96306"
         },
         {
           "item": "香蕉",
@@ -1874,15 +1920,15 @@
           "command_id": "c-0023-香蕉",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "827974d2fc80e36d"
+          "evidence_sha": "e9e344763514feccfdd5a9fc92f374dcd6f4294b1c3c33a137ca1272117b0cb7"
         },
         {
           "item": "橙子",
           "basket": "绿色",
           "command_id": "c-0023-橙子",
           "success": true,
-          "attempts": 1,
-          "evidence_sha": "83ffeb1259dded6d"
+          "attempts": 2,
+          "evidence_sha": "41fc0ada83c654733b41485db0386c163c0f9853653587c6c782133b3b756426"
         },
         {
           "item": "猕猴桃",
@@ -1890,27 +1936,29 @@
           "command_id": "c-0023-猕猴桃",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "3824d19f0ed69fc5"
+          "evidence_sha": "f1aa720f1a917c0c5e9584c4db3c46800c0e65201d2bbcc0493f2edd999ff031"
         }
       ],
-      "replans": 0
+      "replans": 2
     },
     {
       "run": 24,
-      "session_id": "sort-0024",
+      "session_id": "sort-0024-9bfb81f3",
+      "started_at": "2026-08-19T17:07:08.971+00:00",
+      "finished_at": "2026-08-19T17:07:13.133+00:00",
       "verdict": "success",
-      "reason": "全部成功标准满足",
+      "reason": "全部成功标准满足，无需恢复",
       "criteria": [
         {
           "criterion": "全部目标物品已被抓取",
           "status": "satisfied",
           "evidence_refs": [
-            "evidence:821020dffd411cb7",
-            "evidence:85f4fbb4b9907d17",
-            "evidence:48c4e38b4e26579b",
-            "evidence:d8bfaee72e496dda",
-            "evidence:9ec283feac43a727",
-            "evidence:f4fd73e1c6ae3c27"
+            "evidence:88a515418581bea4837c4e46fc28d154b6390c0809b32ebd5d867bc87f7bbe45",
+            "evidence:a08004498bcca2be3d6279af738851c2f4b52a20b16e7cb2db5d842ecc8de9f1",
+            "evidence:9d0b9610f1e218edc6bc2030511f4dd4a02fa9dbd02132b836e38826091e752b",
+            "evidence:04c0a2b0de5966f356ebf65ac1f1a237290dd78a0f9f04cc6d027c5ec67ba66a",
+            "evidence:ac5d58c7b13e455ca86ccd07fc0c03991840ca786ae4f5c90daf67c21d80e48e",
+            "evidence:ce68f5704c08407c8317263bc8acd739c9a819b84330df24645981dc3415c5a9"
           ]
         },
         {
@@ -1931,15 +1979,15 @@
           "command_id": "c-0024-可乐",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "821020dffd411cb7"
+          "evidence_sha": "88a515418581bea4837c4e46fc28d154b6390c0809b32ebd5d867bc87f7bbe45"
         },
         {
           "item": "牛奶",
           "basket": "黄色",
           "command_id": "c-0024-牛奶",
           "success": true,
-          "attempts": 2,
-          "evidence_sha": "85f4fbb4b9907d17"
+          "attempts": 1,
+          "evidence_sha": "a08004498bcca2be3d6279af738851c2f4b52a20b16e7cb2db5d842ecc8de9f1"
         },
         {
           "item": "雪碧",
@@ -1947,15 +1995,15 @@
           "command_id": "c-0024-雪碧",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "48c4e38b4e26579b"
+          "evidence_sha": "9d0b9610f1e218edc6bc2030511f4dd4a02fa9dbd02132b836e38826091e752b"
         },
         {
           "item": "香蕉",
           "basket": "绿色",
           "command_id": "c-0024-香蕉",
           "success": true,
-          "attempts": 1,
-          "evidence_sha": "d8bfaee72e496dda"
+          "attempts": 2,
+          "evidence_sha": "04c0a2b0de5966f356ebf65ac1f1a237290dd78a0f9f04cc6d027c5ec67ba66a"
         },
         {
           "item": "橙子",
@@ -1963,7 +2011,7 @@
           "command_id": "c-0024-橙子",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "9ec283feac43a727"
+          "evidence_sha": "ac5d58c7b13e455ca86ccd07fc0c03991840ca786ae4f5c90daf67c21d80e48e"
         },
         {
           "item": "猕猴桃",
@@ -1971,27 +2019,29 @@
           "command_id": "c-0024-猕猴桃",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "f4fd73e1c6ae3c27"
+          "evidence_sha": "ce68f5704c08407c8317263bc8acd739c9a819b84330df24645981dc3415c5a9"
         }
       ],
       "replans": 1
     },
     {
       "run": 25,
-      "session_id": "sort-0025",
+      "session_id": "sort-0025-64fb1038",
+      "started_at": "2026-08-19T17:07:13.133+00:00",
+      "finished_at": "2026-08-19T17:07:17.955+00:00",
       "verdict": "success",
-      "reason": "全部成功标准满足",
+      "reason": "全部成功标准满足，无需恢复",
       "criteria": [
         {
           "criterion": "全部目标物品已被抓取",
           "status": "satisfied",
           "evidence_refs": [
-            "evidence:aaa1cbab0c0740a5",
-            "evidence:66b96097b2772c9c",
-            "evidence:98bf540af2febb1a",
-            "evidence:4c6cd4afbbbe06f7",
-            "evidence:6af42444349a7198",
-            "evidence:055f7f1fd59a90c5"
+            "evidence:0ac330f0a7b6caeeea116dcae271faf183be54917303b8f97fc0471574eebb9d",
+            "evidence:b94878e9c27d0e9e8e6feb9ba61e6e8cd102d774a5bb6c1b3a2ac41195d57cb9",
+            "evidence:61541c12307c110418ef5a2d3ccea5806769304752e49ca4fecd838619122586",
+            "evidence:b877a30a17b4c001cb4ada3d08c9bffc27a57914e603b29d10d665730bff0a1e",
+            "evidence:5ad5f290e9fada29624410b69863e1298957588bdd8561f18c7cbbfd3425a673",
+            "evidence:b8bdf18fcfee04f2e749c459b47c9329b93cf628f3fda2d59f072dd016b9a6c7"
           ]
         },
         {
@@ -2012,7 +2062,7 @@
           "command_id": "c-0025-可乐",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "aaa1cbab0c0740a5"
+          "evidence_sha": "0ac330f0a7b6caeeea116dcae271faf183be54917303b8f97fc0471574eebb9d"
         },
         {
           "item": "牛奶",
@@ -2020,7 +2070,7 @@
           "command_id": "c-0025-牛奶",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "66b96097b2772c9c"
+          "evidence_sha": "b94878e9c27d0e9e8e6feb9ba61e6e8cd102d774a5bb6c1b3a2ac41195d57cb9"
         },
         {
           "item": "雪碧",
@@ -2028,7 +2078,7 @@
           "command_id": "c-0025-雪碧",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "98bf540af2febb1a"
+          "evidence_sha": "61541c12307c110418ef5a2d3ccea5806769304752e49ca4fecd838619122586"
         },
         {
           "item": "香蕉",
@@ -2036,7 +2086,7 @@
           "command_id": "c-0025-香蕉",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "4c6cd4afbbbe06f7"
+          "evidence_sha": "b877a30a17b4c001cb4ada3d08c9bffc27a57914e603b29d10d665730bff0a1e"
         },
         {
           "item": "橙子",
@@ -2044,7 +2094,7 @@
           "command_id": "c-0025-橙子",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "6af42444349a7198"
+          "evidence_sha": "5ad5f290e9fada29624410b69863e1298957588bdd8561f18c7cbbfd3425a673"
         },
         {
           "item": "猕猴桃",
@@ -2052,27 +2102,29 @@
           "command_id": "c-0025-猕猴桃",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "055f7f1fd59a90c5"
+          "evidence_sha": "b8bdf18fcfee04f2e749c459b47c9329b93cf628f3fda2d59f072dd016b9a6c7"
         }
       ],
       "replans": 0
     },
     {
       "run": 26,
-      "session_id": "sort-0026",
+      "session_id": "sort-0026-f2149775",
+      "started_at": "2026-08-19T17:07:17.955+00:00",
+      "finished_at": "2026-08-19T17:07:22.903+00:00",
       "verdict": "success",
-      "reason": "全部成功标准满足",
+      "reason": "目标达成，证据完整（6/6 操作通过校验）",
       "criteria": [
         {
           "criterion": "全部目标物品已被抓取",
           "status": "satisfied",
           "evidence_refs": [
-            "evidence:397667df5b692874",
-            "evidence:f2a9507b1ebc9d4d",
-            "evidence:45d29a12f1c0203d",
-            "evidence:6e10240ef290e583",
-            "evidence:f901e146b0ed8fd6",
-            "evidence:f24430ae340e76fa"
+            "evidence:6494d2b28ca4a0325f353f730dcb58a322ede8fc3d445af06a05f9624c4d8389",
+            "evidence:f37a3340d6c147b0fa3fb8f8bdea926caa476e8eebe521c790c7a2e057b6ac2f",
+            "evidence:4f26baa755ab54de9fc746229686f2011c03c6e1e5cf2b3aa6ece98079fad40b",
+            "evidence:a8f02a3b6cb3954ed404a18765a76a6aaba8bb323427209d4fcd838f58908b02",
+            "evidence:f7af09de0a9b20c2beced43050b695277503cfae303678967ed3d94437156dc0",
+            "evidence:bde81b6ee9bbd7dc50a26a42fbf064341d0860389204d69a366d3b403643e05c"
           ]
         },
         {
@@ -2093,7 +2145,7 @@
           "command_id": "c-0026-可乐",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "397667df5b692874"
+          "evidence_sha": "6494d2b28ca4a0325f353f730dcb58a322ede8fc3d445af06a05f9624c4d8389"
         },
         {
           "item": "牛奶",
@@ -2101,7 +2153,7 @@
           "command_id": "c-0026-牛奶",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "f2a9507b1ebc9d4d"
+          "evidence_sha": "f37a3340d6c147b0fa3fb8f8bdea926caa476e8eebe521c790c7a2e057b6ac2f"
         },
         {
           "item": "雪碧",
@@ -2109,7 +2161,7 @@
           "command_id": "c-0026-雪碧",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "45d29a12f1c0203d"
+          "evidence_sha": "4f26baa755ab54de9fc746229686f2011c03c6e1e5cf2b3aa6ece98079fad40b"
         },
         {
           "item": "香蕉",
@@ -2117,7 +2169,7 @@
           "command_id": "c-0026-香蕉",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "6e10240ef290e583"
+          "evidence_sha": "a8f02a3b6cb3954ed404a18765a76a6aaba8bb323427209d4fcd838f58908b02"
         },
         {
           "item": "橙子",
@@ -2125,7 +2177,7 @@
           "command_id": "c-0026-橙子",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "f901e146b0ed8fd6"
+          "evidence_sha": "f7af09de0a9b20c2beced43050b695277503cfae303678967ed3d94437156dc0"
         },
         {
           "item": "猕猴桃",
@@ -2133,27 +2185,29 @@
           "command_id": "c-0026-猕猴桃",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "f24430ae340e76fa"
+          "evidence_sha": "bde81b6ee9bbd7dc50a26a42fbf064341d0860389204d69a366d3b403643e05c"
         }
       ],
       "replans": 0
     },
     {
       "run": 27,
-      "session_id": "sort-0027",
+      "session_id": "sort-0027-658d5ae5",
+      "started_at": "2026-08-19T17:07:22.903+00:00",
+      "finished_at": "2026-08-19T17:07:27.219+00:00",
       "verdict": "success",
-      "reason": "全部成功标准满足",
+      "reason": "分选完成，3/3 成功标准满足",
       "criteria": [
         {
           "criterion": "全部目标物品已被抓取",
           "status": "satisfied",
           "evidence_refs": [
-            "evidence:ff65e4805ca1687b",
-            "evidence:d9a1cc6b12b58a1d",
-            "evidence:3573f24d35ad0d89",
-            "evidence:b3d54c512a6a8b5b",
-            "evidence:4940ffe534902c5d",
-            "evidence:f19af4a1ce683558"
+            "evidence:737c65a8e061a71591ddc6b7d02b3c90e254149fc36d3193bf7a3c4e97818446",
+            "evidence:16d45d1d37552c0ffa8952b6ba454249b72a02e89d596d4536f71d8cfc1aab2a",
+            "evidence:fca32b413673ea42f4702d8410f77466f4da3828d2394877f09cc32df66767b2",
+            "evidence:3513bd843389d8ed975f6cb080f918707b5c8746fa903a0c888ce5eaa0b5ee50",
+            "evidence:cdbccd4ae26cfe5bac3a7f77cce5c7d29e81407fd2d6b8ea30e701662e969114",
+            "evidence:0eda0b388a0a2123851c6cc3ae1d37c0545f8ae4c6f349ec3599c6f44326535f"
           ]
         },
         {
@@ -2174,7 +2228,7 @@
           "command_id": "c-0027-可乐",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "ff65e4805ca1687b"
+          "evidence_sha": "737c65a8e061a71591ddc6b7d02b3c90e254149fc36d3193bf7a3c4e97818446"
         },
         {
           "item": "牛奶",
@@ -2182,7 +2236,7 @@
           "command_id": "c-0027-牛奶",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "d9a1cc6b12b58a1d"
+          "evidence_sha": "16d45d1d37552c0ffa8952b6ba454249b72a02e89d596d4536f71d8cfc1aab2a"
         },
         {
           "item": "雪碧",
@@ -2190,7 +2244,7 @@
           "command_id": "c-0027-雪碧",
           "success": true,
           "attempts": 2,
-          "evidence_sha": "3573f24d35ad0d89"
+          "evidence_sha": "fca32b413673ea42f4702d8410f77466f4da3828d2394877f09cc32df66767b2"
         },
         {
           "item": "香蕉",
@@ -2198,7 +2252,7 @@
           "command_id": "c-0027-香蕉",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "b3d54c512a6a8b5b"
+          "evidence_sha": "3513bd843389d8ed975f6cb080f918707b5c8746fa903a0c888ce5eaa0b5ee50"
         },
         {
           "item": "橙子",
@@ -2206,7 +2260,7 @@
           "command_id": "c-0027-橙子",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "4940ffe534902c5d"
+          "evidence_sha": "cdbccd4ae26cfe5bac3a7f77cce5c7d29e81407fd2d6b8ea30e701662e969114"
         },
         {
           "item": "猕猴桃",
@@ -2214,27 +2268,29 @@
           "command_id": "c-0027-猕猴桃",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "f19af4a1ce683558"
+          "evidence_sha": "0eda0b388a0a2123851c6cc3ae1d37c0545f8ae4c6f349ec3599c6f44326535f"
         }
       ],
       "replans": 1
     },
     {
       "run": 28,
-      "session_id": "sort-0028",
+      "session_id": "sort-0028-58405ff8",
+      "started_at": "2026-08-19T17:07:27.219+00:00",
+      "finished_at": "2026-08-19T17:07:31.967+00:00",
       "verdict": "success",
-      "reason": "全部成功标准满足",
+      "reason": "目标达成，证据完整（6/6 操作通过校验）",
       "criteria": [
         {
           "criterion": "全部目标物品已被抓取",
           "status": "satisfied",
           "evidence_refs": [
-            "evidence:89c578ff3744529a",
-            "evidence:712ea504ea852fbe",
-            "evidence:79fbd5588f8a18de",
-            "evidence:6b50d0170e789039",
-            "evidence:eab34189e8fdc3c9",
-            "evidence:2c33398e41d11de8"
+            "evidence:1bbe653f9d11f37e9f6a3cc5148925eb8b10b5b9677aaf4b9d0bbad0b5082766",
+            "evidence:19cd668104cadc3d626e18cfe174f6c8d18cd4a645d2075df02b4b9bcbe40280",
+            "evidence:c0c44d553a7cf71c3c8b7d89dd634a5a1768edd80a8a842fb39077a87adb9457",
+            "evidence:ca0a3685852f026e461ec68a578155793537651084b9a1f1290b4866b28ba913",
+            "evidence:ac3053776c695bccc129652d4f8baf030297aee27a2d4ad80ba5bab3c97cc7ee",
+            "evidence:50ef4d42466b350e3277debe1a001ab90dfc8588d58dc44aa117488f016253a9"
           ]
         },
         {
@@ -2255,7 +2311,7 @@
           "command_id": "c-0028-可乐",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "89c578ff3744529a"
+          "evidence_sha": "1bbe653f9d11f37e9f6a3cc5148925eb8b10b5b9677aaf4b9d0bbad0b5082766"
         },
         {
           "item": "牛奶",
@@ -2263,7 +2319,7 @@
           "command_id": "c-0028-牛奶",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "712ea504ea852fbe"
+          "evidence_sha": "19cd668104cadc3d626e18cfe174f6c8d18cd4a645d2075df02b4b9bcbe40280"
         },
         {
           "item": "雪碧",
@@ -2271,7 +2327,7 @@
           "command_id": "c-0028-雪碧",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "79fbd5588f8a18de"
+          "evidence_sha": "c0c44d553a7cf71c3c8b7d89dd634a5a1768edd80a8a842fb39077a87adb9457"
         },
         {
           "item": "香蕉",
@@ -2279,7 +2335,7 @@
           "command_id": "c-0028-香蕉",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "6b50d0170e789039"
+          "evidence_sha": "ca0a3685852f026e461ec68a578155793537651084b9a1f1290b4866b28ba913"
         },
         {
           "item": "橙子",
@@ -2287,7 +2343,7 @@
           "command_id": "c-0028-橙子",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "eab34189e8fdc3c9"
+          "evidence_sha": "ac3053776c695bccc129652d4f8baf030297aee27a2d4ad80ba5bab3c97cc7ee"
         },
         {
           "item": "猕猴桃",
@@ -2295,27 +2351,29 @@
           "command_id": "c-0028-猕猴桃",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "2c33398e41d11de8"
+          "evidence_sha": "50ef4d42466b350e3277debe1a001ab90dfc8588d58dc44aa117488f016253a9"
         }
       ],
       "replans": 0
     },
     {
       "run": 29,
-      "session_id": "sort-0029",
+      "session_id": "sort-0029-c0eb4d21",
+      "started_at": "2026-08-19T17:07:31.967+00:00",
+      "finished_at": "2026-08-19T17:07:35.440+00:00",
       "verdict": "success",
-      "reason": "全部成功标准满足",
+      "reason": "全部成功标准满足，无需恢复",
       "criteria": [
         {
           "criterion": "全部目标物品已被抓取",
           "status": "satisfied",
           "evidence_refs": [
-            "evidence:377c31a5afe4fb3b",
-            "evidence:e97c22692b293b66",
-            "evidence:e2035122362e9354",
-            "evidence:5b629a3922db316b",
-            "evidence:6be3be4c6165f5f8",
-            "evidence:551b844f324b6cd8"
+            "evidence:4e22efcda9207700b9741cc47692df682aa9ffb2d809a9d63b1f610b58470dde",
+            "evidence:d6309a65a60246f3906b0b76c7c9a60003e033c0b0aca0d0bdaeacf4f2848e2a",
+            "evidence:22660722790552be4e97f9b3bb3da0989e2a669c4a21e9e384d0e61eb4b75007",
+            "evidence:5ef661ace19a6a4564fe62f0c8154e784c7459cf2fc176fb07c52656be73820a",
+            "evidence:ecc58ddd7442f535caf1f8e765d62b1553393a282c6ebc3121a7886269ce318b",
+            "evidence:71bd4de9aae93308d7c1bcb73513418c9b7c7b50ef81042feda0ae04afb2f93b"
           ]
         },
         {
@@ -2336,15 +2394,15 @@
           "command_id": "c-0029-可乐",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "377c31a5afe4fb3b"
+          "evidence_sha": "4e22efcda9207700b9741cc47692df682aa9ffb2d809a9d63b1f610b58470dde"
         },
         {
           "item": "牛奶",
           "basket": "黄色",
           "command_id": "c-0029-牛奶",
           "success": true,
-          "attempts": 2,
-          "evidence_sha": "e97c22692b293b66"
+          "attempts": 1,
+          "evidence_sha": "d6309a65a60246f3906b0b76c7c9a60003e033c0b0aca0d0bdaeacf4f2848e2a"
         },
         {
           "item": "雪碧",
@@ -2352,7 +2410,7 @@
           "command_id": "c-0029-雪碧",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "e2035122362e9354"
+          "evidence_sha": "22660722790552be4e97f9b3bb3da0989e2a669c4a21e9e384d0e61eb4b75007"
         },
         {
           "item": "香蕉",
@@ -2360,7 +2418,7 @@
           "command_id": "c-0029-香蕉",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "5b629a3922db316b"
+          "evidence_sha": "5ef661ace19a6a4564fe62f0c8154e784c7459cf2fc176fb07c52656be73820a"
         },
         {
           "item": "橙子",
@@ -2368,7 +2426,7 @@
           "command_id": "c-0029-橙子",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "6be3be4c6165f5f8"
+          "evidence_sha": "ecc58ddd7442f535caf1f8e765d62b1553393a282c6ebc3121a7886269ce318b"
         },
         {
           "item": "猕猴桃",
@@ -2376,27 +2434,29 @@
           "command_id": "c-0029-猕猴桃",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "551b844f324b6cd8"
+          "evidence_sha": "71bd4de9aae93308d7c1bcb73513418c9b7c7b50ef81042feda0ae04afb2f93b"
         }
       ],
-      "replans": 1
+      "replans": 0
     },
     {
       "run": 30,
-      "session_id": "sort-0030",
+      "session_id": "sort-0030-9eeef5de",
+      "started_at": "2026-08-19T17:07:35.440+00:00",
+      "finished_at": "2026-08-19T17:07:39.630+00:00",
       "verdict": "success",
-      "reason": "全部成功标准满足",
+      "reason": "全部成功标准满足，无需恢复",
       "criteria": [
         {
           "criterion": "全部目标物品已被抓取",
           "status": "satisfied",
           "evidence_refs": [
-            "evidence:2e7e15593debcebb",
-            "evidence:18fc78ce3c256ed1",
-            "evidence:1b675a3a58a65cd2",
-            "evidence:2a6890bff83fc24d",
-            "evidence:f2209f8f22f355cc",
-            "evidence:ba5c1c4e4a3c500f"
+            "evidence:b785399d443c64e51568615070e7d7ff0c8e16e737c23187fd721a776f62f93a",
+            "evidence:b1d85b341afa33ada534fc1f8ecbc2fe49d6d68d03681ff2f031c06a25968c67",
+            "evidence:c7b3ad19caf6add88a6a99a283a2b0d4a7c803767c4d66d466ea46eb3f80eda9",
+            "evidence:8471701e81a4ad8e8949a5c7ea9309c3306fab3da9ee32210de1c7c3254938b5",
+            "evidence:733f6b4553347d1ecf74c80d2e480bc89b003d5f745e178c7f9bedb2a8f37695",
+            "evidence:9109717c9279cc80e268fbbecf86cdc0d9294a9a7b36c8de68ba4678598607c4"
           ]
         },
         {
@@ -2417,7 +2477,7 @@
           "command_id": "c-0030-可乐",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "2e7e15593debcebb"
+          "evidence_sha": "b785399d443c64e51568615070e7d7ff0c8e16e737c23187fd721a776f62f93a"
         },
         {
           "item": "牛奶",
@@ -2425,7 +2485,7 @@
           "command_id": "c-0030-牛奶",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "18fc78ce3c256ed1"
+          "evidence_sha": "b1d85b341afa33ada534fc1f8ecbc2fe49d6d68d03681ff2f031c06a25968c67"
         },
         {
           "item": "雪碧",
@@ -2433,7 +2493,7 @@
           "command_id": "c-0030-雪碧",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "1b675a3a58a65cd2"
+          "evidence_sha": "c7b3ad19caf6add88a6a99a283a2b0d4a7c803767c4d66d466ea46eb3f80eda9"
         },
         {
           "item": "香蕉",
@@ -2441,7 +2501,7 @@
           "command_id": "c-0030-香蕉",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "2a6890bff83fc24d"
+          "evidence_sha": "8471701e81a4ad8e8949a5c7ea9309c3306fab3da9ee32210de1c7c3254938b5"
         },
         {
           "item": "橙子",
@@ -2449,18 +2509,18 @@
           "command_id": "c-0030-橙子",
           "success": true,
           "attempts": 1,
-          "evidence_sha": "f2209f8f22f355cc"
+          "evidence_sha": "733f6b4553347d1ecf74c80d2e480bc89b003d5f745e178c7f9bedb2a8f37695"
         },
         {
           "item": "猕猴桃",
           "basket": "绿色",
           "command_id": "c-0030-猕猴桃",
           "success": true,
-          "attempts": 2,
-          "evidence_sha": "ba5c1c4e4a3c500f"
+          "attempts": 1,
+          "evidence_sha": "9109717c9279cc80e268fbbecf86cdc0d9294a9a7b36c8de68ba4678598607c4"
         }
       ],
-      "replans": 1
+      "replans": 0
     }
   ]
 }

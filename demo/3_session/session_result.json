@@ -1,16 +1,16 @@
 {
   "task": "Forge session 完整性校验（模拟真实闭环）",
-  "generated_at": "2026-08-19T16:08:14+00:00",
+  "generated_at": "2026-08-19T17:09:41.831404+00:00",
   "contract_source": "PhyAgentOS/verification/contracts.py",
   "scenarios": [
     {
-      "name": "健康闭环 — A 一次 pick/place 全程成功",
+      "name": "健康闭环 — 6 个物品分选全部成功（6 个 session）",
       "sessions": [
         {
           "version": "forge_session_record_v1",
-          "session_id": "forge-a-0001",
-          "command_id": "cmd-a-0001",
-          "root_session_id": "forge-a-0001",
+          "session_id": "b612b9d9-81b5-4c87-aa0a-d7df4ae73e12",
+          "command_id": "b6faf4a5-c7c4-4d58-a043-e95eef2194ae",
+          "root_session_id": "b612b9d9-81b5-4c87-aa0a-d7df4ae73e12",
           "parent_session_id": null,
           "replan_attempt": 0,
           "request": {
@@ -47,19 +47,19 @@
             "source": "paos-agent"
           },
           "status": "succeeded",
-          "created_at": "2026-08-20T00:00:06+00:00",
-          "updated_at": "2026-08-20T00:00:28+00:00",
-          "dispatch_attempted_at": "2026-08-20T00:00:08+00:00",
-          "terminal_at": "2026-08-20T00:00:28+00:00",
+          "created_at": "2026-08-19T16:54:48.595221+00:00",
+          "updated_at": "2026-08-19T16:55:04.575075+00:00",
+          "dispatch_attempted_at": "2026-08-19T16:54:49.985209+00:00",
+          "terminal_at": "2026-08-19T16:55:03.874562+00:00",
           "execution": {
             "version": "paos_execution_record_v1",
             "runtime": "forge_gateway",
-            "session_id": "forge-a-0001",
-            "command_id": "cmd-a-0001",
+            "session_id": "b612b9d9-81b5-4c87-aa0a-d7df4ae73e12",
+            "command_id": "b6faf4a5-c7c4-4d58-a043-e95eef2194ae",
             "gateway_api_version": "paos-forge-gateway-mvp-plus.v1",
-            "gateway_instance_id": "gw-01",
+            "gateway_instance_id": "gw-07",
             "action_type": "pick_and_place",
-            "policy_id": "forge/planner/v1",
+            "policy_id": "forge/planner/v2.1.1",
             "status": "succeeded",
             "result_semantics": "command_completed",
             "completion": {
@@ -67,10 +67,10 @@
               "message": "正常终止"
             },
             "timeline": {
-              "created_at": 10.0,
-              "updated_at": 26.0,
-              "sent_at": 8.5,
-              "terminal_observed_at": "2026-08-20T00:00:24+00:00"
+              "created_at": 6.773457723587597,
+              "updated_at": 22.753312065592873,
+              "sent_at": 8.363,
+              "terminal_observed_at": "2026-08-19T16:55:03.874562+00:00"
             },
             "outputs": {
               "picked": true,
@@ -80,7 +80,7 @@
           },
           "verification": {
             "status": "completed",
-            "bundle_ref": "bundle-forge-a-0001",
+            "bundle_ref": "bundle-b612b9d9-81b5-4c87-aa0a-d7df4ae73e12",
             "verdict": {
               "version": "verification_verdict_v1",
               "verdict": "success",
@@ -89,28 +89,167 @@
                   "criterion": "可乐已从桌面拿起",
                   "status": "satisfied",
                   "evidence_refs": [
-                    "bundle-forge-a-0001"
+                    "bundle-b612b9d9-81b5-4c87-aa0a-d7df4ae73e12"
                   ]
                 },
                 {
                   "criterion": "可乐位于黄色篮子内",
                   "status": "satisfied",
                   "evidence_refs": [
-                    "bundle-forge-a-0001"
+                    "bundle-b612b9d9-81b5-4c87-aa0a-d7df4ae73e12"
                   ]
                 },
                 {
                   "criterion": "未触碰其他物品",
                   "status": "satisfied",
                   "evidence_refs": [
-                    "bundle-forge-a-0001"
+                    "bundle-b612b9d9-81b5-4c87-aa0a-d7df4ae73e12"
                   ]
                 }
               ],
               "evidence_refs": [
-                "bundle-forge-a-0001"
+                "bundle-b612b9d9-81b5-4c87-aa0a-d7df4ae73e12"
               ],
-              "reason": "全部成功标准满足",
+              "reason": "命令正常终止，3/3 成功标准满足",
+              "lesson": "无异常，按计划完成",
+              "recovery_context": null,
+              "verifier_status": "completed"
+            },
+            "attempts": [
+              {
+                "version": "verification_attempt_v1",
+                "model": "sim",
+                "verdict": "success",
+                "created_at": "2026-08-19T16:55:04.674562+00:00"
+              }
+            ],
+            "error": null
+          },
+          "recovery_request": null,
+          "gateway_create_response": {
+            "session_id": "b612b9d9-81b5-4c87-aa0a-d7df4ae73e12",
+            "command_id": "b6faf4a5-c7c4-4d58-a043-e95eef2194ae",
+            "request_id": "req-e3b3db5b-f977-4e3b-b5ad-d7763353135b",
+            "accepted": true
+          },
+          "gateway_last_response": {
+            "session_id": "b612b9d9-81b5-4c87-aa0a-d7df4ae73e12",
+            "command_id": "b6faf4a5-c7c4-4d58-a043-e95eef2194ae",
+            "status": "succeeded"
+          },
+          "before_snapshot_ref": "bundle-b612b9d9-81b5-4c87-aa0a-d7df4ae73e12/before.jpg",
+          "completion_notified_at": "2026-08-19T16:55:04.875075+00:00",
+          "error_code": null,
+          "error_message": null,
+          "origin_channel": "cli",
+          "origin_chat_id": "direct",
+          "origin_session_key": null
+        },
+        {
+          "version": "forge_session_record_v1",
+          "session_id": "0bb40e63-3fc2-49bf-a3d7-f9ca28990e56",
+          "command_id": "a43b14a0-e349-45bd-99f2-929b0d7b9531",
+          "root_session_id": "0bb40e63-3fc2-49bf-a3d7-f9ca28990e56",
+          "parent_session_id": null,
+          "replan_attempt": 0,
+          "request": {
+            "version": "forge_task_request_v1",
+            "task_description": "抓取牛奶并放入黄色篮子",
+            "action_type": "pick_and_place",
+            "inputs": {
+              "item": "牛奶",
+              "source": "桌面",
+              "target": "黄色篮子"
+            },
+            "verification": {
+              "version": "task_verification_contract_v1",
+              "mode": "enforce",
+              "goal": "牛奶已放入黄色篮子",
+              "success_criteria": [
+                "牛奶已从桌面拿起",
+                "牛奶位于黄色篮子内",
+                "未触碰其他物品"
+              ],
+              "constraints": [
+                "仅操作目标物品"
+              ],
+              "evidence_policy": {
+                "profile": "semantic_default",
+                "required_kinds": [
+                  "rgb_image"
+                ],
+                "required_sources": [],
+                "minimum_association": "best_effort"
+              }
+            },
+            "execution_timeout_s": 300.0,
+            "source": "paos-agent"
+          },
+          "status": "succeeded",
+          "created_at": "2026-08-19T16:54:51.595720+00:00",
+          "updated_at": "2026-08-19T16:55:07.567744+00:00",
+          "dispatch_attempted_at": "2026-08-19T16:54:52.996722+00:00",
+          "terminal_at": "2026-08-19T16:55:06.881416+00:00",
+          "execution": {
+            "version": "paos_execution_record_v1",
+            "runtime": "forge_gateway",
+            "session_id": "0bb40e63-3fc2-49bf-a3d7-f9ca28990e56",
+            "command_id": "a43b14a0-e349-45bd-99f2-929b0d7b9531",
+            "gateway_api_version": "paos-forge-gateway-mvp-plus.v1",
+            "gateway_instance_id": "gw-08",
+            "action_type": "pick_and_place",
+            "policy_id": "forge/planner/v2.1.1",
+            "status": "succeeded",
+            "result_semantics": "command_completed",
+            "completion": {
+              "code": 0,
+              "message": "正常终止"
+            },
+            "timeline": {
+              "created_at": 9.773957490699956,
+              "updated_at": 25.74598104316181,
+              "sent_at": 11.375,
+              "terminal_observed_at": "2026-08-19T16:55:06.881416+00:00"
+            },
+            "outputs": {
+              "picked": true,
+              "placed_basket": "黄色篮子"
+            },
+            "error": null
+          },
+          "verification": {
+            "status": "completed",
+            "bundle_ref": "bundle-0bb40e63-3fc2-49bf-a3d7-f9ca28990e56",
+            "verdict": {
+              "version": "verification_verdict_v1",
+              "verdict": "success",
+              "criteria": [
+                {
+                  "criterion": "牛奶已从桌面拿起",
+                  "status": "satisfied",
+                  "evidence_refs": [
+                    "bundle-0bb40e63-3fc2-49bf-a3d7-f9ca28990e56"
+                  ]
+                },
+                {
+                  "criterion": "牛奶位于黄色篮子内",
+                  "status": "satisfied",
+                  "evidence_refs": [
+                    "bundle-0bb40e63-3fc2-49bf-a3d7-f9ca28990e56"
+                  ]
+                },
+                {
+                  "criterion": "未触碰其他物品",
+                  "status": "satisfied",
+                  "evidence_refs": [
+                    "bundle-0bb40e63-3fc2-49bf-a3d7-f9ca28990e56"
+                  ]
+                }
+              ],
+              "evidence_refs": [
+                "bundle-0bb40e63-3fc2-49bf-a3d7-f9ca28990e56"
+              ],
+              "reason": "命令正常终止，3/3 成功标准满足",
               "lesson": "正常执行",
               "recovery_context": null,
               "verifier_status": "completed"
@@ -120,25 +259,581 @@
                 "version": "verification_attempt_v1",
                 "model": "sim",
                 "verdict": "success",
-                "created_at": "2026-08-20T00:00:28+00:00"
+                "created_at": "2026-08-19T16:55:07.681416+00:00"
               }
             ],
             "error": null
           },
           "recovery_request": null,
           "gateway_create_response": {
-            "session_id": "forge-a-0001",
-            "command_id": "cmd-a-0001",
-            "request_id": "req-forge-a-0001",
+            "session_id": "0bb40e63-3fc2-49bf-a3d7-f9ca28990e56",
+            "command_id": "a43b14a0-e349-45bd-99f2-929b0d7b9531",
+            "request_id": "req-cf26d280-c7b3-428c-b282-f67b405d1f7b",
             "accepted": true
           },
           "gateway_last_response": {
-            "session_id": "forge-a-0001",
-            "command_id": "cmd-a-0001",
+            "session_id": "0bb40e63-3fc2-49bf-a3d7-f9ca28990e56",
+            "command_id": "a43b14a0-e349-45bd-99f2-929b0d7b9531",
             "status": "succeeded"
           },
-          "before_snapshot_ref": "bundle-forge-a-0001/before.jpg",
-          "completion_notified_at": "2026-08-20T00:00:27+00:00",
+          "before_snapshot_ref": "bundle-0bb40e63-3fc2-49bf-a3d7-f9ca28990e56/before.jpg",
+          "completion_notified_at": "2026-08-19T16:55:07.867744+00:00",
+          "error_code": null,
+          "error_message": null,
+          "origin_channel": "cli",
+          "origin_chat_id": "direct",
+          "origin_session_key": null
+        },
+        {
+          "version": "forge_session_record_v1",
+          "session_id": "f2dca176-7a3d-4bf8-9a30-694185947096",
+          "command_id": "19d73626-bec2-4a27-b0dd-b2199c12c9e7",
+          "root_session_id": "f2dca176-7a3d-4bf8-9a30-694185947096",
+          "parent_session_id": null,
+          "replan_attempt": 0,
+          "request": {
+            "version": "forge_task_request_v1",
+            "task_description": "抓取雪碧并放入黄色篮子",
+            "action_type": "pick_and_place",
+            "inputs": {
+              "item": "雪碧",
+              "source": "桌面",
+              "target": "黄色篮子"
+            },
+            "verification": {
+              "version": "task_verification_contract_v1",
+              "mode": "enforce",
+              "goal": "雪碧已放入黄色篮子",
+              "success_criteria": [
+                "雪碧已从桌面拿起",
+                "雪碧位于黄色篮子内",
+                "未触碰其他物品"
+              ],
+              "constraints": [
+                "仅操作目标物品"
+              ],
+              "evidence_policy": {
+                "profile": "semantic_default",
+                "required_kinds": [
+                  "rgb_image"
+                ],
+                "required_sources": [],
+                "minimum_association": "best_effort"
+              }
+            },
+            "execution_timeout_s": 300.0,
+            "source": "paos-agent"
+          },
+          "status": "succeeded",
+          "created_at": "2026-08-19T16:54:54.941286+00:00",
+          "updated_at": "2026-08-19T16:55:10.732187+00:00",
+          "dispatch_attempted_at": "2026-08-19T16:54:56.282250+00:00",
+          "terminal_at": "2026-08-19T16:55:09.977254+00:00",
+          "execution": {
+            "version": "paos_execution_record_v1",
+            "runtime": "forge_gateway",
+            "session_id": "f2dca176-7a3d-4bf8-9a30-694185947096",
+            "command_id": "19d73626-bec2-4a27-b0dd-b2199c12c9e7",
+            "gateway_api_version": "paos-forge-gateway-mvp-plus.v1",
+            "gateway_instance_id": "gw-07",
+            "action_type": "pick_and_place",
+            "policy_id": "forge/planner/v1.9.2",
+            "status": "succeeded",
+            "result_semantics": "command_completed",
+            "completion": {
+              "code": 0,
+              "message": "正常终止"
+            },
+            "timeline": {
+              "created_at": 13.119523233210876,
+              "updated_at": 28.91042412156047,
+              "sent_at": 14.66,
+              "terminal_observed_at": "2026-08-19T16:55:09.977254+00:00"
+            },
+            "outputs": {
+              "picked": true,
+              "placed_basket": "黄色篮子"
+            },
+            "error": null
+          },
+          "verification": {
+            "status": "completed",
+            "bundle_ref": "bundle-f2dca176-7a3d-4bf8-9a30-694185947096",
+            "verdict": {
+              "version": "verification_verdict_v1",
+              "verdict": "success",
+              "criteria": [
+                {
+                  "criterion": "雪碧已从桌面拿起",
+                  "status": "satisfied",
+                  "evidence_refs": [
+                    "bundle-f2dca176-7a3d-4bf8-9a30-694185947096"
+                  ]
+                },
+                {
+                  "criterion": "雪碧位于黄色篮子内",
+                  "status": "satisfied",
+                  "evidence_refs": [
+                    "bundle-f2dca176-7a3d-4bf8-9a30-694185947096"
+                  ]
+                },
+                {
+                  "criterion": "未触碰其他物品",
+                  "status": "satisfied",
+                  "evidence_refs": [
+                    "bundle-f2dca176-7a3d-4bf8-9a30-694185947096"
+                  ]
+                }
+              ],
+              "evidence_refs": [
+                "bundle-f2dca176-7a3d-4bf8-9a30-694185947096"
+              ],
+              "reason": "目标达成，证据完整（before/after 均通过校验）",
+              "lesson": "正常执行",
+              "recovery_context": null,
+              "verifier_status": "completed"
+            },
+            "attempts": [
+              {
+                "version": "verification_attempt_v1",
+                "model": "sim",
+                "verdict": "success",
+                "created_at": "2026-08-19T16:55:10.777254+00:00"
+              }
+            ],
+            "error": null
+          },
+          "recovery_request": null,
+          "gateway_create_response": {
+            "session_id": "f2dca176-7a3d-4bf8-9a30-694185947096",
+            "command_id": "19d73626-bec2-4a27-b0dd-b2199c12c9e7",
+            "request_id": "req-9453b42f-202a-4758-8b67-d30a12f77801",
+            "accepted": true
+          },
+          "gateway_last_response": {
+            "session_id": "f2dca176-7a3d-4bf8-9a30-694185947096",
+            "command_id": "19d73626-bec2-4a27-b0dd-b2199c12c9e7",
+            "status": "succeeded"
+          },
+          "before_snapshot_ref": "bundle-f2dca176-7a3d-4bf8-9a30-694185947096/before.jpg",
+          "completion_notified_at": "2026-08-19T16:55:11.032187+00:00",
+          "error_code": null,
+          "error_message": null,
+          "origin_channel": "cli",
+          "origin_chat_id": "direct",
+          "origin_session_key": null
+        },
+        {
+          "version": "forge_session_record_v1",
+          "session_id": "b9da36ed-abbc-48f2-8de3-5e71105a0a66",
+          "command_id": "f407c241-e7cd-40c9-895a-55f8163f1200",
+          "root_session_id": "b9da36ed-abbc-48f2-8de3-5e71105a0a66",
+          "parent_session_id": null,
+          "replan_attempt": 0,
+          "request": {
+            "version": "forge_task_request_v1",
+            "task_description": "抓取香蕉并放入绿色篮子",
+            "action_type": "pick_and_place",
+            "inputs": {
+              "item": "香蕉",
+              "source": "桌面",
+              "target": "绿色篮子"
+            },
+            "verification": {
+              "version": "task_verification_contract_v1",
+              "mode": "enforce",
+              "goal": "香蕉已放入绿色篮子",
+              "success_criteria": [
+                "香蕉已从桌面拿起",
+                "香蕉位于绿色篮子内",
+                "未触碰其他物品"
+              ],
+              "constraints": [
+                "仅操作目标物品"
+              ],
+              "evidence_policy": {
+                "profile": "semantic_default",
+                "required_kinds": [
+                  "rgb_image"
+                ],
+                "required_sources": [],
+                "minimum_association": "best_effort"
+              }
+            },
+            "execution_timeout_s": 300.0,
+            "source": "paos-agent"
+          },
+          "status": "succeeded",
+          "created_at": "2026-08-19T16:54:58.078705+00:00",
+          "updated_at": "2026-08-19T16:55:13.885690+00:00",
+          "dispatch_attempted_at": "2026-08-19T16:54:59.522544+00:00",
+          "terminal_at": "2026-08-19T16:55:13.182791+00:00",
+          "execution": {
+            "version": "paos_execution_record_v1",
+            "runtime": "forge_gateway",
+            "session_id": "b9da36ed-abbc-48f2-8de3-5e71105a0a66",
+            "command_id": "f407c241-e7cd-40c9-895a-55f8163f1200",
+            "gateway_api_version": "paos-forge-gateway-mvp-plus.v1",
+            "gateway_instance_id": "gw-05",
+            "action_type": "pick_and_place",
+            "policy_id": "forge/planner/v2.0.4",
+            "status": "succeeded",
+            "result_semantics": "command_completed",
+            "completion": {
+              "code": 0,
+              "message": "正常终止"
+            },
+            "timeline": {
+              "created_at": 16.256942424800208,
+              "updated_at": 32.06392703510965,
+              "sent_at": 17.901,
+              "terminal_observed_at": "2026-08-19T16:55:13.182791+00:00"
+            },
+            "outputs": {
+              "picked": true,
+              "placed_basket": "绿色篮子"
+            },
+            "error": null
+          },
+          "verification": {
+            "status": "completed",
+            "bundle_ref": "bundle-b9da36ed-abbc-48f2-8de3-5e71105a0a66",
+            "verdict": {
+              "version": "verification_verdict_v1",
+              "verdict": "success",
+              "criteria": [
+                {
+                  "criterion": "香蕉已从桌面拿起",
+                  "status": "satisfied",
+                  "evidence_refs": [
+                    "bundle-b9da36ed-abbc-48f2-8de3-5e71105a0a66"
+                  ]
+                },
+                {
+                  "criterion": "香蕉位于绿色篮子内",
+                  "status": "satisfied",
+                  "evidence_refs": [
+                    "bundle-b9da36ed-abbc-48f2-8de3-5e71105a0a66"
+                  ]
+                },
+                {
+                  "criterion": "未触碰其他物品",
+                  "status": "satisfied",
+                  "evidence_refs": [
+                    "bundle-b9da36ed-abbc-48f2-8de3-5e71105a0a66"
+                  ]
+                }
+              ],
+              "evidence_refs": [
+                "bundle-b9da36ed-abbc-48f2-8de3-5e71105a0a66"
+              ],
+              "reason": "全部成功标准满足，无需恢复",
+              "lesson": "无异常，按计划完成",
+              "recovery_context": null,
+              "verifier_status": "completed"
+            },
+            "attempts": [
+              {
+                "version": "verification_attempt_v1",
+                "model": "sim",
+                "verdict": "success",
+                "created_at": "2026-08-19T16:55:13.982791+00:00"
+              }
+            ],
+            "error": null
+          },
+          "recovery_request": null,
+          "gateway_create_response": {
+            "session_id": "b9da36ed-abbc-48f2-8de3-5e71105a0a66",
+            "command_id": "f407c241-e7cd-40c9-895a-55f8163f1200",
+            "request_id": "req-0dd52445-4034-4c02-8700-90c9c212bcd8",
+            "accepted": true
+          },
+          "gateway_last_response": {
+            "session_id": "b9da36ed-abbc-48f2-8de3-5e71105a0a66",
+            "command_id": "f407c241-e7cd-40c9-895a-55f8163f1200",
+            "status": "succeeded"
+          },
+          "before_snapshot_ref": "bundle-b9da36ed-abbc-48f2-8de3-5e71105a0a66/before.jpg",
+          "completion_notified_at": "2026-08-19T16:55:14.185690+00:00",
+          "error_code": null,
+          "error_message": null,
+          "origin_channel": "cli",
+          "origin_chat_id": "direct",
+          "origin_session_key": null
+        },
+        {
+          "version": "forge_session_record_v1",
+          "session_id": "2f7382a7-edd7-4079-a985-bd8882a01bc2",
+          "command_id": "7a291969-3a4c-4b90-9778-4ccb076f828d",
+          "root_session_id": "2f7382a7-edd7-4079-a985-bd8882a01bc2",
+          "parent_session_id": null,
+          "replan_attempt": 0,
+          "request": {
+            "version": "forge_task_request_v1",
+            "task_description": "抓取橙子并放入绿色篮子",
+            "action_type": "pick_and_place",
+            "inputs": {
+              "item": "橙子",
+              "source": "桌面",
+              "target": "绿色篮子"
+            },
+            "verification": {
+              "version": "task_verification_contract_v1",
+              "mode": "enforce",
+              "goal": "橙子已放入绿色篮子",
+              "success_criteria": [
+                "橙子已从桌面拿起",
+                "橙子位于绿色篮子内",
+                "未触碰其他物品"
+              ],
+              "constraints": [
+                "仅操作目标物品"
+              ],
+              "evidence_policy": {
+                "profile": "semantic_default",
+                "required_kinds": [
+                  "rgb_image"
+                ],
+                "required_sources": [],
+                "minimum_association": "best_effort"
+              }
+            },
+            "execution_timeout_s": 300.0,
+            "source": "paos-agent"
+          },
+          "status": "succeeded",
+          "created_at": "2026-08-19T16:55:01.213602+00:00",
+          "updated_at": "2026-08-19T16:55:16.878290+00:00",
+          "dispatch_attempted_at": "2026-08-19T16:55:02.475660+00:00",
+          "terminal_at": "2026-08-19T16:55:16.054714+00:00",
+          "execution": {
+            "version": "paos_execution_record_v1",
+            "runtime": "forge_gateway",
+            "session_id": "2f7382a7-edd7-4079-a985-bd8882a01bc2",
+            "command_id": "7a291969-3a4c-4b90-9778-4ccb076f828d",
+            "gateway_api_version": "paos-forge-gateway-mvp-plus.v1",
+            "gateway_instance_id": "gw-07",
+            "action_type": "pick_and_place",
+            "policy_id": "forge/planner/v2.1.0",
+            "status": "succeeded",
+            "result_semantics": "command_completed",
+            "completion": {
+              "code": 0,
+              "message": "正常终止"
+            },
+            "timeline": {
+              "created_at": 19.391838696089366,
+              "updated_at": 35.05652668443673,
+              "sent_at": 20.854,
+              "terminal_observed_at": "2026-08-19T16:55:16.054714+00:00"
+            },
+            "outputs": {
+              "picked": true,
+              "placed_basket": "绿色篮子"
+            },
+            "error": null
+          },
+          "verification": {
+            "status": "completed",
+            "bundle_ref": "bundle-2f7382a7-edd7-4079-a985-bd8882a01bc2",
+            "verdict": {
+              "version": "verification_verdict_v1",
+              "verdict": "success",
+              "criteria": [
+                {
+                  "criterion": "橙子已从桌面拿起",
+                  "status": "satisfied",
+                  "evidence_refs": [
+                    "bundle-2f7382a7-edd7-4079-a985-bd8882a01bc2"
+                  ]
+                },
+                {
+                  "criterion": "橙子位于绿色篮子内",
+                  "status": "satisfied",
+                  "evidence_refs": [
+                    "bundle-2f7382a7-edd7-4079-a985-bd8882a01bc2"
+                  ]
+                },
+                {
+                  "criterion": "未触碰其他物品",
+                  "status": "satisfied",
+                  "evidence_refs": [
+                    "bundle-2f7382a7-edd7-4079-a985-bd8882a01bc2"
+                  ]
+                }
+              ],
+              "evidence_refs": [
+                "bundle-2f7382a7-edd7-4079-a985-bd8882a01bc2"
+              ],
+              "reason": "目标达成，证据完整（before/after 均通过校验）",
+              "lesson": "证据与执行事实一致",
+              "recovery_context": null,
+              "verifier_status": "completed"
+            },
+            "attempts": [
+              {
+                "version": "verification_attempt_v1",
+                "model": "sim",
+                "verdict": "success",
+                "created_at": "2026-08-19T16:55:16.854714+00:00"
+              }
+            ],
+            "error": null
+          },
+          "recovery_request": null,
+          "gateway_create_response": {
+            "session_id": "2f7382a7-edd7-4079-a985-bd8882a01bc2",
+            "command_id": "7a291969-3a4c-4b90-9778-4ccb076f828d",
+            "request_id": "req-c84a3ead-9ea2-494d-acfc-f25cfbf592d5",
+            "accepted": true
+          },
+          "gateway_last_response": {
+            "session_id": "2f7382a7-edd7-4079-a985-bd8882a01bc2",
+            "command_id": "7a291969-3a4c-4b90-9778-4ccb076f828d",
+            "status": "succeeded"
+          },
+          "before_snapshot_ref": "bundle-2f7382a7-edd7-4079-a985-bd8882a01bc2/before.jpg",
+          "completion_notified_at": "2026-08-19T16:55:17.178290+00:00",
+          "error_code": null,
+          "error_message": null,
+          "origin_channel": "cli",
+          "origin_chat_id": "direct",
+          "origin_session_key": null
+        },
+        {
+          "version": "forge_session_record_v1",
+          "session_id": "41076bff-df16-40e7-b0a2-656ce75eaf5e",
+          "command_id": "ca373df4-b732-4244-bd12-e641f3726a2d",
+          "root_session_id": "41076bff-df16-40e7-b0a2-656ce75eaf5e",
+          "parent_session_id": null,
+          "replan_attempt": 0,
+          "request": {
+            "version": "forge_task_request_v1",
+            "task_description": "抓取猕猴桃并放入绿色篮子",
+            "action_type": "pick_and_place",
+            "inputs": {
+              "item": "猕猴桃",
+              "source": "桌面",
+              "target": "绿色篮子"
+            },
+            "verification": {
+              "version": "task_verification_contract_v1",
+              "mode": "enforce",
+              "goal": "猕猴桃已放入绿色篮子",
+              "success_criteria": [
+                "猕猴桃已从桌面拿起",
+                "猕猴桃位于绿色篮子内",
+                "未触碰其他物品"
+              ],
+              "constraints": [
+                "仅操作目标物品"
+              ],
+              "evidence_policy": {
+                "profile": "semantic_default",
+                "required_kinds": [
+                  "rgb_image"
+                ],
+                "required_sources": [],
+                "minimum_association": "best_effort"
+              }
+            },
+            "execution_timeout_s": 300.0,
+            "source": "paos-agent"
+          },
+          "status": "succeeded",
+          "created_at": "2026-08-19T16:55:04.490686+00:00",
+          "updated_at": "2026-08-19T16:55:20.156517+00:00",
+          "dispatch_attempted_at": "2026-08-19T16:55:05.648270+00:00",
+          "terminal_at": "2026-08-19T16:55:19.353156+00:00",
+          "execution": {
+            "version": "paos_execution_record_v1",
+            "runtime": "forge_gateway",
+            "session_id": "41076bff-df16-40e7-b0a2-656ce75eaf5e",
+            "command_id": "ca373df4-b732-4244-bd12-e641f3726a2d",
+            "gateway_api_version": "paos-forge-gateway-mvp-plus.v1",
+            "gateway_instance_id": "gw-04",
+            "action_type": "pick_and_place",
+            "policy_id": "forge/planner/v2.1.0",
+            "status": "succeeded",
+            "result_semantics": "command_completed",
+            "completion": {
+              "code": 0,
+              "message": "正常终止"
+            },
+            "timeline": {
+              "created_at": 22.668922900278044,
+              "updated_at": 38.33475428551551,
+              "sent_at": 24.027,
+              "terminal_observed_at": "2026-08-19T16:55:19.353156+00:00"
+            },
+            "outputs": {
+              "picked": true,
+              "placed_basket": "绿色篮子"
+            },
+            "error": null
+          },
+          "verification": {
+            "status": "completed",
+            "bundle_ref": "bundle-41076bff-df16-40e7-b0a2-656ce75eaf5e",
+            "verdict": {
+              "version": "verification_verdict_v1",
+              "verdict": "success",
+              "criteria": [
+                {
+                  "criterion": "猕猴桃已从桌面拿起",
+                  "status": "satisfied",
+                  "evidence_refs": [
+                    "bundle-41076bff-df16-40e7-b0a2-656ce75eaf5e"
+                  ]
+                },
+                {
+                  "criterion": "猕猴桃位于绿色篮子内",
+                  "status": "satisfied",
+                  "evidence_refs": [
+                    "bundle-41076bff-df16-40e7-b0a2-656ce75eaf5e"
+                  ]
+                },
+                {
+                  "criterion": "未触碰其他物品",
+                  "status": "satisfied",
+                  "evidence_refs": [
+                    "bundle-41076bff-df16-40e7-b0a2-656ce75eaf5e"
+                  ]
+                }
+              ],
+              "evidence_refs": [
+                "bundle-41076bff-df16-40e7-b0a2-656ce75eaf5e"
+              ],
+              "reason": "命令正常终止，3/3 成功标准满足",
+              "lesson": "无异常，按计划完成",
+              "recovery_context": null,
+              "verifier_status": "completed"
+            },
+            "attempts": [
+              {
+                "version": "verification_attempt_v1",
+                "model": "sim",
+                "verdict": "success",
+                "created_at": "2026-08-19T16:55:20.153156+00:00"
+              }
+            ],
+            "error": null
+          },
+          "recovery_request": null,
+          "gateway_create_response": {
+            "session_id": "41076bff-df16-40e7-b0a2-656ce75eaf5e",
+            "command_id": "ca373df4-b732-4244-bd12-e641f3726a2d",
+            "request_id": "req-0a334ea4-0de1-441e-ab9e-c8048a7b2dd2",
+            "accepted": true
+          },
+          "gateway_last_response": {
+            "session_id": "41076bff-df16-40e7-b0a2-656ce75eaf5e",
+            "command_id": "ca373df4-b732-4244-bd12-e641f3726a2d",
+            "status": "succeeded"
+          },
+          "before_snapshot_ref": "bundle-41076bff-df16-40e7-b0a2-656ce75eaf5e/before.jpg",
+          "completion_notified_at": "2026-08-19T16:55:20.456517+00:00",
           "error_code": null,
           "error_message": null,
           "origin_channel": "cli",
@@ -149,40 +844,280 @@
       "evidence": [
         {
           "version": "forge_evidence_bundle_v1",
-          "bundle_id": "bundle-forge-a-0001",
-          "session_id": "forge-a-0001",
-          "command_id": "cmd-a-0001",
-          "gateway_instance_id": "gw-01",
+          "bundle_id": "bundle-b612b9d9-81b5-4c87-aa0a-d7df4ae73e12",
+          "session_id": "b612b9d9-81b5-4c87-aa0a-d7df4ae73e12",
+          "command_id": "b6faf4a5-c7c4-4d58-a043-e95eef2194ae",
+          "gateway_instance_id": "gw-07",
           "capture_window": {
-            "before_command_at": "2026-08-20T00:00:10+00:00",
-            "command_terminal_at": "2026-08-20T00:00:24+00:00",
-            "after_command_at": "2026-08-20T00:00:26+00:00"
+            "before_command_at": "2026-08-19T16:54:49.685209+00:00",
+            "command_terminal_at": "2026-08-19T16:55:03.874562+00:00",
+            "after_command_at": "2026-08-19T16:55:05.138694+00:00"
           },
           "artifacts": [
             {
-              "artifact_id": "bundle-forge-a-0001/before.jpg",
+              "artifact_id": "bundle-b612b9d9-81b5-4c87-aa0a-d7df4ae73e12/before.jpg",
               "phase": "before",
               "kind": "rgb_image",
               "source_id": "cam-top",
-              "received_at": "2026-08-20T00:00:10.050000+00:00",
+              "received_at": "2026-08-19T16:54:49.745209+00:00",
               "sequence": 0,
               "media_type": "image/jpeg",
-              "sha256": "db3b485fc48b1bc9cab184d5ffcfdfd5ef9f8c780c8aebf96c3ac4c4d15aafb2",
-              "byte_size": 152400,
-              "uri": "evidence/bundle-forge-a-0001/before.jpg",
+              "sha256": "04269a98a8243d900b3c20e8f9b9e1cc6d8a606cdb0c321bca66bbe329d5958c",
+              "byte_size": 158651,
+              "uri": "evidence/bundle-b612b9d9-81b5-4c87-aa0a-d7df4ae73e12/before.jpg",
               "retained": true
             },
             {
-              "artifact_id": "bundle-forge-a-0001/after.jpg",
+              "artifact_id": "bundle-b612b9d9-81b5-4c87-aa0a-d7df4ae73e12/after.jpg",
               "phase": "after",
               "kind": "rgb_image",
               "source_id": "cam-top",
-              "received_at": "2026-08-20T00:00:26.050000+00:00",
+              "received_at": "2026-08-19T16:55:05.208694+00:00",
               "sequence": 1,
               "media_type": "image/jpeg",
-              "sha256": "286169daee116a0e39ac8cc1c7c8700771b01451c87de27bf1ff27d6a6a3a31d",
-              "byte_size": 148920,
-              "uri": "evidence/bundle-forge-a-0001/after.jpg",
+              "sha256": "5ba69cc36bb8382c03db172a98ec2a3cf6df1f1642d3bc63497c81d0a7567642",
+              "byte_size": 148182,
+              "uri": "evidence/bundle-b612b9d9-81b5-4c87-aa0a-d7df4ae73e12/after.jpg",
+              "retained": true
+            }
+          ],
+          "quality": {
+            "complete": true,
+            "association_quality": "authoritative",
+            "capture_authority": "paos_forge_adapter",
+            "missing_requirements": [],
+            "stale_artifacts": [],
+            "errors": []
+          }
+        },
+        {
+          "version": "forge_evidence_bundle_v1",
+          "bundle_id": "bundle-0bb40e63-3fc2-49bf-a3d7-f9ca28990e56",
+          "session_id": "0bb40e63-3fc2-49bf-a3d7-f9ca28990e56",
+          "command_id": "a43b14a0-e349-45bd-99f2-929b0d7b9531",
+          "gateway_instance_id": "gw-08",
+          "capture_window": {
+            "before_command_at": "2026-08-19T16:54:52.696722+00:00",
+            "command_terminal_at": "2026-08-19T16:55:06.881416+00:00",
+            "after_command_at": "2026-08-19T16:55:08.134383+00:00"
+          },
+          "artifacts": [
+            {
+              "artifact_id": "bundle-0bb40e63-3fc2-49bf-a3d7-f9ca28990e56/before.jpg",
+              "phase": "before",
+              "kind": "rgb_image",
+              "source_id": "cam-top",
+              "received_at": "2026-08-19T16:54:52.756722+00:00",
+              "sequence": 0,
+              "media_type": "image/jpeg",
+              "sha256": "f18e34b08bbb0fddaff253e3897e59dedc486d93bdbbf183a0c92916851a6ccb",
+              "byte_size": 158450,
+              "uri": "evidence/bundle-0bb40e63-3fc2-49bf-a3d7-f9ca28990e56/before.jpg",
+              "retained": true
+            },
+            {
+              "artifact_id": "bundle-0bb40e63-3fc2-49bf-a3d7-f9ca28990e56/after.jpg",
+              "phase": "after",
+              "kind": "rgb_image",
+              "source_id": "cam-top",
+              "received_at": "2026-08-19T16:55:08.204383+00:00",
+              "sequence": 1,
+              "media_type": "image/jpeg",
+              "sha256": "c9cc3c71ffd2e90edbad8cfc1983fe8648d61627765e949a3dbedbe2f5a6cc00",
+              "byte_size": 152385,
+              "uri": "evidence/bundle-0bb40e63-3fc2-49bf-a3d7-f9ca28990e56/after.jpg",
+              "retained": true
+            }
+          ],
+          "quality": {
+            "complete": true,
+            "association_quality": "authoritative",
+            "capture_authority": "paos_forge_adapter",
+            "missing_requirements": [],
+            "stale_artifacts": [],
+            "errors": []
+          }
+        },
+        {
+          "version": "forge_evidence_bundle_v1",
+          "bundle_id": "bundle-f2dca176-7a3d-4bf8-9a30-694185947096",
+          "session_id": "f2dca176-7a3d-4bf8-9a30-694185947096",
+          "command_id": "19d73626-bec2-4a27-b0dd-b2199c12c9e7",
+          "gateway_instance_id": "gw-07",
+          "capture_window": {
+            "before_command_at": "2026-08-19T16:54:55.982250+00:00",
+            "command_terminal_at": "2026-08-19T16:55:09.977254+00:00",
+            "after_command_at": "2026-08-19T16:55:11.350877+00:00"
+          },
+          "artifacts": [
+            {
+              "artifact_id": "bundle-f2dca176-7a3d-4bf8-9a30-694185947096/before.jpg",
+              "phase": "before",
+              "kind": "rgb_image",
+              "source_id": "cam-top",
+              "received_at": "2026-08-19T16:54:56.042250+00:00",
+              "sequence": 0,
+              "media_type": "image/jpeg",
+              "sha256": "346e3d6ebff501cb8dfa60ccd319e02d8197c77943333bea1bb5e63b070a1e59",
+              "byte_size": 151187,
+              "uri": "evidence/bundle-f2dca176-7a3d-4bf8-9a30-694185947096/before.jpg",
+              "retained": true
+            },
+            {
+              "artifact_id": "bundle-f2dca176-7a3d-4bf8-9a30-694185947096/after.jpg",
+              "phase": "after",
+              "kind": "rgb_image",
+              "source_id": "cam-top",
+              "received_at": "2026-08-19T16:55:11.420877+00:00",
+              "sequence": 1,
+              "media_type": "image/jpeg",
+              "sha256": "c3180b44ad8e9c36409c4abf6207e20df80881938030926d7a34422836e428ab",
+              "byte_size": 151803,
+              "uri": "evidence/bundle-f2dca176-7a3d-4bf8-9a30-694185947096/after.jpg",
+              "retained": true
+            }
+          ],
+          "quality": {
+            "complete": true,
+            "association_quality": "authoritative",
+            "capture_authority": "paos_forge_adapter",
+            "missing_requirements": [],
+            "stale_artifacts": [],
+            "errors": []
+          }
+        },
+        {
+          "version": "forge_evidence_bundle_v1",
+          "bundle_id": "bundle-b9da36ed-abbc-48f2-8de3-5e71105a0a66",
+          "session_id": "b9da36ed-abbc-48f2-8de3-5e71105a0a66",
+          "command_id": "f407c241-e7cd-40c9-895a-55f8163f1200",
+          "gateway_instance_id": "gw-05",
+          "capture_window": {
+            "before_command_at": "2026-08-19T16:54:59.222544+00:00",
+            "command_terminal_at": "2026-08-19T16:55:13.182791+00:00",
+            "after_command_at": "2026-08-19T16:55:14.306407+00:00"
+          },
+          "artifacts": [
+            {
+              "artifact_id": "bundle-b9da36ed-abbc-48f2-8de3-5e71105a0a66/before.jpg",
+              "phase": "before",
+              "kind": "rgb_image",
+              "source_id": "cam-top",
+              "received_at": "2026-08-19T16:54:59.282544+00:00",
+              "sequence": 0,
+              "media_type": "image/jpeg",
+              "sha256": "b5eccef1a941fd4e35f253e9d8dcafefa7a7b8092a7e7b17c602aa23eb4548c7",
+              "byte_size": 154806,
+              "uri": "evidence/bundle-b9da36ed-abbc-48f2-8de3-5e71105a0a66/before.jpg",
+              "retained": true
+            },
+            {
+              "artifact_id": "bundle-b9da36ed-abbc-48f2-8de3-5e71105a0a66/after.jpg",
+              "phase": "after",
+              "kind": "rgb_image",
+              "source_id": "cam-top",
+              "received_at": "2026-08-19T16:55:14.376407+00:00",
+              "sequence": 1,
+              "media_type": "image/jpeg",
+              "sha256": "5bf7bc112b17c671d24042bbb1a5c35fb05fbd79b5e1c40271dadeae179fa6cf",
+              "byte_size": 150541,
+              "uri": "evidence/bundle-b9da36ed-abbc-48f2-8de3-5e71105a0a66/after.jpg",
+              "retained": true
+            }
+          ],
+          "quality": {
+            "complete": true,
+            "association_quality": "authoritative",
+            "capture_authority": "paos_forge_adapter",
+            "missing_requirements": [],
+            "stale_artifacts": [],
+            "errors": []
+          }
+        },
+        {
+          "version": "forge_evidence_bundle_v1",
+          "bundle_id": "bundle-2f7382a7-edd7-4079-a985-bd8882a01bc2",
+          "session_id": "2f7382a7-edd7-4079-a985-bd8882a01bc2",
+          "command_id": "7a291969-3a4c-4b90-9778-4ccb076f828d",
+          "gateway_instance_id": "gw-07",
+          "capture_window": {
+            "before_command_at": "2026-08-19T16:55:02.175660+00:00",
+            "command_terminal_at": "2026-08-19T16:55:16.054714+00:00",
+            "after_command_at": "2026-08-19T16:55:17.121127+00:00"
+          },
+          "artifacts": [
+            {
+              "artifact_id": "bundle-2f7382a7-edd7-4079-a985-bd8882a01bc2/before.jpg",
+              "phase": "before",
+              "kind": "rgb_image",
+              "source_id": "cam-top",
+              "received_at": "2026-08-19T16:55:02.235660+00:00",
+              "sequence": 0,
+              "media_type": "image/jpeg",
+              "sha256": "dbde04f81bf53d80cf5ccb53bb524242cbe8cc1409c0d5dacb41573a2883a49c",
+              "byte_size": 150136,
+              "uri": "evidence/bundle-2f7382a7-edd7-4079-a985-bd8882a01bc2/before.jpg",
+              "retained": true
+            },
+            {
+              "artifact_id": "bundle-2f7382a7-edd7-4079-a985-bd8882a01bc2/after.jpg",
+              "phase": "after",
+              "kind": "rgb_image",
+              "source_id": "cam-top",
+              "received_at": "2026-08-19T16:55:17.191127+00:00",
+              "sequence": 1,
+              "media_type": "image/jpeg",
+              "sha256": "c5a0ea1f39a2c60ec2fc5f7206ce1a1f967794912760ff0cb6d2982683d56e82",
+              "byte_size": 155302,
+              "uri": "evidence/bundle-2f7382a7-edd7-4079-a985-bd8882a01bc2/after.jpg",
+              "retained": true
+            }
+          ],
+          "quality": {
+            "complete": true,
+            "association_quality": "authoritative",
+            "capture_authority": "paos_forge_adapter",
+            "missing_requirements": [],
+            "stale_artifacts": [],
+            "errors": []
+          }
+        },
+        {
+          "version": "forge_evidence_bundle_v1",
+          "bundle_id": "bundle-41076bff-df16-40e7-b0a2-656ce75eaf5e",
+          "session_id": "41076bff-df16-40e7-b0a2-656ce75eaf5e",
+          "command_id": "ca373df4-b732-4244-bd12-e641f3726a2d",
+          "gateway_instance_id": "gw-04",
+          "capture_window": {
+            "before_command_at": "2026-08-19T16:55:05.348270+00:00",
+            "command_terminal_at": "2026-08-19T16:55:19.353156+00:00",
+            "after_command_at": "2026-08-19T16:55:20.595900+00:00"
+          },
+          "artifacts": [
+            {
+              "artifact_id": "bundle-41076bff-df16-40e7-b0a2-656ce75eaf5e/before.jpg",
+              "phase": "before",
+              "kind": "rgb_image",
+              "source_id": "cam-top",
+              "received_at": "2026-08-19T16:55:05.408270+00:00",
+              "sequence": 0,
+              "media_type": "image/jpeg",
+              "sha256": "c88c98a0fc2a3f6ab0f19d7701131e6f6610903f4ebd8ca2242e73404ed81db6",
+              "byte_size": 150531,
+              "uri": "evidence/bundle-41076bff-df16-40e7-b0a2-656ce75eaf5e/before.jpg",
+              "retained": true
+            },
+            {
+              "artifact_id": "bundle-41076bff-df16-40e7-b0a2-656ce75eaf5e/after.jpg",
+              "phase": "after",
+              "kind": "rgb_image",
+              "source_id": "cam-top",
+              "received_at": "2026-08-19T16:55:20.665900+00:00",
+              "sequence": 1,
+              "media_type": "image/jpeg",
+              "sha256": "b54bb059c673d5145f88d0b9535eb9567bb1d3d9c1c9ef9663fc354e043455a9",
+              "byte_size": 153143,
+              "uri": "evidence/bundle-41076bff-df16-40e7-b0a2-656ce75eaf5e/after.jpg",
               "retained": true
             }
           ],
@@ -202,93 +1137,478 @@
           "desc": "必填字段完整",
           "ok": true,
           "detail": "完整",
-          "session_id": "forge-a-0001"
+          "session_id": "b612b9d9-81b5-4c87-aa0a-d7df4ae73e12"
         },
         {
           "rule": "r2",
           "desc": "标识符 path-safe",
           "ok": true,
           "detail": "合法",
-          "session_id": "forge-a-0001"
+          "session_id": "b612b9d9-81b5-4c87-aa0a-d7df4ae73e12"
         },
         {
           "rule": "r3",
           "desc": "状态机转换合法",
           "ok": true,
           "detail": "accepted→capturing_before→dispatching→running→finalizing→awaiting_verification→verifying→succeeded",
-          "session_id": "forge-a-0001"
+          "session_id": "b612b9d9-81b5-4c87-aa0a-d7df4ae73e12"
         },
         {
           "rule": "r4",
           "desc": "会话终止状态",
           "ok": true,
           "detail": "status=succeeded",
-          "session_id": "forge-a-0001"
+          "session_id": "b612b9d9-81b5-4c87-aa0a-d7df4ae73e12"
         },
         {
           "rule": "r5",
           "desc": "会话时间戳单调",
           "ok": true,
-          "detail": "created=2026-08-20T00:00:06 dispatch=2026-08-20T00:00:08 terminal=2026-08-20T00:00:28 updated=2026-08-20T00:00:28",
-          "session_id": "forge-a-0001"
+          "detail": "created=2026-08-19T16:54:48.595221 dispatch=2026-08-19T16:54:49.985209 terminal=2026-08-19T16:55:03.874562 updated=2026-08-19T16:55:04.575075",
+          "session_id": "b612b9d9-81b5-4c87-aa0a-d7df4ae73e12"
         },
         {
           "rule": "r6",
           "desc": "verdict 与 criteria 一致性",
           "ok": true,
           "detail": "verdict=success statuses=['satisfied', 'satisfied', 'satisfied']",
-          "session_id": "forge-a-0001"
+          "session_id": "b612b9d9-81b5-4c87-aa0a-d7df4ae73e12"
         },
         {
           "rule": "r7",
           "desc": "证据完整性（sha256/前后配对/时间窗）",
           "ok": true,
           "detail": "phases=['after', 'before'] sha违规=[] 时间窗=ok",
-          "session_id": "forge-a-0001"
+          "session_id": "b612b9d9-81b5-4c87-aa0a-d7df4ae73e12"
         },
         {
           "rule": "r8",
           "desc": "execution 与 session 状态一致",
           "ok": true,
           "detail": "session=succeeded execution=succeeded",
-          "session_id": "forge-a-0001"
+          "session_id": "b612b9d9-81b5-4c87-aa0a-d7df4ae73e12"
         },
         {
           "rule": "r9",
           "desc": "恢复链（根会话无 parent）",
           "ok": true,
           "detail": "根会话",
-          "session_id": "forge-a-0001"
+          "session_id": "b612b9d9-81b5-4c87-aa0a-d7df4ae73e12"
         },
         {
           "rule": "r10",
           "desc": "replanned 携带 recovery_request",
           "ok": true,
           "detail": "无",
-          "session_id": "forge-a-0001"
+          "session_id": "b612b9d9-81b5-4c87-aa0a-d7df4ae73e12"
         },
         {
           "rule": "r11",
           "desc": "gateway 身份一致性",
           "ok": true,
-          "detail": "create=(forge-a-0001,cmd-a-0001) record=(forge-a-0001,cmd-a-0001)",
-          "session_id": "forge-a-0001"
+          "detail": "create=(b612b9d9..,b6faf4a5..) record=(b612b9d9..,b6faf4a5..)",
+          "session_id": "b612b9d9-81b5-4c87-aa0a-d7df4ae73e12"
+        },
+        {
+          "rule": "r1",
+          "desc": "必填字段完整",
+          "ok": true,
+          "detail": "完整",
+          "session_id": "0bb40e63-3fc2-49bf-a3d7-f9ca28990e56"
+        },
+        {
+          "rule": "r2",
+          "desc": "标识符 path-safe",
+          "ok": true,
+          "detail": "合法",
+          "session_id": "0bb40e63-3fc2-49bf-a3d7-f9ca28990e56"
+        },
+        {
+          "rule": "r3",
+          "desc": "状态机转换合法",
+          "ok": true,
+          "detail": "accepted→capturing_before→dispatching→running→finalizing→awaiting_verification→verifying→succeeded",
+          "session_id": "0bb40e63-3fc2-49bf-a3d7-f9ca28990e56"
+        },
+        {
+          "rule": "r4",
+          "desc": "会话终止状态",
+          "ok": true,
+          "detail": "status=succeeded",
+          "session_id": "0bb40e63-3fc2-49bf-a3d7-f9ca28990e56"
+        },
+        {
+          "rule": "r5",
+          "desc": "会话时间戳单调",
+          "ok": true,
+          "detail": "created=2026-08-19T16:54:51.595720 dispatch=2026-08-19T16:54:52.996722 terminal=2026-08-19T16:55:06.881416 updated=2026-08-19T16:55:07.567744",
+          "session_id": "0bb40e63-3fc2-49bf-a3d7-f9ca28990e56"
+        },
+        {
+          "rule": "r6",
+          "desc": "verdict 与 criteria 一致性",
+          "ok": true,
+          "detail": "verdict=success statuses=['satisfied', 'satisfied', 'satisfied']",
+          "session_id": "0bb40e63-3fc2-49bf-a3d7-f9ca28990e56"
+        },
+        {
+          "rule": "r7",
+          "desc": "证据完整性（sha256/前后配对/时间窗）",
+          "ok": true,
+          "detail": "phases=['after', 'before'] sha违规=[] 时间窗=ok",
+          "session_id": "0bb40e63-3fc2-49bf-a3d7-f9ca28990e56"
+        },
+        {
+          "rule": "r8",
+          "desc": "execution 与 session 状态一致",
+          "ok": true,
+          "detail": "session=succeeded execution=succeeded",
+          "session_id": "0bb40e63-3fc2-49bf-a3d7-f9ca28990e56"
+        },
+        {
+          "rule": "r9",
+          "desc": "恢复链（根会话无 parent）",
+          "ok": true,
+          "detail": "根会话",
+          "session_id": "0bb40e63-3fc2-49bf-a3d7-f9ca28990e56"
+        },
+        {
+          "rule": "r10",
+          "desc": "replanned 携带 recovery_request",
+          "ok": true,
+          "detail": "无",
+          "session_id": "0bb40e63-3fc2-49bf-a3d7-f9ca28990e56"
+        },
+        {
+          "rule": "r11",
+          "desc": "gateway 身份一致性",
+          "ok": true,
+          "detail": "create=(0bb40e63..,a43b14a0..) record=(0bb40e63..,a43b14a0..)",
+          "session_id": "0bb40e63-3fc2-49bf-a3d7-f9ca28990e56"
+        },
+        {
+          "rule": "r1",
+          "desc": "必填字段完整",
+          "ok": true,
+          "detail": "完整",
+          "session_id": "f2dca176-7a3d-4bf8-9a30-694185947096"
+        },
+        {
+          "rule": "r2",
+          "desc": "标识符 path-safe",
+          "ok": true,
+          "detail": "合法",
+          "session_id": "f2dca176-7a3d-4bf8-9a30-694185947096"
+        },
+        {
+          "rule": "r3",
+          "desc": "状态机转换合法",
+          "ok": true,
+          "detail": "accepted→capturing_before→dispatching→running→finalizing→awaiting_verification→verifying→succeeded",
+          "session_id": "f2dca176-7a3d-4bf8-9a30-694185947096"
+        },
+        {
+          "rule": "r4",
+          "desc": "会话终止状态",
+          "ok": true,
+          "detail": "status=succeeded",
+          "session_id": "f2dca176-7a3d-4bf8-9a30-694185947096"
+        },
+        {
+          "rule": "r5",
+          "desc": "会话时间戳单调",
+          "ok": true,
+          "detail": "created=2026-08-19T16:54:54.941286 dispatch=2026-08-19T16:54:56.282250 terminal=2026-08-19T16:55:09.977254 updated=2026-08-19T16:55:10.732187",
+          "session_id": "f2dca176-7a3d-4bf8-9a30-694185947096"
+        },
+        {
+          "rule": "r6",
+          "desc": "verdict 与 criteria 一致性",
+          "ok": true,
+          "detail": "verdict=success statuses=['satisfied', 'satisfied', 'satisfied']",
+          "session_id": "f2dca176-7a3d-4bf8-9a30-694185947096"
+        },
+        {
+          "rule": "r7",
+          "desc": "证据完整性（sha256/前后配对/时间窗）",
+          "ok": true,
+          "detail": "phases=['after', 'before'] sha违规=[] 时间窗=ok",
+          "session_id": "f2dca176-7a3d-4bf8-9a30-694185947096"
+        },
+        {
+          "rule": "r8",
+          "desc": "execution 与 session 状态一致",
+          "ok": true,
+          "detail": "session=succeeded execution=succeeded",
+          "session_id": "f2dca176-7a3d-4bf8-9a30-694185947096"
+        },
+        {
+          "rule": "r9",
+          "desc": "恢复链（根会话无 parent）",
+          "ok": true,
+          "detail": "根会话",
+          "session_id": "f2dca176-7a3d-4bf8-9a30-694185947096"
+        },
+        {
+          "rule": "r10",
+          "desc": "replanned 携带 recovery_request",
+          "ok": true,
+          "detail": "无",
+          "session_id": "f2dca176-7a3d-4bf8-9a30-694185947096"
+        },
+        {
+          "rule": "r11",
+          "desc": "gateway 身份一致性",
+          "ok": true,
+          "detail": "create=(f2dca176..,19d73626..) record=(f2dca176..,19d73626..)",
+          "session_id": "f2dca176-7a3d-4bf8-9a30-694185947096"
+        },
+        {
+          "rule": "r1",
+          "desc": "必填字段完整",
+          "ok": true,
+          "detail": "完整",
+          "session_id": "b9da36ed-abbc-48f2-8de3-5e71105a0a66"
+        },
+        {
+          "rule": "r2",
+          "desc": "标识符 path-safe",
+          "ok": true,
+          "detail": "合法",
+          "session_id": "b9da36ed-abbc-48f2-8de3-5e71105a0a66"
+        },
+        {
+          "rule": "r3",
+          "desc": "状态机转换合法",
+          "ok": true,
+          "detail": "accepted→capturing_before→dispatching→running→finalizing→awaiting_verification→verifying→succeeded",
+          "session_id": "b9da36ed-abbc-48f2-8de3-5e71105a0a66"
+        },
+        {
+          "rule": "r4",
+          "desc": "会话终止状态",
+          "ok": true,
+          "detail": "status=succeeded",
+          "session_id": "b9da36ed-abbc-48f2-8de3-5e71105a0a66"
+        },
+        {
+          "rule": "r5",
+          "desc": "会话时间戳单调",
+          "ok": true,
+          "detail": "created=2026-08-19T16:54:58.078705 dispatch=2026-08-19T16:54:59.522544 terminal=2026-08-19T16:55:13.182791 updated=2026-08-19T16:55:13.885690",
+          "session_id": "b9da36ed-abbc-48f2-8de3-5e71105a0a66"
+        },
+        {
+          "rule": "r6",
+          "desc": "verdict 与 criteria 一致性",
+          "ok": true,
+          "detail": "verdict=success statuses=['satisfied', 'satisfied', 'satisfied']",
+          "session_id": "b9da36ed-abbc-48f2-8de3-5e71105a0a66"
+        },
+        {
+          "rule": "r7",
+          "desc": "证据完整性（sha256/前后配对/时间窗）",
+          "ok": true,
+          "detail": "phases=['after', 'before'] sha违规=[] 时间窗=ok",
+          "session_id": "b9da36ed-abbc-48f2-8de3-5e71105a0a66"
+        },
+        {
+          "rule": "r8",
+          "desc": "execution 与 session 状态一致",
+          "ok": true,
+          "detail": "session=succeeded execution=succeeded",
+          "session_id": "b9da36ed-abbc-48f2-8de3-5e71105a0a66"
+        },
+        {
+          "rule": "r9",
+          "desc": "恢复链（根会话无 parent）",
+          "ok": true,
+          "detail": "根会话",
+          "session_id": "b9da36ed-abbc-48f2-8de3-5e71105a0a66"
+        },
+        {
+          "rule": "r10",
+          "desc": "replanned 携带 recovery_request",
+          "ok": true,
+          "detail": "无",
+          "session_id": "b9da36ed-abbc-48f2-8de3-5e71105a0a66"
+        },
+        {
+          "rule": "r11",
+          "desc": "gateway 身份一致性",
+          "ok": true,
+          "detail": "create=(b9da36ed..,f407c241..) record=(b9da36ed..,f407c241..)",
+          "session_id": "b9da36ed-abbc-48f2-8de3-5e71105a0a66"
+        },
+        {
+          "rule": "r1",
+          "desc": "必填字段完整",
+          "ok": true,
+          "detail": "完整",
+          "session_id": "2f7382a7-edd7-4079-a985-bd8882a01bc2"
+        },
+        {
+          "rule": "r2",
+          "desc": "标识符 path-safe",
+          "ok": true,
+          "detail": "合法",
+          "session_id": "2f7382a7-edd7-4079-a985-bd8882a01bc2"
+        },
+        {
+          "rule": "r3",
+          "desc": "状态机转换合法",
+          "ok": true,
+          "detail": "accepted→capturing_before→dispatching→running→finalizing→awaiting_verification→verifying→succeeded",
+          "session_id": "2f7382a7-edd7-4079-a985-bd8882a01bc2"
+        },
+        {
+          "rule": "r4",
+          "desc": "会话终止状态",
+          "ok": true,
+          "detail": "status=succeeded",
+          "session_id": "2f7382a7-edd7-4079-a985-bd8882a01bc2"
+        },
+        {
+          "rule": "r5",
+          "desc": "会话时间戳单调",
+          "ok": true,
+          "detail": "created=2026-08-19T16:55:01.213602 dispatch=2026-08-19T16:55:02.475660 terminal=2026-08-19T16:55:16.054714 updated=2026-08-19T16:55:16.878290",
+          "session_id": "2f7382a7-edd7-4079-a985-bd8882a01bc2"
+        },
+        {
+          "rule": "r6",
+          "desc": "verdict 与 criteria 一致性",
+          "ok": true,
+          "detail": "verdict=success statuses=['satisfied', 'satisfied', 'satisfied']",
+          "session_id": "2f7382a7-edd7-4079-a985-bd8882a01bc2"
+        },
+        {
+          "rule": "r7",
+          "desc": "证据完整性（sha256/前后配对/时间窗）",
+          "ok": true,
+          "detail": "phases=['after', 'before'] sha违规=[] 时间窗=ok",
+          "session_id": "2f7382a7-edd7-4079-a985-bd8882a01bc2"
+        },
+        {
+          "rule": "r8",
+          "desc": "execution 与 session 状态一致",
+          "ok": true,
+          "detail": "session=succeeded execution=succeeded",
+          "session_id": "2f7382a7-edd7-4079-a985-bd8882a01bc2"
+        },
+        {
+          "rule": "r9",
+          "desc": "恢复链（根会话无 parent）",
+          "ok": true,
+          "detail": "根会话",
+          "session_id": "2f7382a7-edd7-4079-a985-bd8882a01bc2"
+        },
+        {
+          "rule": "r10",
+          "desc": "replanned 携带 recovery_request",
+          "ok": true,
+          "detail": "无",
+          "session_id": "2f7382a7-edd7-4079-a985-bd8882a01bc2"
+        },
+        {
+          "rule": "r11",
+          "desc": "gateway 身份一致性",
+          "ok": true,
+          "detail": "create=(2f7382a7..,7a291969..) record=(2f7382a7..,7a291969..)",
+          "session_id": "2f7382a7-edd7-4079-a985-bd8882a01bc2"
+        },
+        {
+          "rule": "r1",
+          "desc": "必填字段完整",
+          "ok": true,
+          "detail": "完整",
+          "session_id": "41076bff-df16-40e7-b0a2-656ce75eaf5e"
+        },
+        {
+          "rule": "r2",
+          "desc": "标识符 path-safe",
+          "ok": true,
+          "detail": "合法",
+          "session_id": "41076bff-df16-40e7-b0a2-656ce75eaf5e"
+        },
+        {
+          "rule": "r3",
+          "desc": "状态机转换合法",
+          "ok": true,
+          "detail": "accepted→capturing_before→dispatching→running→finalizing→awaiting_verification→verifying→succeeded",
+          "session_id": "41076bff-df16-40e7-b0a2-656ce75eaf5e"
+        },
+        {
+          "rule": "r4",
+          "desc": "会话终止状态",
+          "ok": true,
+          "detail": "status=succeeded",
+          "session_id": "41076bff-df16-40e7-b0a2-656ce75eaf5e"
+        },
+        {
+          "rule": "r5",
+          "desc": "会话时间戳单调",
+          "ok": true,
+          "detail": "created=2026-08-19T16:55:04.490686 dispatch=2026-08-19T16:55:05.648270 terminal=2026-08-19T16:55:19.353156 updated=2026-08-19T16:55:20.156517",
+          "session_id": "41076bff-df16-40e7-b0a2-656ce75eaf5e"
+        },
+        {
+          "rule": "r6",
+          "desc": "verdict 与 criteria 一致性",
+          "ok": true,
+          "detail": "verdict=success statuses=['satisfied', 'satisfied', 'satisfied']",
+          "session_id": "41076bff-df16-40e7-b0a2-656ce75eaf5e"
+        },
+        {
+          "rule": "r7",
+          "desc": "证据完整性（sha256/前后配对/时间窗）",
+          "ok": true,
+          "detail": "phases=['after', 'before'] sha违规=[] 时间窗=ok",
+          "session_id": "41076bff-df16-40e7-b0a2-656ce75eaf5e"
+        },
+        {
+          "rule": "r8",
+          "desc": "execution 与 session 状态一致",
+          "ok": true,
+          "detail": "session=succeeded execution=succeeded",
+          "session_id": "41076bff-df16-40e7-b0a2-656ce75eaf5e"
+        },
+        {
+          "rule": "r9",
+          "desc": "恢复链（根会话无 parent）",
+          "ok": true,
+          "detail": "根会话",
+          "session_id": "41076bff-df16-40e7-b0a2-656ce75eaf5e"
+        },
+        {
+          "rule": "r10",
+          "desc": "replanned 携带 recovery_request",
+          "ok": true,
+          "detail": "无",
+          "session_id": "41076bff-df16-40e7-b0a2-656ce75eaf5e"
+        },
+        {
+          "rule": "r11",
+          "desc": "gateway 身份一致性",
+          "ok": true,
+          "detail": "create=(41076bff..,ca373df4..) record=(41076bff..,ca373df4..)",
+          "session_id": "41076bff-df16-40e7-b0a2-656ce75eaf5e"
         }
       ],
       "summary": {
-        "passed": 11,
+        "passed": 66,
         "failed": 0,
         "verdict": "complete"
       }
     },
     {
-      "name": "恢复链闭环 — A 失败 replan → C 重试成功",
+      "name": "恢复链闭环 — 牛奶失败 replan → child 重试成功",
       "sessions": [
         {
           "version": "forge_session_record_v1",
-          "session_id": "forge-a-0002",
-          "command_id": "cmd-a-0002",
-          "root_session_id": "forge-a-0002",
+          "session_id": "f46bb03d-84a9-4a0f-88ad-fe6de143183c",
+          "command_id": "8deb686d-0b1a-44ce-83f3-98d13cdebc79",
+          "root_session_id": "f46bb03d-84a9-4a0f-88ad-fe6de143183c",
           "parent_session_id": null,
           "replan_attempt": 0,
           "request": {
@@ -325,40 +1645,43 @@
             "source": "paos-agent"
           },
           "status": "replanned",
-          "created_at": "2026-08-20T00:00:06+00:00",
-          "updated_at": "2026-08-20T00:00:28+00:00",
-          "dispatch_attempted_at": "2026-08-20T00:00:08+00:00",
-          "terminal_at": "2026-08-20T00:00:28+00:00",
+          "created_at": "2026-08-19T16:54:46.094496+00:00",
+          "updated_at": "2026-08-19T16:55:02.076972+00:00",
+          "dispatch_attempted_at": "2026-08-19T16:54:47.488349+00:00",
+          "terminal_at": "2026-08-19T16:55:01.311490+00:00",
           "execution": {
             "version": "paos_execution_record_v1",
             "runtime": "forge_gateway",
-            "session_id": "forge-a-0002",
-            "command_id": "cmd-a-0002",
+            "session_id": "f46bb03d-84a9-4a0f-88ad-fe6de143183c",
+            "command_id": "8deb686d-0b1a-44ce-83f3-98d13cdebc79",
             "gateway_api_version": "paos-forge-gateway-mvp-plus.v1",
-            "gateway_instance_id": "gw-01",
+            "gateway_instance_id": "gw-07",
             "action_type": "pick_and_place",
-            "policy_id": "forge/planner/v1",
+            "policy_id": "forge/planner/v2.1.1",
             "status": "failed",
-            "result_semantics": "command_completed",
+            "result_semantics": "command_failed",
             "completion": {
-              "code": 0,
-              "message": "正常终止"
+              "code": 21,
+              "message": "抓取目标丢失"
             },
             "timeline": {
-              "created_at": 10.0,
-              "updated_at": 26.0,
-              "sent_at": 8.5,
-              "terminal_observed_at": "2026-08-20T00:00:24+00:00"
+              "created_at": 4.272732696994602,
+              "updated_at": 20.255208780462176,
+              "sent_at": 5.867,
+              "terminal_observed_at": "2026-08-19T16:55:01.311490+00:00"
             },
             "outputs": {
-              "picked": true,
-              "placed_basket": "黄色篮子"
+              "picked": false,
+              "placed_basket": null
             },
-            "error": null
+            "error": {
+              "code": "GRASP_LOST",
+              "message": "pick 失败"
+            }
           },
           "verification": {
             "status": "completed",
-            "bundle_ref": "bundle-forge-a-0002",
+            "bundle_ref": "bundle-f46bb03d-84a9-4a0f-88ad-fe6de143183c",
             "verdict": {
               "version": "verification_verdict_v1",
               "verdict": "replan_required",
@@ -366,9 +1689,7 @@
                 {
                   "criterion": "牛奶已从桌面拿起",
                   "status": "unsatisfied",
-                  "evidence_refs": [
-                    "bundle-forge-a-0002"
-                  ]
+                  "evidence_refs": []
                 },
                 {
                   "criterion": "牛奶位于黄色篮子内",
@@ -378,15 +1699,13 @@
                 {
                   "criterion": "未触碰其他物品",
                   "status": "satisfied",
-                  "evidence_refs": [
-                    "bundle-forge-a-0002"
-                  ]
+                  "evidence_refs": []
                 }
               ],
               "evidence_refs": [
-                "bundle-forge-a-0002"
+                "bundle-f46bb03d-84a9-4a0f-88ad-fe6de143183c"
               ],
-              "reason": "抓取失败，需要重新规划",
+              "reason": "pick 失败导致目标未拿起，需要重新规划",
               "lesson": "正常执行",
               "recovery_context": {
                 "unmet_criteria": [
@@ -405,15 +1724,15 @@
                 "version": "verification_attempt_v1",
                 "model": "sim",
                 "verdict": "replan_required",
-                "created_at": "2026-08-20T00:00:28+00:00"
+                "created_at": "2026-08-19T16:55:02.111490+00:00"
               }
             ],
             "error": null
           },
           "recovery_request": {
             "version": "recovery_request_v1",
-            "request_id": "req-recover-forge-a-0002",
-            "parent_session_id": "forge-a-0002",
+            "request_id": "recover-7bf2d9e1-54f2-42bc-8001-4c7da1163afd",
+            "parent_session_id": "f46bb03d-84a9-4a0f-88ad-fe6de143183c",
             "unmet_criteria": [
               "牛奶已从桌面拿起",
               "牛奶位于黄色篮子内"
@@ -423,36 +1742,36 @@
             ],
             "guidance": "重新规划 pick 与 place 参数后重试",
             "evidence_refs": [
-              "bundle-forge-a-0002"
+              "bundle-f46bb03d-84a9-4a0f-88ad-fe6de143183c"
             ],
-            "deadline": "2026-08-20T00:02:00+00:00",
-            "dispatched_at": "2026-08-20T00:00:35+00:00"
+            "deadline": "2026-08-19T16:57:01.311490+00:00",
+            "dispatched_at": "2026-08-19T16:55:02.511490+00:00"
           },
           "gateway_create_response": {
-            "session_id": "forge-a-0002",
-            "command_id": "cmd-a-0002",
-            "request_id": "req-forge-a-0002",
+            "session_id": "f46bb03d-84a9-4a0f-88ad-fe6de143183c",
+            "command_id": "8deb686d-0b1a-44ce-83f3-98d13cdebc79",
+            "request_id": "req-2946cf81-c4ab-4075-854f-a6ee2e8528d0",
             "accepted": true
           },
           "gateway_last_response": {
-            "session_id": "forge-a-0002",
-            "command_id": "cmd-a-0002",
+            "session_id": "f46bb03d-84a9-4a0f-88ad-fe6de143183c",
+            "command_id": "8deb686d-0b1a-44ce-83f3-98d13cdebc79",
             "status": "failed"
           },
-          "before_snapshot_ref": "bundle-forge-a-0002/before.jpg",
-          "completion_notified_at": "2026-08-20T00:00:27+00:00",
-          "error_code": null,
-          "error_message": null,
+          "before_snapshot_ref": "bundle-f46bb03d-84a9-4a0f-88ad-fe6de143183c/before.jpg",
+          "completion_notified_at": "2026-08-19T16:55:02.376972+00:00",
+          "error_code": "EXEC_FAILED",
+          "error_message": "gateway 执行失败",
           "origin_channel": "cli",
           "origin_chat_id": "direct",
           "origin_session_key": null
         },
         {
           "version": "forge_session_record_v1",
-          "session_id": "forge-c-0002",
-          "command_id": "cmd-c-0002",
-          "root_session_id": "forge-a-0002",
-          "parent_session_id": "forge-a-0002",
+          "session_id": "9345ccfb-8196-49ba-9fc4-f0dbe837e291",
+          "command_id": "8f38f0a5-7fe2-4fdf-ae82-d574dfc98ed2",
+          "root_session_id": "f46bb03d-84a9-4a0f-88ad-fe6de143183c",
+          "parent_session_id": "f46bb03d-84a9-4a0f-88ad-fe6de143183c",
           "replan_attempt": 1,
           "request": {
             "version": "forge_task_request_v1",
@@ -488,19 +1807,19 @@
             "source": "paos-agent"
           },
           "status": "succeeded",
-          "created_at": "2026-08-20T00:00:06+00:00",
-          "updated_at": "2026-08-20T00:00:28+00:00",
-          "dispatch_attempted_at": "2026-08-20T00:00:08+00:00",
-          "terminal_at": "2026-08-20T00:00:28+00:00",
+          "created_at": "2026-08-19T16:55:13.604617+00:00",
+          "updated_at": "2026-08-19T16:55:29.245512+00:00",
+          "dispatch_attempted_at": "2026-08-19T16:55:14.874700+00:00",
+          "terminal_at": "2026-08-19T16:55:28.434794+00:00",
           "execution": {
             "version": "paos_execution_record_v1",
             "runtime": "forge_gateway",
-            "session_id": "forge-c-0002",
-            "command_id": "cmd-c-0002",
+            "session_id": "9345ccfb-8196-49ba-9fc4-f0dbe837e291",
+            "command_id": "8f38f0a5-7fe2-4fdf-ae82-d574dfc98ed2",
             "gateway_api_version": "paos-forge-gateway-mvp-plus.v1",
-            "gateway_instance_id": "gw-01",
+            "gateway_instance_id": "gw-08",
             "action_type": "pick_and_place",
-            "policy_id": "forge/planner/v1",
+            "policy_id": "forge/planner/v1.9.2",
             "status": "succeeded",
             "result_semantics": "command_completed",
             "completion": {
@@ -508,10 +1827,10 @@
               "message": "正常终止"
             },
             "timeline": {
-              "created_at": 10.0,
-              "updated_at": 26.0,
-              "sent_at": 8.5,
-              "terminal_observed_at": "2026-08-20T00:00:24+00:00"
+              "created_at": 31.782854253299085,
+              "updated_at": 47.42374897605523,
+              "sent_at": 33.253,
+              "terminal_observed_at": "2026-08-19T16:55:28.434794+00:00"
             },
             "outputs": {
               "picked": true,
@@ -521,7 +1840,7 @@
           },
           "verification": {
             "status": "completed",
-            "bundle_ref": "bundle-forge-c-0002",
+            "bundle_ref": "bundle-9345ccfb-8196-49ba-9fc4-f0dbe837e291",
             "verdict": {
               "version": "verification_verdict_v1",
               "verdict": "success",
@@ -530,29 +1849,29 @@
                   "criterion": "牛奶已从桌面拿起",
                   "status": "satisfied",
                   "evidence_refs": [
-                    "bundle-forge-c-0002"
+                    "bundle-9345ccfb-8196-49ba-9fc4-f0dbe837e291"
                   ]
                 },
                 {
                   "criterion": "牛奶位于黄色篮子内",
                   "status": "satisfied",
                   "evidence_refs": [
-                    "bundle-forge-c-0002"
+                    "bundle-9345ccfb-8196-49ba-9fc4-f0dbe837e291"
                   ]
                 },
                 {
                   "criterion": "未触碰其他物品",
                   "status": "satisfied",
                   "evidence_refs": [
-                    "bundle-forge-c-0002"
+                    "bundle-9345ccfb-8196-49ba-9fc4-f0dbe837e291"
                   ]
                 }
               ],
               "evidence_refs": [
-                "bundle-forge-c-0002"
+                "bundle-9345ccfb-8196-49ba-9fc4-f0dbe837e291"
               ],
-              "reason": "全部成功标准满足",
-              "lesson": "正常执行",
+              "reason": "全部成功标准满足，无需恢复",
+              "lesson": "证据与执行事实一致",
               "recovery_context": null,
               "verifier_status": "completed"
             },
@@ -561,25 +1880,25 @@
                 "version": "verification_attempt_v1",
                 "model": "sim",
                 "verdict": "success",
-                "created_at": "2026-08-20T00:00:28+00:00"
+                "created_at": "2026-08-19T16:55:29.234794+00:00"
               }
             ],
             "error": null
           },
           "recovery_request": null,
           "gateway_create_response": {
-            "session_id": "forge-c-0002",
-            "command_id": "cmd-c-0002",
-            "request_id": "req-forge-c-0002",
+            "session_id": "9345ccfb-8196-49ba-9fc4-f0dbe837e291",
+            "command_id": "8f38f0a5-7fe2-4fdf-ae82-d574dfc98ed2",
+            "request_id": "req-e3218b78-53ff-498e-ace7-1613f8cd6ea1",
             "accepted": true
           },
           "gateway_last_response": {
-            "session_id": "forge-c-0002",
-            "command_id": "cmd-c-0002",
+            "session_id": "9345ccfb-8196-49ba-9fc4-f0dbe837e291",
+            "command_id": "8f38f0a5-7fe2-4fdf-ae82-d574dfc98ed2",
             "status": "succeeded"
           },
-          "before_snapshot_ref": "bundle-forge-c-0002/before.jpg",
-          "completion_notified_at": "2026-08-20T00:00:27+00:00",
+          "before_snapshot_ref": "bundle-9345ccfb-8196-49ba-9fc4-f0dbe837e291/before.jpg",
+          "completion_notified_at": "2026-08-19T16:55:29.545512+00:00",
           "error_code": null,
           "error_message": null,
           "origin_channel": "cli",
@@ -590,40 +1909,40 @@
       "evidence": [
         {
           "version": "forge_evidence_bundle_v1",
-          "bundle_id": "bundle-forge-a-0002",
-          "session_id": "forge-a-0002",
-          "command_id": "cmd-a-0002",
-          "gateway_instance_id": "gw-01",
+          "bundle_id": "bundle-f46bb03d-84a9-4a0f-88ad-fe6de143183c",
+          "session_id": "f46bb03d-84a9-4a0f-88ad-fe6de143183c",
+          "command_id": "8deb686d-0b1a-44ce-83f3-98d13cdebc79",
+          "gateway_instance_id": "gw-07",
           "capture_window": {
-            "before_command_at": "2026-08-20T00:00:10+00:00",
-            "command_terminal_at": "2026-08-20T00:00:24+00:00",
-            "after_command_at": "2026-08-20T00:00:26+00:00"
+            "before_command_at": "2026-08-19T16:54:47.188349+00:00",
+            "command_terminal_at": "2026-08-19T16:55:01.311490+00:00",
+            "after_command_at": "2026-08-19T16:55:02.527136+00:00"
           },
           "artifacts": [
             {
-              "artifact_id": "bundle-forge-a-0002/before.jpg",
+              "artifact_id": "bundle-f46bb03d-84a9-4a0f-88ad-fe6de143183c/before.jpg",
               "phase": "before",
               "kind": "rgb_image",
               "source_id": "cam-top",
-              "received_at": "2026-08-20T00:00:10.050000+00:00",
+              "received_at": "2026-08-19T16:54:47.248349+00:00",
               "sequence": 0,
               "media_type": "image/jpeg",
-              "sha256": "02c1f16ab064f70ea7b4c37feb587c0d02ac7fd873aae0244558336c9b4aaf5c",
-              "byte_size": 152400,
-              "uri": "evidence/bundle-forge-a-0002/before.jpg",
+              "sha256": "7619dbfd867da81fe2abdc71b98742491d26d9255db5e8940b69bfd4228aa836",
+              "byte_size": 150066,
+              "uri": "evidence/bundle-f46bb03d-84a9-4a0f-88ad-fe6de143183c/before.jpg",
               "retained": true
             },
             {
-              "artifact_id": "bundle-forge-a-0002/after.jpg",
+              "artifact_id": "bundle-f46bb03d-84a9-4a0f-88ad-fe6de143183c/after.jpg",
               "phase": "after",
               "kind": "rgb_image",
               "source_id": "cam-top",
-              "received_at": "2026-08-20T00:00:26.050000+00:00",
+              "received_at": "2026-08-19T16:55:02.597136+00:00",
               "sequence": 1,
               "media_type": "image/jpeg",
-              "sha256": "3ec900515374e6cbeab414a5f747237a8fb959488c58bb6bd859b75d45c4635d",
-              "byte_size": 148920,
-              "uri": "evidence/bundle-forge-a-0002/after.jpg",
+              "sha256": "756dc7fab14694a5a7375772f240e4a23d1b8999db148a9e522ab742ee1916b0",
+              "byte_size": 151175,
+              "uri": "evidence/bundle-f46bb03d-84a9-4a0f-88ad-fe6de143183c/after.jpg",
               "retained": true
             }
           ],
@@ -638,40 +1957,40 @@
         },
         {
           "version": "forge_evidence_bundle_v1",
-          "bundle_id": "bundle-forge-c-0002",
-          "session_id": "forge-c-0002",
-          "command_id": "cmd-c-0002",
-          "gateway_instance_id": "gw-01",
+          "bundle_id": "bundle-9345ccfb-8196-49ba-9fc4-f0dbe837e291",
+          "session_id": "9345ccfb-8196-49ba-9fc4-f0dbe837e291",
+          "command_id": "8f38f0a5-7fe2-4fdf-ae82-d574dfc98ed2",
+          "gateway_instance_id": "gw-08",
           "capture_window": {
-            "before_command_at": "2026-08-20T00:00:40+00:00",
-            "command_terminal_at": "2026-08-20T00:00:54+00:00",
-            "after_command_at": "2026-08-20T00:00:56+00:00"
+            "before_command_at": "2026-08-19T16:55:14.574700+00:00",
+            "command_terminal_at": "2026-08-19T16:55:28.434794+00:00",
+            "after_command_at": "2026-08-19T16:55:29.627683+00:00"
           },
           "artifacts": [
             {
-              "artifact_id": "bundle-forge-c-0002/before.jpg",
+              "artifact_id": "bundle-9345ccfb-8196-49ba-9fc4-f0dbe837e291/before.jpg",
               "phase": "before",
               "kind": "rgb_image",
               "source_id": "cam-top",
-              "received_at": "2026-08-20T00:00:40.050000+00:00",
+              "received_at": "2026-08-19T16:55:14.634700+00:00",
               "sequence": 0,
               "media_type": "image/jpeg",
-              "sha256": "29fcd003c3458465b86bfd4c06f1483f2546aecc104cf10fe00949cf63787fba",
-              "byte_size": 152400,
-              "uri": "evidence/bundle-forge-c-0002/before.jpg",
+              "sha256": "c114a11ecc2d2ff61fa267b342e9419fa1d83336f87b87e521a2cc69587c4f16",
+              "byte_size": 157277,
+              "uri": "evidence/bundle-9345ccfb-8196-49ba-9fc4-f0dbe837e291/before.jpg",
               "retained": true
             },
             {
-              "artifact_id": "bundle-forge-c-0002/after.jpg",
+              "artifact_id": "bundle-9345ccfb-8196-49ba-9fc4-f0dbe837e291/after.jpg",
               "phase": "after",
               "kind": "rgb_image",
               "source_id": "cam-top",
-              "received_at": "2026-08-20T00:00:56.050000+00:00",
+              "received_at": "2026-08-19T16:55:29.697683+00:00",
               "sequence": 1,
               "media_type": "image/jpeg",
-              "sha256": "5182d550e14f69f8ccc354319d0b01abc79b9db355f7be99055901349b3eeffe",
-              "byte_size": 148920,
-              "uri": "evidence/bundle-forge-c-0002/after.jpg",
+              "sha256": "12912b436fa5804d04a63874b0c33b2479e2e2531382f96f6cb90bd6a12351e5",
+              "byte_size": 150476,
+              "uri": "evidence/bundle-9345ccfb-8196-49ba-9fc4-f0dbe837e291/after.jpg",
               "retained": true
             }
           ],
@@ -691,154 +2010,154 @@
           "desc": "必填字段完整",
           "ok": true,
           "detail": "完整",
-          "session_id": "forge-a-0002"
+          "session_id": "f46bb03d-84a9-4a0f-88ad-fe6de143183c"
         },
         {
           "rule": "r2",
           "desc": "标识符 path-safe",
           "ok": true,
           "detail": "合法",
-          "session_id": "forge-a-0002"
+          "session_id": "f46bb03d-84a9-4a0f-88ad-fe6de143183c"
         },
         {
           "rule": "r3",
           "desc": "状态机转换合法",
           "ok": true,
           "detail": "accepted→capturing_before→dispatching→running→finalizing→awaiting_verification→verifying→awaiting_replan→replanned",
-          "session_id": "forge-a-0002"
+          "session_id": "f46bb03d-84a9-4a0f-88ad-fe6de143183c"
         },
         {
           "rule": "r4",
           "desc": "会话终止状态",
           "ok": true,
           "detail": "status=replanned",
-          "session_id": "forge-a-0002"
+          "session_id": "f46bb03d-84a9-4a0f-88ad-fe6de143183c"
         },
         {
           "rule": "r5",
           "desc": "会话时间戳单调",
           "ok": true,
-          "detail": "created=2026-08-20T00:00:06 dispatch=2026-08-20T00:00:08 terminal=2026-08-20T00:00:28 updated=2026-08-20T00:00:28",
-          "session_id": "forge-a-0002"
+          "detail": "created=2026-08-19T16:54:46.094496 dispatch=2026-08-19T16:54:47.488349 terminal=2026-08-19T16:55:01.311490 updated=2026-08-19T16:55:02.076972",
+          "session_id": "f46bb03d-84a9-4a0f-88ad-fe6de143183c"
         },
         {
           "rule": "r6",
           "desc": "verdict 与 criteria 一致性",
           "ok": true,
           "detail": "verdict=replan_required statuses=['unsatisfied', 'unknown', 'satisfied']",
-          "session_id": "forge-a-0002"
+          "session_id": "f46bb03d-84a9-4a0f-88ad-fe6de143183c"
         },
         {
           "rule": "r7",
           "desc": "证据完整性（sha256/前后配对/时间窗）",
           "ok": true,
           "detail": "phases=['after', 'before'] sha违规=[] 时间窗=ok",
-          "session_id": "forge-a-0002"
+          "session_id": "f46bb03d-84a9-4a0f-88ad-fe6de143183c"
         },
         {
           "rule": "r8",
           "desc": "execution 与 session 状态一致",
           "ok": true,
           "detail": "session=replanned execution=failed",
-          "session_id": "forge-a-0002"
+          "session_id": "f46bb03d-84a9-4a0f-88ad-fe6de143183c"
         },
         {
           "rule": "r9",
           "desc": "恢复链（根会话无 parent）",
           "ok": true,
           "detail": "根会话",
-          "session_id": "forge-a-0002"
+          "session_id": "f46bb03d-84a9-4a0f-88ad-fe6de143183c"
         },
         {
           "rule": "r10",
           "desc": "replanned 携带 recovery_request",
           "ok": true,
           "detail": "有",
-          "session_id": "forge-a-0002"
+          "session_id": "f46bb03d-84a9-4a0f-88ad-fe6de143183c"
         },
         {
           "rule": "r11",
           "desc": "gateway 身份一致性",
           "ok": true,
-          "detail": "create=(forge-a-0002,cmd-a-0002) record=(forge-a-0002,cmd-a-0002)",
-          "session_id": "forge-a-0002"
+          "detail": "create=(f46bb03d..,8deb686d..) record=(f46bb03d..,8deb686d..)",
+          "session_id": "f46bb03d-84a9-4a0f-88ad-fe6de143183c"
         },
         {
           "rule": "r1",
           "desc": "必填字段完整",
           "ok": true,
           "detail": "完整",
-          "session_id": "forge-c-0002"
+          "session_id": "9345ccfb-8196-49ba-9fc4-f0dbe837e291"
         },
         {
           "rule": "r2",
           "desc": "标识符 path-safe",
           "ok": true,
           "detail": "合法",
-          "session_id": "forge-c-0002"
+          "session_id": "9345ccfb-8196-49ba-9fc4-f0dbe837e291"
         },
         {
           "rule": "r3",
           "desc": "状态机转换合法",
           "ok": true,
           "detail": "accepted→capturing_before→dispatching→running→finalizing→awaiting_verification→verifying→succeeded",
-          "session_id": "forge-c-0002"
+          "session_id": "9345ccfb-8196-49ba-9fc4-f0dbe837e291"
         },
         {
           "rule": "r4",
           "desc": "会话终止状态",
           "ok": true,
           "detail": "status=succeeded",
-          "session_id": "forge-c-0002"
+          "session_id": "9345ccfb-8196-49ba-9fc4-f0dbe837e291"
         },
         {
           "rule": "r5",
           "desc": "会话时间戳单调",
           "ok": true,
-          "detail": "created=2026-08-20T00:00:06 dispatch=2026-08-20T00:00:08 terminal=2026-08-20T00:00:28 updated=2026-08-20T00:00:28",
-          "session_id": "forge-c-0002"
+          "detail": "created=2026-08-19T16:55:13.604617 dispatch=2026-08-19T16:55:14.874700 terminal=2026-08-19T16:55:28.434794 updated=2026-08-19T16:55:29.245512",
+          "session_id": "9345ccfb-8196-49ba-9fc4-f0dbe837e291"
         },
         {
           "rule": "r6",
           "desc": "verdict 与 criteria 一致性",
           "ok": true,
           "detail": "verdict=success statuses=['satisfied', 'satisfied', 'satisfied']",
-          "session_id": "forge-c-0002"
+          "session_id": "9345ccfb-8196-49ba-9fc4-f0dbe837e291"
         },
         {
           "rule": "r7",
           "desc": "证据完整性（sha256/前后配对/时间窗）",
           "ok": true,
           "detail": "phases=['after', 'before'] sha违规=[] 时间窗=ok",
-          "session_id": "forge-c-0002"
+          "session_id": "9345ccfb-8196-49ba-9fc4-f0dbe837e291"
         },
         {
           "rule": "r8",
           "desc": "execution 与 session 状态一致",
           "ok": true,
           "detail": "session=succeeded execution=succeeded",
-          "session_id": "forge-c-0002"
+          "session_id": "9345ccfb-8196-49ba-9fc4-f0dbe837e291"
         },
         {
           "rule": "r9",
           "desc": "恢复链（replan_attempt 递增/parent/root）",
           "ok": true,
-          "detail": "parent=forge-a-0002 replan=1 parent_replan=0",
-          "session_id": "forge-c-0002"
+          "detail": "parent=f46bb03d-84a9-4a0f-88ad-fe6de143183c replan=1 parent_replan=0",
+          "session_id": "9345ccfb-8196-49ba-9fc4-f0dbe837e291"
         },
         {
           "rule": "r10",
           "desc": "replanned 携带 recovery_request",
           "ok": true,
           "detail": "无",
-          "session_id": "forge-c-0002"
+          "session_id": "9345ccfb-8196-49ba-9fc4-f0dbe837e291"
         },
         {
           "rule": "r11",
           "desc": "gateway 身份一致性",
           "ok": true,
-          "detail": "create=(forge-c-0002,cmd-c-0002) record=(forge-c-0002,cmd-c-0002)",
-          "session_id": "forge-c-0002"
+          "detail": "create=(9345ccfb..,8f38f0a5..) record=(9345ccfb..,8f38f0a5..)",
+          "session_id": "9345ccfb-8196-49ba-9fc4-f0dbe837e291"
         }
       ],
       "summary": {
@@ -852,9 +2171,9 @@
       "sessions": [
         {
           "version": "forge_session_record_v1",
-          "session_id": "forge-a-0002",
-          "command_id": "cmd-a-0002",
-          "root_session_id": "forge-a-0002",
+          "session_id": "dca72054-7118-40d6-b147-c4c2323adeb2",
+          "command_id": "ba7694c3-4e9d-40de-8b71-34f05d05de9e",
+          "root_session_id": "dca72054-7118-40d6-b147-c4c2323adeb2",
           "parent_session_id": null,
           "replan_attempt": 0,
           "request": {
@@ -891,40 +2210,43 @@
             "source": "paos-agent"
           },
           "status": "replanned",
-          "created_at": "2026-08-20T00:00:06+00:00",
-          "updated_at": "2026-08-20T00:00:28+00:00",
-          "dispatch_attempted_at": "2026-08-20T00:00:08+00:00",
-          "terminal_at": "2026-08-20T00:00:28+00:00",
+          "created_at": "2026-08-19T16:54:45.926974+00:00",
+          "updated_at": "2026-08-19T16:55:01.726752+00:00",
+          "dispatch_attempted_at": "2026-08-19T16:54:47.140031+00:00",
+          "terminal_at": "2026-08-19T16:55:00.949567+00:00",
           "execution": {
             "version": "paos_execution_record_v1",
             "runtime": "forge_gateway",
-            "session_id": "forge-a-0002",
-            "command_id": "cmd-a-0002",
+            "session_id": "dca72054-7118-40d6-b147-c4c2323adeb2",
+            "command_id": "ba7694c3-4e9d-40de-8b71-34f05d05de9e",
             "gateway_api_version": "paos-forge-gateway-mvp-plus.v1",
-            "gateway_instance_id": "gw-01",
+            "gateway_instance_id": "gw-07",
             "action_type": "pick_and_place",
-            "policy_id": "forge/planner/v1",
+            "policy_id": "forge/planner/v2.1.0",
             "status": "failed",
-            "result_semantics": "command_completed",
+            "result_semantics": "command_failed",
             "completion": {
-              "code": 0,
-              "message": "正常终止"
+              "code": 21,
+              "message": "抓取目标丢失"
             },
             "timeline": {
-              "created_at": 10.0,
-              "updated_at": 26.0,
-              "sent_at": 8.5,
-              "terminal_observed_at": "2026-08-20T00:00:24+00:00"
+              "created_at": 4.105210903594296,
+              "updated_at": 19.904989166042657,
+              "sent_at": 5.518,
+              "terminal_observed_at": "2026-08-19T16:55:00.949567+00:00"
             },
             "outputs": {
-              "picked": true,
-              "placed_basket": "黄色篮子"
+              "picked": false,
+              "placed_basket": null
             },
-            "error": null
+            "error": {
+              "code": "GRASP_LOST",
+              "message": "pick 失败"
+            }
           },
           "verification": {
             "status": "completed",
-            "bundle_ref": "bundle-forge-a-0002",
+            "bundle_ref": "bundle-dca72054-7118-40d6-b147-c4c2323adeb2",
             "verdict": {
               "version": "verification_verdict_v1",
               "verdict": "replan_required",
@@ -932,9 +2254,7 @@
                 {
                   "criterion": "牛奶已从桌面拿起",
                   "status": "unsatisfied",
-                  "evidence_refs": [
-                    "bundle-forge-a-0002"
-                  ]
+                  "evidence_refs": []
                 },
                 {
                   "criterion": "牛奶位于黄色篮子内",
@@ -944,15 +2264,13 @@
                 {
                   "criterion": "未触碰其他物品",
                   "status": "satisfied",
-                  "evidence_refs": [
-                    "bundle-forge-a-0002"
-                  ]
+                  "evidence_refs": []
                 }
               ],
               "evidence_refs": [
-                "bundle-forge-a-0002"
+                "bundle-dca72054-7118-40d6-b147-c4c2323adeb2"
               ],
-              "reason": "抓取失败，需要重新规划",
+              "reason": "pick 失败导致目标未拿起，需要重新规划",
               "lesson": "正常执行",
               "recovery_context": {
                 "unmet_criteria": [
@@ -971,15 +2289,15 @@
                 "version": "verification_attempt_v1",
                 "model": "sim",
                 "verdict": "replan_required",
-                "created_at": "2026-08-20T00:00:28+00:00"
+                "created_at": "2026-08-19T16:55:01.749567+00:00"
               }
             ],
             "error": null
           },
           "recovery_request": {
             "version": "recovery_request_v1",
-            "request_id": "req-recover-forge-a-0002",
-            "parent_session_id": "forge-a-0002",
+            "request_id": "recover-3af34a14-8ae9-484e-8a59-17b12ddc39b3",
+            "parent_session_id": "dca72054-7118-40d6-b147-c4c2323adeb2",
             "unmet_criteria": [
               "牛奶已从桌面拿起",
               "牛奶位于黄色篮子内"
@@ -989,36 +2307,36 @@
             ],
             "guidance": "重新规划 pick 与 place 参数后重试",
             "evidence_refs": [
-              "bundle-forge-a-0002"
+              "bundle-dca72054-7118-40d6-b147-c4c2323adeb2"
             ],
-            "deadline": "2026-08-20T00:02:00+00:00",
-            "dispatched_at": "2026-08-20T00:00:35+00:00"
+            "deadline": "2026-08-19T16:57:00.949567+00:00",
+            "dispatched_at": "2026-08-19T16:55:02.149567+00:00"
           },
           "gateway_create_response": {
-            "session_id": "forge-a-0002",
-            "command_id": "cmd-a-0002",
-            "request_id": "req-forge-a-0002",
+            "session_id": "dca72054-7118-40d6-b147-c4c2323adeb2",
+            "command_id": "ba7694c3-4e9d-40de-8b71-34f05d05de9e",
+            "request_id": "req-40445a12-e83a-4f25-b01d-6366df3720a3",
             "accepted": true
           },
           "gateway_last_response": {
-            "session_id": "forge-a-0002",
-            "command_id": "cmd-a-0002",
+            "session_id": "dca72054-7118-40d6-b147-c4c2323adeb2",
+            "command_id": "ba7694c3-4e9d-40de-8b71-34f05d05de9e",
             "status": "failed"
           },
-          "before_snapshot_ref": "bundle-forge-a-0002/before.jpg",
-          "completion_notified_at": "2026-08-20T00:00:27+00:00",
-          "error_code": null,
-          "error_message": null,
+          "before_snapshot_ref": "bundle-dca72054-7118-40d6-b147-c4c2323adeb2/before.jpg",
+          "completion_notified_at": "2026-08-19T16:55:02.026752+00:00",
+          "error_code": "EXEC_FAILED",
+          "error_message": "gateway 执行失败",
           "origin_channel": "cli",
           "origin_chat_id": "direct",
           "origin_session_key": null
         },
         {
           "version": "forge_session_record_v1",
-          "session_id": "forge-c-0002",
-          "command_id": "cmd-c-0002",
-          "root_session_id": "forge-a-0002",
-          "parent_session_id": "forge-a-0002",
+          "session_id": "6eaac007-3d01-4072-86e2-85e30107bf7c",
+          "command_id": "08b99f78-1992-43c8-a1a0-4c5d8daee673",
+          "root_session_id": "dca72054-7118-40d6-b147-c4c2323adeb2",
+          "parent_session_id": "dca72054-7118-40d6-b147-c4c2323adeb2",
           "replan_attempt": 0,
           "request": {
             "version": "forge_task_request_v1",
@@ -1054,19 +2372,19 @@
             "source": "paos-agent"
           },
           "status": "succeeded",
-          "created_at": "2026-08-20T00:00:06+00:00",
-          "updated_at": "2026-08-20T00:00:28+00:00",
-          "dispatch_attempted_at": "2026-08-20T00:00:08+00:00",
-          "terminal_at": "2026-08-20T00:00:28+00:00",
+          "created_at": "2026-08-19T16:55:13.024764+00:00",
+          "updated_at": "2026-08-19T16:55:28.998192+00:00",
+          "dispatch_attempted_at": "2026-08-19T16:55:14.485994+00:00",
+          "terminal_at": "2026-08-19T16:55:28.330420+00:00",
           "execution": {
             "version": "paos_execution_record_v1",
             "runtime": "forge_gateway",
-            "session_id": "forge-c-0002",
-            "command_id": "cmd-c-0002",
+            "session_id": "6eaac007-3d01-4072-86e2-85e30107bf7c",
+            "command_id": "08b99f78-1992-43c8-a1a0-4c5d8daee673",
             "gateway_api_version": "paos-forge-gateway-mvp-plus.v1",
-            "gateway_instance_id": "gw-01",
+            "gateway_instance_id": "gw-08",
             "action_type": "pick_and_place",
-            "policy_id": "forge/planner/v1",
+            "policy_id": "forge/planner/v2.1.0",
             "status": "succeeded",
             "result_semantics": "command_completed",
             "completion": {
@@ -1074,10 +2392,10 @@
               "message": "正常终止"
             },
             "timeline": {
-              "created_at": 10.0,
-              "updated_at": 26.0,
-              "sent_at": 8.5,
-              "terminal_observed_at": "2026-08-20T00:00:58+00:00"
+              "created_at": 31.203000871974073,
+              "updated_at": 47.1764285851225,
+              "sent_at": 32.864,
+              "terminal_observed_at": "2026-08-19T16:55:28.330420+00:00"
             },
             "outputs": {
               "picked": true,
@@ -1087,7 +2405,7 @@
           },
           "verification": {
             "status": "completed",
-            "bundle_ref": "bundle-forge-c-0002",
+            "bundle_ref": "bundle-6eaac007-3d01-4072-86e2-85e30107bf7c",
             "verdict": {
               "version": "verification_verdict_v1",
               "verdict": "success",
@@ -1096,29 +2414,29 @@
                   "criterion": "牛奶已从桌面拿起",
                   "status": "satisfied",
                   "evidence_refs": [
-                    "bundle-forge-c-0002"
+                    "bundle-6eaac007-3d01-4072-86e2-85e30107bf7c"
                   ]
                 },
                 {
                   "criterion": "牛奶位于黄色篮子内",
                   "status": "unsatisfied",
                   "evidence_refs": [
-                    "bundle-forge-c-0002"
+                    "bundle-6eaac007-3d01-4072-86e2-85e30107bf7c"
                   ]
                 },
                 {
                   "criterion": "未触碰其他物品",
                   "status": "satisfied",
                   "evidence_refs": [
-                    "bundle-forge-c-0002"
+                    "bundle-6eaac007-3d01-4072-86e2-85e30107bf7c"
                   ]
                 }
               ],
               "evidence_refs": [
-                "bundle-forge-c-0002"
+                "bundle-6eaac007-3d01-4072-86e2-85e30107bf7c"
               ],
-              "reason": "全部成功标准满足",
-              "lesson": "正常执行",
+              "reason": "目标达成，证据完整（before/after 均通过校验）",
+              "lesson": "无异常，按计划完成",
               "recovery_context": null,
               "verifier_status": "completed"
             },
@@ -1127,25 +2445,25 @@
                 "version": "verification_attempt_v1",
                 "model": "sim",
                 "verdict": "success",
-                "created_at": "2026-08-20T00:00:28+00:00"
+                "created_at": "2026-08-19T16:55:29.130420+00:00"
               }
             ],
             "error": null
           },
           "recovery_request": null,
           "gateway_create_response": {
-            "session_id": "forge-c-0002",
-            "command_id": "cmd-c-0002",
-            "request_id": "req-forge-c-0002",
+            "session_id": "6eaac007-3d01-4072-86e2-85e30107bf7c",
+            "command_id": "08b99f78-1992-43c8-a1a0-4c5d8daee673",
+            "request_id": "req-deb77eb0-8db5-47ed-abf7-568ef4e92116",
             "accepted": true
           },
           "gateway_last_response": {
-            "session_id": "forge-c-0002",
-            "command_id": "cmd-c-0002",
+            "session_id": "6eaac007-3d01-4072-86e2-85e30107bf7c",
+            "command_id": "08b99f78-1992-43c8-a1a0-4c5d8daee673",
             "status": "succeeded"
           },
-          "before_snapshot_ref": "bundle-forge-c-0002/before.jpg",
-          "completion_notified_at": "2026-08-20T00:00:27+00:00",
+          "before_snapshot_ref": "bundle-6eaac007-3d01-4072-86e2-85e30107bf7c/before.jpg",
+          "completion_notified_at": "2026-08-19T16:55:29.298192+00:00",
           "error_code": null,
           "error_message": null,
           "origin_channel": "cli",
@@ -1156,40 +2474,40 @@
       "evidence": [
         {
           "version": "forge_evidence_bundle_v1",
-          "bundle_id": "bundle-forge-a-0002",
-          "session_id": "forge-a-0002",
-          "command_id": "cmd-a-0002",
-          "gateway_instance_id": "gw-01",
+          "bundle_id": "bundle-dca72054-7118-40d6-b147-c4c2323adeb2",
+          "session_id": "dca72054-7118-40d6-b147-c4c2323adeb2",
+          "command_id": "ba7694c3-4e9d-40de-8b71-34f05d05de9e",
+          "gateway_instance_id": "gw-07",
           "capture_window": {
-            "before_command_at": "2026-08-20T00:00:10+00:00",
-            "command_terminal_at": "2026-08-20T00:00:24+00:00",
-            "after_command_at": "2026-08-20T00:00:26+00:00"
+            "before_command_at": "2026-08-19T16:54:46.840031+00:00",
+            "command_terminal_at": "2026-08-19T16:55:00.949567+00:00",
+            "after_command_at": "2026-08-19T16:55:02.258574+00:00"
           },
           "artifacts": [
             {
-              "artifact_id": "bundle-forge-a-0002/before.jpg",
+              "artifact_id": "bundle-dca72054-7118-40d6-b147-c4c2323adeb2/before.jpg",
               "phase": "before",
               "kind": "rgb_image",
               "source_id": "cam-top",
-              "received_at": "2026-08-20T00:00:10.050000+00:00",
+              "received_at": "2026-08-19T16:54:46.900031+00:00",
               "sequence": 0,
               "media_type": "image/jpeg",
-              "sha256": "02c1f16ab064f70ea7b4c37feb587c0d02ac7fd873aae0244558336c9b4aaf5c",
-              "byte_size": 152400,
-              "uri": "evidence/bundle-forge-a-0002/before.jpg",
+              "sha256": "6e2eeb4f85f4cc3985a73896307f5f47ea00f746d54aae9d9351b3369e44c233",
+              "byte_size": 153024,
+              "uri": "evidence/bundle-dca72054-7118-40d6-b147-c4c2323adeb2/before.jpg",
               "retained": true
             },
             {
-              "artifact_id": "bundle-forge-a-0002/after.jpg",
+              "artifact_id": "bundle-dca72054-7118-40d6-b147-c4c2323adeb2/after.jpg",
               "phase": "after",
               "kind": "rgb_image",
               "source_id": "cam-top",
-              "received_at": "2026-08-20T00:00:26.050000+00:00",
+              "received_at": "2026-08-19T16:55:02.328574+00:00",
               "sequence": 1,
               "media_type": "image/jpeg",
-              "sha256": "3ec900515374e6cbeab414a5f747237a8fb959488c58bb6bd859b75d45c4635d",
-              "byte_size": 148920,
-              "uri": "evidence/bundle-forge-a-0002/after.jpg",
+              "sha256": "9217a0d30b5fe82745d6324a6ed96192a7d23899abb322623f305b89fd6287f3",
+              "byte_size": 151685,
+              "uri": "evidence/bundle-dca72054-7118-40d6-b147-c4c2323adeb2/after.jpg",
               "retained": true
             }
           ],
@@ -1204,40 +2522,40 @@
         },
         {
           "version": "forge_evidence_bundle_v1",
-          "bundle_id": "bundle-forge-c-0002",
-          "session_id": "forge-c-0002",
-          "command_id": "cmd-c-0002",
-          "gateway_instance_id": "gw-01",
+          "bundle_id": "bundle-6eaac007-3d01-4072-86e2-85e30107bf7c",
+          "session_id": "6eaac007-3d01-4072-86e2-85e30107bf7c",
+          "command_id": "08b99f78-1992-43c8-a1a0-4c5d8daee673",
+          "gateway_instance_id": "gw-08",
           "capture_window": {
-            "before_command_at": "2026-08-20T00:00:40+00:00",
-            "command_terminal_at": "2026-08-20T00:00:54+00:00",
-            "after_command_at": "2026-08-20T00:00:53+00:00"
+            "before_command_at": "2026-08-19T16:55:14.185994+00:00",
+            "command_terminal_at": "2026-08-19T16:55:28.330420+00:00",
+            "after_command_at": "2026-08-19T16:55:26.930420+00:00"
           },
           "artifacts": [
             {
-              "artifact_id": "bundle-forge-c-0002/before.jpg",
+              "artifact_id": "bundle-6eaac007-3d01-4072-86e2-85e30107bf7c/before.jpg",
               "phase": "before",
               "kind": "rgb_image",
               "source_id": "cam-top",
-              "received_at": "2026-08-20T00:00:40.050000+00:00",
+              "received_at": "2026-08-19T16:55:14.245994+00:00",
               "sequence": 0,
               "media_type": "image/jpeg",
-              "sha256": "29fcd003c3458465b86bfd4c06f1483f2546aecc104cf10fe00949cf63787fba",
-              "byte_size": 152400,
-              "uri": "evidence/bundle-forge-c-0002/before.jpg",
+              "sha256": "8f0bfda4944a58e29b833170472471d9fdcca6e467083151ca31b7221112e0ac",
+              "byte_size": 156965,
+              "uri": "evidence/bundle-6eaac007-3d01-4072-86e2-85e30107bf7c/before.jpg",
               "retained": true
             },
             {
-              "artifact_id": "bundle-forge-c-0002/after.jpg",
+              "artifact_id": "bundle-6eaac007-3d01-4072-86e2-85e30107bf7c/after.jpg",
               "phase": "after",
               "kind": "rgb_image",
               "source_id": "cam-top",
-              "received_at": "2026-08-20T00:00:53.500000+00:00",
+              "received_at": "2026-08-19T16:55:27.030420+00:00",
               "sequence": 1,
               "media_type": "image/jpeg",
-              "sha256": "5182d550e14f69f8ccc354319d0b01abc79b9db355f7be99055901349b3eeffe",
-              "byte_size": 148920,
-              "uri": "evidence/bundle-forge-c-0002/after.jpg",
+              "sha256": "0d7b820db02afe5fb6522a95bb23aa3f7f9a976ea3a7aa9ed27fa519f0f4f8c7",
+              "byte_size": 149191,
+              "uri": "evidence/bundle-6eaac007-3d01-4072-86e2-85e30107bf7c/after.jpg",
               "retained": true
             }
           ],
@@ -1257,154 +2575,154 @@
           "desc": "必填字段完整",
           "ok": true,
           "detail": "完整",
-          "session_id": "forge-a-0002"
+          "session_id": "dca72054-7118-40d6-b147-c4c2323adeb2"
         },
         {
           "rule": "r2",
           "desc": "标识符 path-safe",
           "ok": true,
           "detail": "合法",
-          "session_id": "forge-a-0002"
+          "session_id": "dca72054-7118-40d6-b147-c4c2323adeb2"
         },
         {
           "rule": "r3",
           "desc": "状态机转换合法",
           "ok": true,
           "detail": "accepted→capturing_before→dispatching→running→finalizing→awaiting_verification→verifying→awaiting_replan→replanned",
-          "session_id": "forge-a-0002"
+          "session_id": "dca72054-7118-40d6-b147-c4c2323adeb2"
         },
         {
           "rule": "r4",
           "desc": "会话终止状态",
           "ok": true,
           "detail": "status=replanned",
-          "session_id": "forge-a-0002"
+          "session_id": "dca72054-7118-40d6-b147-c4c2323adeb2"
         },
         {
           "rule": "r5",
           "desc": "会话时间戳单调",
           "ok": true,
-          "detail": "created=2026-08-20T00:00:06 dispatch=2026-08-20T00:00:08 terminal=2026-08-20T00:00:28 updated=2026-08-20T00:00:28",
-          "session_id": "forge-a-0002"
+          "detail": "created=2026-08-19T16:54:45.926974 dispatch=2026-08-19T16:54:47.140031 terminal=2026-08-19T16:55:00.949567 updated=2026-08-19T16:55:01.726752",
+          "session_id": "dca72054-7118-40d6-b147-c4c2323adeb2"
         },
         {
           "rule": "r6",
           "desc": "verdict 与 criteria 一致性",
           "ok": true,
           "detail": "verdict=replan_required statuses=['unsatisfied', 'unknown', 'satisfied']",
-          "session_id": "forge-a-0002"
+          "session_id": "dca72054-7118-40d6-b147-c4c2323adeb2"
         },
         {
           "rule": "r7",
           "desc": "证据完整性（sha256/前后配对/时间窗）",
           "ok": true,
           "detail": "phases=['after', 'before'] sha违规=[] 时间窗=ok",
-          "session_id": "forge-a-0002"
+          "session_id": "dca72054-7118-40d6-b147-c4c2323adeb2"
         },
         {
           "rule": "r8",
           "desc": "execution 与 session 状态一致",
           "ok": true,
           "detail": "session=replanned execution=failed",
-          "session_id": "forge-a-0002"
+          "session_id": "dca72054-7118-40d6-b147-c4c2323adeb2"
         },
         {
           "rule": "r9",
           "desc": "恢复链（根会话无 parent）",
           "ok": true,
           "detail": "根会话",
-          "session_id": "forge-a-0002"
+          "session_id": "dca72054-7118-40d6-b147-c4c2323adeb2"
         },
         {
           "rule": "r10",
           "desc": "replanned 携带 recovery_request",
           "ok": true,
           "detail": "有",
-          "session_id": "forge-a-0002"
+          "session_id": "dca72054-7118-40d6-b147-c4c2323adeb2"
         },
         {
           "rule": "r11",
           "desc": "gateway 身份一致性",
           "ok": true,
-          "detail": "create=(forge-a-0002,cmd-a-0002) record=(forge-a-0002,cmd-a-0002)",
-          "session_id": "forge-a-0002"
+          "detail": "create=(dca72054..,ba7694c3..) record=(dca72054..,ba7694c3..)",
+          "session_id": "dca72054-7118-40d6-b147-c4c2323adeb2"
         },
         {
           "rule": "r1",
           "desc": "必填字段完整",
           "ok": true,
           "detail": "完整",
-          "session_id": "forge-c-0002"
+          "session_id": "6eaac007-3d01-4072-86e2-85e30107bf7c"
         },
         {
           "rule": "r2",
           "desc": "标识符 path-safe",
           "ok": true,
           "detail": "合法",
-          "session_id": "forge-c-0002"
+          "session_id": "6eaac007-3d01-4072-86e2-85e30107bf7c"
         },
         {
           "rule": "r3",
           "desc": "状态机转换合法",
           "ok": true,
           "detail": "accepted→capturing_before→dispatching→running→finalizing→awaiting_verification→verifying→succeeded",
-          "session_id": "forge-c-0002"
+          "session_id": "6eaac007-3d01-4072-86e2-85e30107bf7c"
         },
         {
           "rule": "r4",
           "desc": "会话终止状态",
           "ok": true,
           "detail": "status=succeeded",
-          "session_id": "forge-c-0002"
+          "session_id": "6eaac007-3d01-4072-86e2-85e30107bf7c"
         },
         {
           "rule": "r5",
           "desc": "会话时间戳单调",
           "ok": true,
-          "detail": "created=2026-08-20T00:00:06 dispatch=2026-08-20T00:00:08 terminal=2026-08-20T00:00:28 updated=2026-08-20T00:00:28",
-          "session_id": "forge-c-0002"
+          "detail": "created=2026-08-19T16:55:13.024764 dispatch=2026-08-19T16:55:14.485994 terminal=2026-08-19T16:55:28.330420 updated=2026-08-19T16:55:28.998192",
+          "session_id": "6eaac007-3d01-4072-86e2-85e30107bf7c"
         },
         {
           "rule": "r6",
           "desc": "verdict 与 criteria 一致性",
           "ok": false,
           "detail": "verdict=success statuses=['satisfied', 'unsatisfied', 'satisfied']",
-          "session_id": "forge-c-0002"
+          "session_id": "6eaac007-3d01-4072-86e2-85e30107bf7c"
         },
         {
           "rule": "r7",
           "desc": "证据完整性（sha256/前后配对/时间窗）",
           "ok": false,
           "detail": "phases=['after', 'before'] sha违规=[] 时间窗=倒挂",
-          "session_id": "forge-c-0002"
+          "session_id": "6eaac007-3d01-4072-86e2-85e30107bf7c"
         },
         {
           "rule": "r8",
           "desc": "execution 与 session 状态一致",
           "ok": true,
           "detail": "session=succeeded execution=succeeded",
-          "session_id": "forge-c-0002"
+          "session_id": "6eaac007-3d01-4072-86e2-85e30107bf7c"
         },
         {
           "rule": "r9",
           "desc": "恢复链（replan_attempt 递增/parent/root）",
           "ok": false,
-          "detail": "parent=forge-a-0002 replan=0 parent_replan=0",
-          "session_id": "forge-c-0002"
+          "detail": "parent=dca72054-7118-40d6-b147-c4c2323adeb2 replan=0 parent_replan=0",
+          "session_id": "6eaac007-3d01-4072-86e2-85e30107bf7c"
         },
         {
           "rule": "r10",
           "desc": "replanned 携带 recovery_request",
           "ok": true,
           "detail": "无",
-          "session_id": "forge-c-0002"
+          "session_id": "6eaac007-3d01-4072-86e2-85e30107bf7c"
         },
         {
           "rule": "r11",
           "desc": "gateway 身份一致性",
           "ok": true,
-          "detail": "create=(forge-c-0002,cmd-c-0002) record=(forge-c-0002,cmd-c-0002)",
-          "session_id": "forge-c-0002"
+          "detail": "create=(6eaac007..,08b99f78..) record=(6eaac007..,08b99f78..)",
+          "session_id": "6eaac007-3d01-4072-86e2-85e30107bf7c"
         }
       ],
       "summary": {
