@@ -1,0 +1,26 @@
+{
+  "shell_cmd": "python -m PhyAgentOS agent",
+  "shell_cps": 16,
+  "banner": "🍞 Interactive mode (type exit or Ctrl+C to quit)",
+  "user_msg": "开始分选任务，桌上存在可乐、橙子、香蕉、牛奶、猕猴桃、雪碧，请分选饮料和水果",
+  "user_cps": 10,
+  "hints": [
+    {"time": 1.5, "text": "Planner: 已分类 — 饮料: 可乐/牛奶/雪碧 · 水果: 橙子/香蕉/猕猴桃"},
+    {"time": 3.0, "text": "Forge command 已提交 · session 9d41-c017 · 共 6 个 pick/place 命令"},
+    {"time": 4.5, "text": "执行完成 · 证据采集: 6/6 操作前后图像通过校验"},
+    {"time": 6.0, "text": "验证通过: 6/6 criteria · goal achieved"}
+  ],
+  "reply": [
+    {"time": 0.0,  "text": "开始分选任务，要分选饮料和水果"},
+    {"time": 1.4,  "text": "桌面上存在可乐、橙子、香蕉、牛奶、猕猴桃、雪碧"},
+    {"time": 2.6,  "text": "属于饮料的有可乐、牛奶、雪碧"},
+    {"time": 3.4,  "text": "属于水果的有橙子、香蕉、猕猴桃"},
+    {"time": 4.8,  "text": "我已经清楚如何分选了，开始抓取可乐"},
+    {"time": 6.2,  "text": "先拿取可乐并放在黄色篮子里"},
+    {"time": 7.6,  "text": "继续拿取牛奶放在黄色篮子里"},
+    {"time": 9.0,  "text": "继续拿取雪碧放在黄色篮子里"},
+    {"time": 10.4, "text": "继续拿取香蕉放在绿色篮子里"},
+    {"time": 11.8, "text": "继续拿取橙子放在绿色篮子里"},
+    {"time": 13.2, "text": "继续拿取猕猴桃放在绿色篮子里"}
+  ]
+}
