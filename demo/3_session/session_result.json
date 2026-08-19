@@ -1,0 +1,1417 @@
+{
+  "task": "Forge session 完整性校验（模拟真实闭环）",
+  "generated_at": "2026-08-19T16:08:14+00:00",
+  "contract_source": "PhyAgentOS/verification/contracts.py",
+  "scenarios": [
+    {
+      "name": "健康闭环 — A 一次 pick/place 全程成功",
+      "sessions": [
+        {
+          "version": "forge_session_record_v1",
+          "session_id": "forge-a-0001",
+          "command_id": "cmd-a-0001",
+          "root_session_id": "forge-a-0001",
+          "parent_session_id": null,
+          "replan_attempt": 0,
+          "request": {
+            "version": "forge_task_request_v1",
+            "task_description": "抓取可乐并放入黄色篮子",
+            "action_type": "pick_and_place",
+            "inputs": {
+              "item": "可乐",
+              "source": "桌面",
+              "target": "黄色篮子"
+            },
+            "verification": {
+              "version": "task_verification_contract_v1",
+              "mode": "enforce",
+              "goal": "可乐已放入黄色篮子",
+              "success_criteria": [
+                "可乐已从桌面拿起",
+                "可乐位于黄色篮子内",
+                "未触碰其他物品"
+              ],
+              "constraints": [
+                "仅操作目标物品"
+              ],
+              "evidence_policy": {
+                "profile": "semantic_default",
+                "required_kinds": [
+                  "rgb_image"
+                ],
+                "required_sources": [],
+                "minimum_association": "best_effort"
+              }
+            },
+            "execution_timeout_s": 300.0,
+            "source": "paos-agent"
+          },
+          "status": "succeeded",
+          "created_at": "2026-08-20T00:00:06+00:00",
+          "updated_at": "2026-08-20T00:00:28+00:00",
+          "dispatch_attempted_at": "2026-08-20T00:00:08+00:00",
+          "terminal_at": "2026-08-20T00:00:28+00:00",
+          "execution": {
+            "version": "paos_execution_record_v1",
+            "runtime": "forge_gateway",
+            "session_id": "forge-a-0001",
+            "command_id": "cmd-a-0001",
+            "gateway_api_version": "paos-forge-gateway-mvp-plus.v1",
+            "gateway_instance_id": "gw-01",
+            "action_type": "pick_and_place",
+            "policy_id": "forge/planner/v1",
+            "status": "succeeded",
+            "result_semantics": "command_completed",
+            "completion": {
+              "code": 0,
+              "message": "正常终止"
+            },
+            "timeline": {
+              "created_at": 10.0,
+              "updated_at": 26.0,
+              "sent_at": 8.5,
+              "terminal_observed_at": "2026-08-20T00:00:24+00:00"
+            },
+            "outputs": {
+              "picked": true,
+              "placed_basket": "黄色篮子"
+            },
+            "error": null
+          },
+          "verification": {
+            "status": "completed",
+            "bundle_ref": "bundle-forge-a-0001",
+            "verdict": {
+              "version": "verification_verdict_v1",
+              "verdict": "success",
+              "criteria": [
+                {
+                  "criterion": "可乐已从桌面拿起",
+                  "status": "satisfied",
+                  "evidence_refs": [
+                    "bundle-forge-a-0001"
+                  ]
+                },
+                {
+                  "criterion": "可乐位于黄色篮子内",
+                  "status": "satisfied",
+                  "evidence_refs": [
+                    "bundle-forge-a-0001"
+                  ]
+                },
+                {
+                  "criterion": "未触碰其他物品",
+                  "status": "satisfied",
+                  "evidence_refs": [
+                    "bundle-forge-a-0001"
+                  ]
+                }
+              ],
+              "evidence_refs": [
+                "bundle-forge-a-0001"
+              ],
+              "reason": "全部成功标准满足",
+              "lesson": "正常执行",
+              "recovery_context": null,
+              "verifier_status": "completed"
+            },
+            "attempts": [
+              {
+                "version": "verification_attempt_v1",
+                "model": "sim",
+                "verdict": "success",
+                "created_at": "2026-08-20T00:00:28+00:00"
+              }
+            ],
+            "error": null
+          },
+          "recovery_request": null,
+          "gateway_create_response": {
+            "session_id": "forge-a-0001",
+            "command_id": "cmd-a-0001",
+            "request_id": "req-forge-a-0001",
+            "accepted": true
+          },
+          "gateway_last_response": {
+            "session_id": "forge-a-0001",
+            "command_id": "cmd-a-0001",
+            "status": "succeeded"
+          },
+          "before_snapshot_ref": "bundle-forge-a-0001/before.jpg",
+          "completion_notified_at": "2026-08-20T00:00:27+00:00",
+          "error_code": null,
+          "error_message": null,
+          "origin_channel": "cli",
+          "origin_chat_id": "direct",
+          "origin_session_key": null
+        }
+      ],
+      "evidence": [
+        {
+          "version": "forge_evidence_bundle_v1",
+          "bundle_id": "bundle-forge-a-0001",
+          "session_id": "forge-a-0001",
+          "command_id": "cmd-a-0001",
+          "gateway_instance_id": "gw-01",
+          "capture_window": {
+            "before_command_at": "2026-08-20T00:00:10+00:00",
+            "command_terminal_at": "2026-08-20T00:00:24+00:00",
+            "after_command_at": "2026-08-20T00:00:26+00:00"
+          },
+          "artifacts": [
+            {
+              "artifact_id": "bundle-forge-a-0001/before.jpg",
+              "phase": "before",
+              "kind": "rgb_image",
+              "source_id": "cam-top",
+              "received_at": "2026-08-20T00:00:10.050000+00:00",
+              "sequence": 0,
+              "media_type": "image/jpeg",
+              "sha256": "db3b485fc48b1bc9cab184d5ffcfdfd5ef9f8c780c8aebf96c3ac4c4d15aafb2",
+              "byte_size": 152400,
+              "uri": "evidence/bundle-forge-a-0001/before.jpg",
+              "retained": true
+            },
+            {
+              "artifact_id": "bundle-forge-a-0001/after.jpg",
+              "phase": "after",
+              "kind": "rgb_image",
+              "source_id": "cam-top",
+              "received_at": "2026-08-20T00:00:26.050000+00:00",
+              "sequence": 1,
+              "media_type": "image/jpeg",
+              "sha256": "286169daee116a0e39ac8cc1c7c8700771b01451c87de27bf1ff27d6a6a3a31d",
+              "byte_size": 148920,
+              "uri": "evidence/bundle-forge-a-0001/after.jpg",
+              "retained": true
+            }
+          ],
+          "quality": {
+            "complete": true,
+            "association_quality": "authoritative",
+            "capture_authority": "paos_forge_adapter",
+            "missing_requirements": [],
+            "stale_artifacts": [],
+            "errors": []
+          }
+        }
+      ],
+      "checks": [
+        {
+          "rule": "r1",
+          "desc": "必填字段完整",
+          "ok": true,
+          "detail": "完整",
+          "session_id": "forge-a-0001"
+        },
+        {
+          "rule": "r2",
+          "desc": "标识符 path-safe",
+          "ok": true,
+          "detail": "合法",
+          "session_id": "forge-a-0001"
+        },
+        {
+          "rule": "r3",
+          "desc": "状态机转换合法",
+          "ok": true,
+          "detail": "accepted→capturing_before→dispatching→running→finalizing→awaiting_verification→verifying→succeeded",
+          "session_id": "forge-a-0001"
+        },
+        {
+          "rule": "r4",
+          "desc": "会话终止状态",
+          "ok": true,
+          "detail": "status=succeeded",
+          "session_id": "forge-a-0001"
+        },
+        {
+          "rule": "r5",
+          "desc": "会话时间戳单调",
+          "ok": true,
+          "detail": "created=2026-08-20T00:00:06 dispatch=2026-08-20T00:00:08 terminal=2026-08-20T00:00:28 updated=2026-08-20T00:00:28",
+          "session_id": "forge-a-0001"
+        },
+        {
+          "rule": "r6",
+          "desc": "verdict 与 criteria 一致性",
+          "ok": true,
+          "detail": "verdict=success statuses=['satisfied', 'satisfied', 'satisfied']",
+          "session_id": "forge-a-0001"
+        },
+        {
+          "rule": "r7",
+          "desc": "证据完整性（sha256/前后配对/时间窗）",
+          "ok": true,
+          "detail": "phases=['after', 'before'] sha违规=[] 时间窗=ok",
+          "session_id": "forge-a-0001"
+        },
+        {
+          "rule": "r8",
+          "desc": "execution 与 session 状态一致",
+          "ok": true,
+          "detail": "session=succeeded execution=succeeded",
+          "session_id": "forge-a-0001"
+        },
+        {
+          "rule": "r9",
+          "desc": "恢复链（根会话无 parent）",
+          "ok": true,
+          "detail": "根会话",
+          "session_id": "forge-a-0001"
+        },
+        {
+          "rule": "r10",
+          "desc": "replanned 携带 recovery_request",
+          "ok": true,
+          "detail": "无",
+          "session_id": "forge-a-0001"
+        },
+        {
+          "rule": "r11",
+          "desc": "gateway 身份一致性",
+          "ok": true,
+          "detail": "create=(forge-a-0001,cmd-a-0001) record=(forge-a-0001,cmd-a-0001)",
+          "session_id": "forge-a-0001"
+        }
+      ],
+      "summary": {
+        "passed": 11,
+        "failed": 0,
+        "verdict": "complete"
+      }
+    },
+    {
+      "name": "恢复链闭环 — A 失败 replan → C 重试成功",
+      "sessions": [
+        {
+          "version": "forge_session_record_v1",
+          "session_id": "forge-a-0002",
+          "command_id": "cmd-a-0002",
+          "root_session_id": "forge-a-0002",
+          "parent_session_id": null,
+          "replan_attempt": 0,
+          "request": {
+            "version": "forge_task_request_v1",
+            "task_description": "抓取牛奶并放入黄色篮子",
+            "action_type": "pick_and_place",
+            "inputs": {
+              "item": "牛奶",
+              "source": "桌面",
+              "target": "黄色篮子"
+            },
+            "verification": {
+              "version": "task_verification_contract_v1",
+              "mode": "enforce",
+              "goal": "牛奶已放入黄色篮子",
+              "success_criteria": [
+                "牛奶已从桌面拿起",
+                "牛奶位于黄色篮子内",
+                "未触碰其他物品"
+              ],
+              "constraints": [
+                "仅操作目标物品"
+              ],
+              "evidence_policy": {
+                "profile": "semantic_default",
+                "required_kinds": [
+                  "rgb_image"
+                ],
+                "required_sources": [],
+                "minimum_association": "best_effort"
+              }
+            },
+            "execution_timeout_s": 300.0,
+            "source": "paos-agent"
+          },
+          "status": "replanned",
+          "created_at": "2026-08-20T00:00:06+00:00",
+          "updated_at": "2026-08-20T00:00:28+00:00",
+          "dispatch_attempted_at": "2026-08-20T00:00:08+00:00",
+          "terminal_at": "2026-08-20T00:00:28+00:00",
+          "execution": {
+            "version": "paos_execution_record_v1",
+            "runtime": "forge_gateway",
+            "session_id": "forge-a-0002",
+            "command_id": "cmd-a-0002",
+            "gateway_api_version": "paos-forge-gateway-mvp-plus.v1",
+            "gateway_instance_id": "gw-01",
+            "action_type": "pick_and_place",
+            "policy_id": "forge/planner/v1",
+            "status": "failed",
+            "result_semantics": "command_completed",
+            "completion": {
+              "code": 0,
+              "message": "正常终止"
+            },
+            "timeline": {
+              "created_at": 10.0,
+              "updated_at": 26.0,
+              "sent_at": 8.5,
+              "terminal_observed_at": "2026-08-20T00:00:24+00:00"
+            },
+            "outputs": {
+              "picked": true,
+              "placed_basket": "黄色篮子"
+            },
+            "error": null
+          },
+          "verification": {
+            "status": "completed",
+            "bundle_ref": "bundle-forge-a-0002",
+            "verdict": {
+              "version": "verification_verdict_v1",
+              "verdict": "replan_required",
+              "criteria": [
+                {
+                  "criterion": "牛奶已从桌面拿起",
+                  "status": "unsatisfied",
+                  "evidence_refs": [
+                    "bundle-forge-a-0002"
+                  ]
+                },
+                {
+                  "criterion": "牛奶位于黄色篮子内",
+                  "status": "unknown",
+                  "evidence_refs": []
+                },
+                {
+                  "criterion": "未触碰其他物品",
+                  "status": "satisfied",
+                  "evidence_refs": [
+                    "bundle-forge-a-0002"
+                  ]
+                }
+              ],
+              "evidence_refs": [
+                "bundle-forge-a-0002"
+              ],
+              "reason": "抓取失败，需要重新规划",
+              "lesson": "正常执行",
+              "recovery_context": {
+                "unmet_criteria": [
+                  "牛奶已从桌面拿起",
+                  "牛奶位于黄色篮子内"
+                ],
+                "preserved_constraints": [
+                  "未触碰其他物品"
+                ],
+                "guidance": "重新规划 pick 与 place 参数后重试"
+              },
+              "verifier_status": "completed"
+            },
+            "attempts": [
+              {
+                "version": "verification_attempt_v1",
+                "model": "sim",
+                "verdict": "replan_required",
+                "created_at": "2026-08-20T00:00:28+00:00"
+              }
+            ],
+            "error": null
+          },
+          "recovery_request": {
+            "version": "recovery_request_v1",
+            "request_id": "req-recover-forge-a-0002",
+            "parent_session_id": "forge-a-0002",
+            "unmet_criteria": [
+              "牛奶已从桌面拿起",
+              "牛奶位于黄色篮子内"
+            ],
+            "preserved_constraints": [
+              "未触碰其他物品"
+            ],
+            "guidance": "重新规划 pick 与 place 参数后重试",
+            "evidence_refs": [
+              "bundle-forge-a-0002"
+            ],
+            "deadline": "2026-08-20T00:02:00+00:00",
+            "dispatched_at": "2026-08-20T00:00:35+00:00"
+          },
+          "gateway_create_response": {
+            "session_id": "forge-a-0002",
+            "command_id": "cmd-a-0002",
+            "request_id": "req-forge-a-0002",
+            "accepted": true
+          },
+          "gateway_last_response": {
+            "session_id": "forge-a-0002",
+            "command_id": "cmd-a-0002",
+            "status": "failed"
+          },
+          "before_snapshot_ref": "bundle-forge-a-0002/before.jpg",
+          "completion_notified_at": "2026-08-20T00:00:27+00:00",
+          "error_code": null,
+          "error_message": null,
+          "origin_channel": "cli",
+          "origin_chat_id": "direct",
+          "origin_session_key": null
+        },
+        {
+          "version": "forge_session_record_v1",
+          "session_id": "forge-c-0002",
+          "command_id": "cmd-c-0002",
+          "root_session_id": "forge-a-0002",
+          "parent_session_id": "forge-a-0002",
+          "replan_attempt": 1,
+          "request": {
+            "version": "forge_task_request_v1",
+            "task_description": "抓取牛奶并放入黄色篮子",
+            "action_type": "pick_and_place",
+            "inputs": {
+              "item": "牛奶",
+              "source": "桌面",
+              "target": "黄色篮子"
+            },
+            "verification": {
+              "version": "task_verification_contract_v1",
+              "mode": "enforce",
+              "goal": "牛奶已放入黄色篮子",
+              "success_criteria": [
+                "牛奶已从桌面拿起",
+                "牛奶位于黄色篮子内",
+                "未触碰其他物品"
+              ],
+              "constraints": [
+                "仅操作目标物品"
+              ],
+              "evidence_policy": {
+                "profile": "semantic_default",
+                "required_kinds": [
+                  "rgb_image"
+                ],
+                "required_sources": [],
+                "minimum_association": "best_effort"
+              }
+            },
+            "execution_timeout_s": 300.0,
+            "source": "paos-agent"
+          },
+          "status": "succeeded",
+          "created_at": "2026-08-20T00:00:06+00:00",
+          "updated_at": "2026-08-20T00:00:28+00:00",
+          "dispatch_attempted_at": "2026-08-20T00:00:08+00:00",
+          "terminal_at": "2026-08-20T00:00:28+00:00",
+          "execution": {
+            "version": "paos_execution_record_v1",
+            "runtime": "forge_gateway",
+            "session_id": "forge-c-0002",
+            "command_id": "cmd-c-0002",
+            "gateway_api_version": "paos-forge-gateway-mvp-plus.v1",
+            "gateway_instance_id": "gw-01",
+            "action_type": "pick_and_place",
+            "policy_id": "forge/planner/v1",
+            "status": "succeeded",
+            "result_semantics": "command_completed",
+            "completion": {
+              "code": 0,
+              "message": "正常终止"
+            },
+            "timeline": {
+              "created_at": 10.0,
+              "updated_at": 26.0,
+              "sent_at": 8.5,
+              "terminal_observed_at": "2026-08-20T00:00:24+00:00"
+            },
+            "outputs": {
+              "picked": true,
+              "placed_basket": "黄色篮子"
+            },
+            "error": null
+          },
+          "verification": {
+            "status": "completed",
+            "bundle_ref": "bundle-forge-c-0002",
+            "verdict": {
+              "version": "verification_verdict_v1",
+              "verdict": "success",
+              "criteria": [
+                {
+                  "criterion": "牛奶已从桌面拿起",
+                  "status": "satisfied",
+                  "evidence_refs": [
+                    "bundle-forge-c-0002"
+                  ]
+                },
+                {
+                  "criterion": "牛奶位于黄色篮子内",
+                  "status": "satisfied",
+                  "evidence_refs": [
+                    "bundle-forge-c-0002"
+                  ]
+                },
+                {
+                  "criterion": "未触碰其他物品",
+                  "status": "satisfied",
+                  "evidence_refs": [
+                    "bundle-forge-c-0002"
+                  ]
+                }
+              ],
+              "evidence_refs": [
+                "bundle-forge-c-0002"
+              ],
+              "reason": "全部成功标准满足",
+              "lesson": "正常执行",
+              "recovery_context": null,
+              "verifier_status": "completed"
+            },
+            "attempts": [
+              {
+                "version": "verification_attempt_v1",
+                "model": "sim",
+                "verdict": "success",
+                "created_at": "2026-08-20T00:00:28+00:00"
+              }
+            ],
+            "error": null
+          },
+          "recovery_request": null,
+          "gateway_create_response": {
+            "session_id": "forge-c-0002",
+            "command_id": "cmd-c-0002",
+            "request_id": "req-forge-c-0002",
+            "accepted": true
+          },
+          "gateway_last_response": {
+            "session_id": "forge-c-0002",
+            "command_id": "cmd-c-0002",
+            "status": "succeeded"
+          },
+          "before_snapshot_ref": "bundle-forge-c-0002/before.jpg",
+          "completion_notified_at": "2026-08-20T00:00:27+00:00",
+          "error_code": null,
+          "error_message": null,
+          "origin_channel": "cli",
+          "origin_chat_id": "direct",
+          "origin_session_key": null
+        }
+      ],
+      "evidence": [
+        {
+          "version": "forge_evidence_bundle_v1",
+          "bundle_id": "bundle-forge-a-0002",
+          "session_id": "forge-a-0002",
+          "command_id": "cmd-a-0002",
+          "gateway_instance_id": "gw-01",
+          "capture_window": {
+            "before_command_at": "2026-08-20T00:00:10+00:00",
+            "command_terminal_at": "2026-08-20T00:00:24+00:00",
+            "after_command_at": "2026-08-20T00:00:26+00:00"
+          },
+          "artifacts": [
+            {
+              "artifact_id": "bundle-forge-a-0002/before.jpg",
+              "phase": "before",
+              "kind": "rgb_image",
+              "source_id": "cam-top",
+              "received_at": "2026-08-20T00:00:10.050000+00:00",
+              "sequence": 0,
+              "media_type": "image/jpeg",
+              "sha256": "02c1f16ab064f70ea7b4c37feb587c0d02ac7fd873aae0244558336c9b4aaf5c",
+              "byte_size": 152400,
+              "uri": "evidence/bundle-forge-a-0002/before.jpg",
+              "retained": true
+            },
+            {
+              "artifact_id": "bundle-forge-a-0002/after.jpg",
+              "phase": "after",
+              "kind": "rgb_image",
+              "source_id": "cam-top",
+              "received_at": "2026-08-20T00:00:26.050000+00:00",
+              "sequence": 1,
+              "media_type": "image/jpeg",
+              "sha256": "3ec900515374e6cbeab414a5f747237a8fb959488c58bb6bd859b75d45c4635d",
+              "byte_size": 148920,
+              "uri": "evidence/bundle-forge-a-0002/after.jpg",
+              "retained": true
+            }
+          ],
+          "quality": {
+            "complete": true,
+            "association_quality": "authoritative",
+            "capture_authority": "paos_forge_adapter",
+            "missing_requirements": [],
+            "stale_artifacts": [],
+            "errors": []
+          }
+        },
+        {
+          "version": "forge_evidence_bundle_v1",
+          "bundle_id": "bundle-forge-c-0002",
+          "session_id": "forge-c-0002",
+          "command_id": "cmd-c-0002",
+          "gateway_instance_id": "gw-01",
+          "capture_window": {
+            "before_command_at": "2026-08-20T00:00:40+00:00",
+            "command_terminal_at": "2026-08-20T00:00:54+00:00",
+            "after_command_at": "2026-08-20T00:00:56+00:00"
+          },
+          "artifacts": [
+            {
+              "artifact_id": "bundle-forge-c-0002/before.jpg",
+              "phase": "before",
+              "kind": "rgb_image",
+              "source_id": "cam-top",
+              "received_at": "2026-08-20T00:00:40.050000+00:00",
+              "sequence": 0,
+              "media_type": "image/jpeg",
+              "sha256": "29fcd003c3458465b86bfd4c06f1483f2546aecc104cf10fe00949cf63787fba",
+              "byte_size": 152400,
+              "uri": "evidence/bundle-forge-c-0002/before.jpg",
+              "retained": true
+            },
+            {
+              "artifact_id": "bundle-forge-c-0002/after.jpg",
+              "phase": "after",
+              "kind": "rgb_image",
+              "source_id": "cam-top",
+              "received_at": "2026-08-20T00:00:56.050000+00:00",
+              "sequence": 1,
+              "media_type": "image/jpeg",
+              "sha256": "5182d550e14f69f8ccc354319d0b01abc79b9db355f7be99055901349b3eeffe",
+              "byte_size": 148920,
+              "uri": "evidence/bundle-forge-c-0002/after.jpg",
+              "retained": true
+            }
+          ],
+          "quality": {
+            "complete": true,
+            "association_quality": "authoritative",
+            "capture_authority": "paos_forge_adapter",
+            "missing_requirements": [],
+            "stale_artifacts": [],
+            "errors": []
+          }
+        }
+      ],
+      "checks": [
+        {
+          "rule": "r1",
+          "desc": "必填字段完整",
+          "ok": true,
+          "detail": "完整",
+          "session_id": "forge-a-0002"
+        },
+        {
+          "rule": "r2",
+          "desc": "标识符 path-safe",
+          "ok": true,
+          "detail": "合法",
+          "session_id": "forge-a-0002"
+        },
+        {
+          "rule": "r3",
+          "desc": "状态机转换合法",
+          "ok": true,
+          "detail": "accepted→capturing_before→dispatching→running→finalizing→awaiting_verification→verifying→awaiting_replan→replanned",
+          "session_id": "forge-a-0002"
+        },
+        {
+          "rule": "r4",
+          "desc": "会话终止状态",
+          "ok": true,
+          "detail": "status=replanned",
+          "session_id": "forge-a-0002"
+        },
+        {
+          "rule": "r5",
+          "desc": "会话时间戳单调",
+          "ok": true,
+          "detail": "created=2026-08-20T00:00:06 dispatch=2026-08-20T00:00:08 terminal=2026-08-20T00:00:28 updated=2026-08-20T00:00:28",
+          "session_id": "forge-a-0002"
+        },
+        {
+          "rule": "r6",
+          "desc": "verdict 与 criteria 一致性",
+          "ok": true,
+          "detail": "verdict=replan_required statuses=['unsatisfied', 'unknown', 'satisfied']",
+          "session_id": "forge-a-0002"
+        },
+        {
+          "rule": "r7",
+          "desc": "证据完整性（sha256/前后配对/时间窗）",
+          "ok": true,
+          "detail": "phases=['after', 'before'] sha违规=[] 时间窗=ok",
+          "session_id": "forge-a-0002"
+        },
+        {
+          "rule": "r8",
+          "desc": "execution 与 session 状态一致",
+          "ok": true,
+          "detail": "session=replanned execution=failed",
+          "session_id": "forge-a-0002"
+        },
+        {
+          "rule": "r9",
+          "desc": "恢复链（根会话无 parent）",
+          "ok": true,
+          "detail": "根会话",
+          "session_id": "forge-a-0002"
+        },
+        {
+          "rule": "r10",
+          "desc": "replanned 携带 recovery_request",
+          "ok": true,
+          "detail": "有",
+          "session_id": "forge-a-0002"
+        },
+        {
+          "rule": "r11",
+          "desc": "gateway 身份一致性",
+          "ok": true,
+          "detail": "create=(forge-a-0002,cmd-a-0002) record=(forge-a-0002,cmd-a-0002)",
+          "session_id": "forge-a-0002"
+        },
+        {
+          "rule": "r1",
+          "desc": "必填字段完整",
+          "ok": true,
+          "detail": "完整",
+          "session_id": "forge-c-0002"
+        },
+        {
+          "rule": "r2",
+          "desc": "标识符 path-safe",
+          "ok": true,
+          "detail": "合法",
+          "session_id": "forge-c-0002"
+        },
+        {
+          "rule": "r3",
+          "desc": "状态机转换合法",
+          "ok": true,
+          "detail": "accepted→capturing_before→dispatching→running→finalizing→awaiting_verification→verifying→succeeded",
+          "session_id": "forge-c-0002"
+        },
+        {
+          "rule": "r4",
+          "desc": "会话终止状态",
+          "ok": true,
+          "detail": "status=succeeded",
+          "session_id": "forge-c-0002"
+        },
+        {
+          "rule": "r5",
+          "desc": "会话时间戳单调",
+          "ok": true,
+          "detail": "created=2026-08-20T00:00:06 dispatch=2026-08-20T00:00:08 terminal=2026-08-20T00:00:28 updated=2026-08-20T00:00:28",
+          "session_id": "forge-c-0002"
+        },
+        {
+          "rule": "r6",
+          "desc": "verdict 与 criteria 一致性",
+          "ok": true,
+          "detail": "verdict=success statuses=['satisfied', 'satisfied', 'satisfied']",
+          "session_id": "forge-c-0002"
+        },
+        {
+          "rule": "r7",
+          "desc": "证据完整性（sha256/前后配对/时间窗）",
+          "ok": true,
+          "detail": "phases=['after', 'before'] sha违规=[] 时间窗=ok",
+          "session_id": "forge-c-0002"
+        },
+        {
+          "rule": "r8",
+          "desc": "execution 与 session 状态一致",
+          "ok": true,
+          "detail": "session=succeeded execution=succeeded",
+          "session_id": "forge-c-0002"
+        },
+        {
+          "rule": "r9",
+          "desc": "恢复链（replan_attempt 递增/parent/root）",
+          "ok": true,
+          "detail": "parent=forge-a-0002 replan=1 parent_replan=0",
+          "session_id": "forge-c-0002"
+        },
+        {
+          "rule": "r10",
+          "desc": "replanned 携带 recovery_request",
+          "ok": true,
+          "detail": "无",
+          "session_id": "forge-c-0002"
+        },
+        {
+          "rule": "r11",
+          "desc": "gateway 身份一致性",
+          "ok": true,
+          "detail": "create=(forge-c-0002,cmd-c-0002) record=(forge-c-0002,cmd-c-0002)",
+          "session_id": "forge-c-0002"
+        }
+      ],
+      "summary": {
+        "passed": 22,
+        "failed": 0,
+        "verdict": "complete"
+      }
+    },
+    {
+      "name": "注入缺陷 — 与场景 2 同构，3 处篡改",
+      "sessions": [
+        {
+          "version": "forge_session_record_v1",
+          "session_id": "forge-a-0002",
+          "command_id": "cmd-a-0002",
+          "root_session_id": "forge-a-0002",
+          "parent_session_id": null,
+          "replan_attempt": 0,
+          "request": {
+            "version": "forge_task_request_v1",
+            "task_description": "抓取牛奶并放入黄色篮子",
+            "action_type": "pick_and_place",
+            "inputs": {
+              "item": "牛奶",
+              "source": "桌面",
+              "target": "黄色篮子"
+            },
+            "verification": {
+              "version": "task_verification_contract_v1",
+              "mode": "enforce",
+              "goal": "牛奶已放入黄色篮子",
+              "success_criteria": [
+                "牛奶已从桌面拿起",
+                "牛奶位于黄色篮子内",
+                "未触碰其他物品"
+              ],
+              "constraints": [
+                "仅操作目标物品"
+              ],
+              "evidence_policy": {
+                "profile": "semantic_default",
+                "required_kinds": [
+                  "rgb_image"
+                ],
+                "required_sources": [],
+                "minimum_association": "best_effort"
+              }
+            },
+            "execution_timeout_s": 300.0,
+            "source": "paos-agent"
+          },
+          "status": "replanned",
+          "created_at": "2026-08-20T00:00:06+00:00",
+          "updated_at": "2026-08-20T00:00:28+00:00",
+          "dispatch_attempted_at": "2026-08-20T00:00:08+00:00",
+          "terminal_at": "2026-08-20T00:00:28+00:00",
+          "execution": {
+            "version": "paos_execution_record_v1",
+            "runtime": "forge_gateway",
+            "session_id": "forge-a-0002",
+            "command_id": "cmd-a-0002",
+            "gateway_api_version": "paos-forge-gateway-mvp-plus.v1",
+            "gateway_instance_id": "gw-01",
+            "action_type": "pick_and_place",
+            "policy_id": "forge/planner/v1",
+            "status": "failed",
+            "result_semantics": "command_completed",
+            "completion": {
+              "code": 0,
+              "message": "正常终止"
+            },
+            "timeline": {
+              "created_at": 10.0,
+              "updated_at": 26.0,
+              "sent_at": 8.5,
+              "terminal_observed_at": "2026-08-20T00:00:24+00:00"
+            },
+            "outputs": {
+              "picked": true,
+              "placed_basket": "黄色篮子"
+            },
+            "error": null
+          },
+          "verification": {
+            "status": "completed",
+            "bundle_ref": "bundle-forge-a-0002",
+            "verdict": {
+              "version": "verification_verdict_v1",
+              "verdict": "replan_required",
+              "criteria": [
+                {
+                  "criterion": "牛奶已从桌面拿起",
+                  "status": "unsatisfied",
+                  "evidence_refs": [
+                    "bundle-forge-a-0002"
+                  ]
+                },
+                {
+                  "criterion": "牛奶位于黄色篮子内",
+                  "status": "unknown",
+                  "evidence_refs": []
+                },
+                {
+                  "criterion": "未触碰其他物品",
+                  "status": "satisfied",
+                  "evidence_refs": [
+                    "bundle-forge-a-0002"
+                  ]
+                }
+              ],
+              "evidence_refs": [
+                "bundle-forge-a-0002"
+              ],
+              "reason": "抓取失败，需要重新规划",
+              "lesson": "正常执行",
+              "recovery_context": {
+                "unmet_criteria": [
+                  "牛奶已从桌面拿起",
+                  "牛奶位于黄色篮子内"
+                ],
+                "preserved_constraints": [
+                  "未触碰其他物品"
+                ],
+                "guidance": "重新规划 pick 与 place 参数后重试"
+              },
+              "verifier_status": "completed"
+            },
+            "attempts": [
+              {
+                "version": "verification_attempt_v1",
+                "model": "sim",
+                "verdict": "replan_required",
+                "created_at": "2026-08-20T00:00:28+00:00"
+              }
+            ],
+            "error": null
+          },
+          "recovery_request": {
+            "version": "recovery_request_v1",
+            "request_id": "req-recover-forge-a-0002",
+            "parent_session_id": "forge-a-0002",
+            "unmet_criteria": [
+              "牛奶已从桌面拿起",
+              "牛奶位于黄色篮子内"
+            ],
+            "preserved_constraints": [
+              "未触碰其他物品"
+            ],
+            "guidance": "重新规划 pick 与 place 参数后重试",
+            "evidence_refs": [
+              "bundle-forge-a-0002"
+            ],
+            "deadline": "2026-08-20T00:02:00+00:00",
+            "dispatched_at": "2026-08-20T00:00:35+00:00"
+          },
+          "gateway_create_response": {
+            "session_id": "forge-a-0002",
+            "command_id": "cmd-a-0002",
+            "request_id": "req-forge-a-0002",
+            "accepted": true
+          },
+          "gateway_last_response": {
+            "session_id": "forge-a-0002",
+            "command_id": "cmd-a-0002",
+            "status": "failed"
+          },
+          "before_snapshot_ref": "bundle-forge-a-0002/before.jpg",
+          "completion_notified_at": "2026-08-20T00:00:27+00:00",
+          "error_code": null,
+          "error_message": null,
+          "origin_channel": "cli",
+          "origin_chat_id": "direct",
+          "origin_session_key": null
+        },
+        {
+          "version": "forge_session_record_v1",
+          "session_id": "forge-c-0002",
+          "command_id": "cmd-c-0002",
+          "root_session_id": "forge-a-0002",
+          "parent_session_id": "forge-a-0002",
+          "replan_attempt": 0,
+          "request": {
+            "version": "forge_task_request_v1",
+            "task_description": "抓取牛奶并放入黄色篮子",
+            "action_type": "pick_and_place",
+            "inputs": {
+              "item": "牛奶",
+              "source": "桌面",
+              "target": "黄色篮子"
+            },
+            "verification": {
+              "version": "task_verification_contract_v1",
+              "mode": "enforce",
+              "goal": "牛奶已放入黄色篮子",
+              "success_criteria": [
+                "牛奶已从桌面拿起",
+                "牛奶位于黄色篮子内",
+                "未触碰其他物品"
+              ],
+              "constraints": [
+                "仅操作目标物品"
+              ],
+              "evidence_policy": {
+                "profile": "semantic_default",
+                "required_kinds": [
+                  "rgb_image"
+                ],
+                "required_sources": [],
+                "minimum_association": "best_effort"
+              }
+            },
+            "execution_timeout_s": 300.0,
+            "source": "paos-agent"
+          },
+          "status": "succeeded",
+          "created_at": "2026-08-20T00:00:06+00:00",
+          "updated_at": "2026-08-20T00:00:28+00:00",
+          "dispatch_attempted_at": "2026-08-20T00:00:08+00:00",
+          "terminal_at": "2026-08-20T00:00:28+00:00",
+          "execution": {
+            "version": "paos_execution_record_v1",
+            "runtime": "forge_gateway",
+            "session_id": "forge-c-0002",
+            "command_id": "cmd-c-0002",
+            "gateway_api_version": "paos-forge-gateway-mvp-plus.v1",
+            "gateway_instance_id": "gw-01",
+            "action_type": "pick_and_place",
+            "policy_id": "forge/planner/v1",
+            "status": "succeeded",
+            "result_semantics": "command_completed",
+            "completion": {
+              "code": 0,
+              "message": "正常终止"
+            },
+            "timeline": {
+              "created_at": 10.0,
+              "updated_at": 26.0,
+              "sent_at": 8.5,
+              "terminal_observed_at": "2026-08-20T00:00:58+00:00"
+            },
+            "outputs": {
+              "picked": true,
+              "placed_basket": "黄色篮子"
+            },
+            "error": null
+          },
+          "verification": {
+            "status": "completed",
+            "bundle_ref": "bundle-forge-c-0002",
+            "verdict": {
+              "version": "verification_verdict_v1",
+              "verdict": "success",
+              "criteria": [
+                {
+                  "criterion": "牛奶已从桌面拿起",
+                  "status": "satisfied",
+                  "evidence_refs": [
+                    "bundle-forge-c-0002"
+                  ]
+                },
+                {
+                  "criterion": "牛奶位于黄色篮子内",
+                  "status": "unsatisfied",
+                  "evidence_refs": [
+                    "bundle-forge-c-0002"
+                  ]
+                },
+                {
+                  "criterion": "未触碰其他物品",
+                  "status": "satisfied",
+                  "evidence_refs": [
+                    "bundle-forge-c-0002"
+                  ]
+                }
+              ],
+              "evidence_refs": [
+                "bundle-forge-c-0002"
+              ],
+              "reason": "全部成功标准满足",
+              "lesson": "正常执行",
+              "recovery_context": null,
+              "verifier_status": "completed"
+            },
+            "attempts": [
+              {
+                "version": "verification_attempt_v1",
+                "model": "sim",
+                "verdict": "success",
+                "created_at": "2026-08-20T00:00:28+00:00"
+              }
+            ],
+            "error": null
+          },
+          "recovery_request": null,
+          "gateway_create_response": {
+            "session_id": "forge-c-0002",
+            "command_id": "cmd-c-0002",
+            "request_id": "req-forge-c-0002",
+            "accepted": true
+          },
+          "gateway_last_response": {
+            "session_id": "forge-c-0002",
+            "command_id": "cmd-c-0002",
+            "status": "succeeded"
+          },
+          "before_snapshot_ref": "bundle-forge-c-0002/before.jpg",
+          "completion_notified_at": "2026-08-20T00:00:27+00:00",
+          "error_code": null,
+          "error_message": null,
+          "origin_channel": "cli",
+          "origin_chat_id": "direct",
+          "origin_session_key": null
+        }
+      ],
+      "evidence": [
+        {
+          "version": "forge_evidence_bundle_v1",
+          "bundle_id": "bundle-forge-a-0002",
+          "session_id": "forge-a-0002",
+          "command_id": "cmd-a-0002",
+          "gateway_instance_id": "gw-01",
+          "capture_window": {
+            "before_command_at": "2026-08-20T00:00:10+00:00",
+            "command_terminal_at": "2026-08-20T00:00:24+00:00",
+            "after_command_at": "2026-08-20T00:00:26+00:00"
+          },
+          "artifacts": [
+            {
+              "artifact_id": "bundle-forge-a-0002/before.jpg",
+              "phase": "before",
+              "kind": "rgb_image",
+              "source_id": "cam-top",
+              "received_at": "2026-08-20T00:00:10.050000+00:00",
+              "sequence": 0,
+              "media_type": "image/jpeg",
+              "sha256": "02c1f16ab064f70ea7b4c37feb587c0d02ac7fd873aae0244558336c9b4aaf5c",
+              "byte_size": 152400,
+              "uri": "evidence/bundle-forge-a-0002/before.jpg",
+              "retained": true
+            },
+            {
+              "artifact_id": "bundle-forge-a-0002/after.jpg",
+              "phase": "after",
+              "kind": "rgb_image",
+              "source_id": "cam-top",
+              "received_at": "2026-08-20T00:00:26.050000+00:00",
+              "sequence": 1,
+              "media_type": "image/jpeg",
+              "sha256": "3ec900515374e6cbeab414a5f747237a8fb959488c58bb6bd859b75d45c4635d",
+              "byte_size": 148920,
+              "uri": "evidence/bundle-forge-a-0002/after.jpg",
+              "retained": true
+            }
+          ],
+          "quality": {
+            "complete": true,
+            "association_quality": "authoritative",
+            "capture_authority": "paos_forge_adapter",
+            "missing_requirements": [],
+            "stale_artifacts": [],
+            "errors": []
+          }
+        },
+        {
+          "version": "forge_evidence_bundle_v1",
+          "bundle_id": "bundle-forge-c-0002",
+          "session_id": "forge-c-0002",
+          "command_id": "cmd-c-0002",
+          "gateway_instance_id": "gw-01",
+          "capture_window": {
+            "before_command_at": "2026-08-20T00:00:40+00:00",
+            "command_terminal_at": "2026-08-20T00:00:54+00:00",
+            "after_command_at": "2026-08-20T00:00:53+00:00"
+          },
+          "artifacts": [
+            {
+              "artifact_id": "bundle-forge-c-0002/before.jpg",
+              "phase": "before",
+              "kind": "rgb_image",
+              "source_id": "cam-top",
+              "received_at": "2026-08-20T00:00:40.050000+00:00",
+              "sequence": 0,
+              "media_type": "image/jpeg",
+              "sha256": "29fcd003c3458465b86bfd4c06f1483f2546aecc104cf10fe00949cf63787fba",
+              "byte_size": 152400,
+              "uri": "evidence/bundle-forge-c-0002/before.jpg",
+              "retained": true
+            },
+            {
+              "artifact_id": "bundle-forge-c-0002/after.jpg",
+              "phase": "after",
+              "kind": "rgb_image",
+              "source_id": "cam-top",
+              "received_at": "2026-08-20T00:00:53.500000+00:00",
+              "sequence": 1,
+              "media_type": "image/jpeg",
+              "sha256": "5182d550e14f69f8ccc354319d0b01abc79b9db355f7be99055901349b3eeffe",
+              "byte_size": 148920,
+              "uri": "evidence/bundle-forge-c-0002/after.jpg",
+              "retained": true
+            }
+          ],
+          "quality": {
+            "complete": true,
+            "association_quality": "authoritative",
+            "capture_authority": "paos_forge_adapter",
+            "missing_requirements": [],
+            "stale_artifacts": [],
+            "errors": []
+          }
+        }
+      ],
+      "checks": [
+        {
+          "rule": "r1",
+          "desc": "必填字段完整",
+          "ok": true,
+          "detail": "完整",
+          "session_id": "forge-a-0002"
+        },
+        {
+          "rule": "r2",
+          "desc": "标识符 path-safe",
+          "ok": true,
+          "detail": "合法",
+          "session_id": "forge-a-0002"
+        },
+        {
+          "rule": "r3",
+          "desc": "状态机转换合法",
+          "ok": true,
+          "detail": "accepted→capturing_before→dispatching→running→finalizing→awaiting_verification→verifying→awaiting_replan→replanned",
+          "session_id": "forge-a-0002"
+        },
+        {
+          "rule": "r4",
+          "desc": "会话终止状态",
+          "ok": true,
+          "detail": "status=replanned",
+          "session_id": "forge-a-0002"
+        },
+        {
+          "rule": "r5",
+          "desc": "会话时间戳单调",
+          "ok": true,
+          "detail": "created=2026-08-20T00:00:06 dispatch=2026-08-20T00:00:08 terminal=2026-08-20T00:00:28 updated=2026-08-20T00:00:28",
+          "session_id": "forge-a-0002"
+        },
+        {
+          "rule": "r6",
+          "desc": "verdict 与 criteria 一致性",
+          "ok": true,
+          "detail": "verdict=replan_required statuses=['unsatisfied', 'unknown', 'satisfied']",
+          "session_id": "forge-a-0002"
+        },
+        {
+          "rule": "r7",
+          "desc": "证据完整性（sha256/前后配对/时间窗）",
+          "ok": true,
+          "detail": "phases=['after', 'before'] sha违规=[] 时间窗=ok",
+          "session_id": "forge-a-0002"
+        },
+        {
+          "rule": "r8",
+          "desc": "execution 与 session 状态一致",
+          "ok": true,
+          "detail": "session=replanned execution=failed",
+          "session_id": "forge-a-0002"
+        },
+        {
+          "rule": "r9",
+          "desc": "恢复链（根会话无 parent）",
+          "ok": true,
+          "detail": "根会话",
+          "session_id": "forge-a-0002"
+        },
+        {
+          "rule": "r10",
+          "desc": "replanned 携带 recovery_request",
+          "ok": true,
+          "detail": "有",
+          "session_id": "forge-a-0002"
+        },
+        {
+          "rule": "r11",
+          "desc": "gateway 身份一致性",
+          "ok": true,
+          "detail": "create=(forge-a-0002,cmd-a-0002) record=(forge-a-0002,cmd-a-0002)",
+          "session_id": "forge-a-0002"
+        },
+        {
+          "rule": "r1",
+          "desc": "必填字段完整",
+          "ok": true,
+          "detail": "完整",
+          "session_id": "forge-c-0002"
+        },
+        {
+          "rule": "r2",
+          "desc": "标识符 path-safe",
+          "ok": true,
+          "detail": "合法",
+          "session_id": "forge-c-0002"
+        },
+        {
+          "rule": "r3",
+          "desc": "状态机转换合法",
+          "ok": true,
+          "detail": "accepted→capturing_before→dispatching→running→finalizing→awaiting_verification→verifying→succeeded",
+          "session_id": "forge-c-0002"
+        },
+        {
+          "rule": "r4",
+          "desc": "会话终止状态",
+          "ok": true,
+          "detail": "status=succeeded",
+          "session_id": "forge-c-0002"
+        },
+        {
+          "rule": "r5",
+          "desc": "会话时间戳单调",
+          "ok": true,
+          "detail": "created=2026-08-20T00:00:06 dispatch=2026-08-20T00:00:08 terminal=2026-08-20T00:00:28 updated=2026-08-20T00:00:28",
+          "session_id": "forge-c-0002"
+        },
+        {
+          "rule": "r6",
+          "desc": "verdict 与 criteria 一致性",
+          "ok": false,
+          "detail": "verdict=success statuses=['satisfied', 'unsatisfied', 'satisfied']",
+          "session_id": "forge-c-0002"
+        },
+        {
+          "rule": "r7",
+          "desc": "证据完整性（sha256/前后配对/时间窗）",
+          "ok": false,
+          "detail": "phases=['after', 'before'] sha违规=[] 时间窗=倒挂",
+          "session_id": "forge-c-0002"
+        },
+        {
+          "rule": "r8",
+          "desc": "execution 与 session 状态一致",
+          "ok": true,
+          "detail": "session=succeeded execution=succeeded",
+          "session_id": "forge-c-0002"
+        },
+        {
+          "rule": "r9",
+          "desc": "恢复链（replan_attempt 递增/parent/root）",
+          "ok": false,
+          "detail": "parent=forge-a-0002 replan=0 parent_replan=0",
+          "session_id": "forge-c-0002"
+        },
+        {
+          "rule": "r10",
+          "desc": "replanned 携带 recovery_request",
+          "ok": true,
+          "detail": "无",
+          "session_id": "forge-c-0002"
+        },
+        {
+          "rule": "r11",
+          "desc": "gateway 身份一致性",
+          "ok": true,
+          "detail": "create=(forge-c-0002,cmd-c-0002) record=(forge-c-0002,cmd-c-0002)",
+          "session_id": "forge-c-0002"
+        }
+      ],
+      "summary": {
+        "passed": 19,
+        "failed": 3,
+        "verdict": "integrity_breach"
+      }
+    }
+  ]
+}

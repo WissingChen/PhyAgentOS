@@ -1,0 +1,2466 @@
+{
+  "task": "分选任务成功率统计",
+  "generated_at": "2026-08-20T00:01:32",
+  "config": {
+    "config_path": "/data2/chenweixing/Agent/Embodied/PhyAgentOS_page/PhyAgentOS/demo/cli/sorting_session.json",
+    "runs": 30,
+    "op_success": 0.92,
+    "retries": 1,
+    "seed": 42
+  },
+  "summary": {
+    "task_success": 30,
+    "task_success_rate": 1.0,
+    "verdicts": {
+      "success": 30,
+      "failure": 0,
+      "replan_required": 0,
+      "inconclusive": 0
+    },
+    "op_attempts": 195,
+    "op_ok": 180,
+    "op_success_rate": 0.9231,
+    "item_success_rate": {
+      "可乐": 0.9375,
+      "橙子": 0.9677,
+      "香蕉": 0.8824,
+      "牛奶": 0.8824,
+      "猕猴桃": 0.9375,
+      "雪碧": 0.9375
+    },
+    "replans_total": 15,
+    "replans_avg": 0.5
+  },
+  "rounds": [
+    {
+      "run": 1,
+      "session_id": "sort-0001",
+      "verdict": "success",
+      "reason": "全部成功标准满足",
+      "criteria": [
+        {
+          "criterion": "全部目标物品已被抓取",
+          "status": "satisfied",
+          "evidence_refs": [
+            "evidence:6776e8754e9c28c9",
+            "evidence:fb2ab913b2f97389",
+            "evidence:3c7fc3bad112632e",
+            "evidence:e5ae4dc6dfa150b9",
+            "evidence:280af7b94c852c25",
+            "evidence:23181b897aa4c6a0"
+          ]
+        },
+        {
+          "criterion": "每个物品放入正确篮子",
+          "status": "satisfied",
+          "evidence_refs": []
+        },
+        {
+          "criterion": "分类判定无未知类别",
+          "status": "satisfied",
+          "evidence_refs": []
+        }
+      ],
+      "ops": [
+        {
+          "item": "可乐",
+          "basket": "黄色",
+          "command_id": "c-0001-可乐",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "6776e8754e9c28c9"
+        },
+        {
+          "item": "牛奶",
+          "basket": "黄色",
+          "command_id": "c-0001-牛奶",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "fb2ab913b2f97389"
+        },
+        {
+          "item": "雪碧",
+          "basket": "黄色",
+          "command_id": "c-0001-雪碧",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "3c7fc3bad112632e"
+        },
+        {
+          "item": "香蕉",
+          "basket": "绿色",
+          "command_id": "c-0001-香蕉",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "e5ae4dc6dfa150b9"
+        },
+        {
+          "item": "橙子",
+          "basket": "绿色",
+          "command_id": "c-0001-橙子",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "280af7b94c852c25"
+        },
+        {
+          "item": "猕猴桃",
+          "basket": "绿色",
+          "command_id": "c-0001-猕猴桃",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "23181b897aa4c6a0"
+        }
+      ],
+      "replans": 0
+    },
+    {
+      "run": 2,
+      "session_id": "sort-0002",
+      "verdict": "success",
+      "reason": "全部成功标准满足",
+      "criteria": [
+        {
+          "criterion": "全部目标物品已被抓取",
+          "status": "satisfied",
+          "evidence_refs": [
+            "evidence:8a28824c3ff5729d",
+            "evidence:a830f478e16b80e3",
+            "evidence:e825b67d5d0b7362",
+            "evidence:2eb5721d95e93a8b",
+            "evidence:abd1b38c7dbb31a6",
+            "evidence:32a5057ccb6c2bb0"
+          ]
+        },
+        {
+          "criterion": "每个物品放入正确篮子",
+          "status": "satisfied",
+          "evidence_refs": []
+        },
+        {
+          "criterion": "分类判定无未知类别",
+          "status": "satisfied",
+          "evidence_refs": []
+        }
+      ],
+      "ops": [
+        {
+          "item": "可乐",
+          "basket": "黄色",
+          "command_id": "c-0002-可乐",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "8a28824c3ff5729d"
+        },
+        {
+          "item": "牛奶",
+          "basket": "黄色",
+          "command_id": "c-0002-牛奶",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "a830f478e16b80e3"
+        },
+        {
+          "item": "雪碧",
+          "basket": "黄色",
+          "command_id": "c-0002-雪碧",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "e825b67d5d0b7362"
+        },
+        {
+          "item": "香蕉",
+          "basket": "绿色",
+          "command_id": "c-0002-香蕉",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "2eb5721d95e93a8b"
+        },
+        {
+          "item": "橙子",
+          "basket": "绿色",
+          "command_id": "c-0002-橙子",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "abd1b38c7dbb31a6"
+        },
+        {
+          "item": "猕猴桃",
+          "basket": "绿色",
+          "command_id": "c-0002-猕猴桃",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "32a5057ccb6c2bb0"
+        }
+      ],
+      "replans": 0
+    },
+    {
+      "run": 3,
+      "session_id": "sort-0003",
+      "verdict": "success",
+      "reason": "全部成功标准满足",
+      "criteria": [
+        {
+          "criterion": "全部目标物品已被抓取",
+          "status": "satisfied",
+          "evidence_refs": [
+            "evidence:ef5ed88b23120673",
+            "evidence:d2f0d6b83d71a6f5",
+            "evidence:886875d279d9bcef",
+            "evidence:bdbb8f310593e9b5",
+            "evidence:66084b1baeaa9345",
+            "evidence:dd54bb3733a04518"
+          ]
+        },
+        {
+          "criterion": "每个物品放入正确篮子",
+          "status": "satisfied",
+          "evidence_refs": []
+        },
+        {
+          "criterion": "分类判定无未知类别",
+          "status": "satisfied",
+          "evidence_refs": []
+        }
+      ],
+      "ops": [
+        {
+          "item": "可乐",
+          "basket": "黄色",
+          "command_id": "c-0003-可乐",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "ef5ed88b23120673"
+        },
+        {
+          "item": "牛奶",
+          "basket": "黄色",
+          "command_id": "c-0003-牛奶",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "d2f0d6b83d71a6f5"
+        },
+        {
+          "item": "雪碧",
+          "basket": "黄色",
+          "command_id": "c-0003-雪碧",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "886875d279d9bcef"
+        },
+        {
+          "item": "香蕉",
+          "basket": "绿色",
+          "command_id": "c-0003-香蕉",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "bdbb8f310593e9b5"
+        },
+        {
+          "item": "橙子",
+          "basket": "绿色",
+          "command_id": "c-0003-橙子",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "66084b1baeaa9345"
+        },
+        {
+          "item": "猕猴桃",
+          "basket": "绿色",
+          "command_id": "c-0003-猕猴桃",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "dd54bb3733a04518"
+        }
+      ],
+      "replans": 0
+    },
+    {
+      "run": 4,
+      "session_id": "sort-0004",
+      "verdict": "success",
+      "reason": "全部成功标准满足",
+      "criteria": [
+        {
+          "criterion": "全部目标物品已被抓取",
+          "status": "satisfied",
+          "evidence_refs": [
+            "evidence:f17d5f07dddd3623",
+            "evidence:3c3a8d69b6129b6b",
+            "evidence:ff40fb2f73d2d43f",
+            "evidence:8463849f6b110f52",
+            "evidence:c96a743a36b68d35",
+            "evidence:5504557a7a8db273"
+          ]
+        },
+        {
+          "criterion": "每个物品放入正确篮子",
+          "status": "satisfied",
+          "evidence_refs": []
+        },
+        {
+          "criterion": "分类判定无未知类别",
+          "status": "satisfied",
+          "evidence_refs": []
+        }
+      ],
+      "ops": [
+        {
+          "item": "可乐",
+          "basket": "黄色",
+          "command_id": "c-0004-可乐",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "f17d5f07dddd3623"
+        },
+        {
+          "item": "牛奶",
+          "basket": "黄色",
+          "command_id": "c-0004-牛奶",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "3c3a8d69b6129b6b"
+        },
+        {
+          "item": "雪碧",
+          "basket": "黄色",
+          "command_id": "c-0004-雪碧",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "ff40fb2f73d2d43f"
+        },
+        {
+          "item": "香蕉",
+          "basket": "绿色",
+          "command_id": "c-0004-香蕉",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "8463849f6b110f52"
+        },
+        {
+          "item": "橙子",
+          "basket": "绿色",
+          "command_id": "c-0004-橙子",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "c96a743a36b68d35"
+        },
+        {
+          "item": "猕猴桃",
+          "basket": "绿色",
+          "command_id": "c-0004-猕猴桃",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "5504557a7a8db273"
+        }
+      ],
+      "replans": 0
+    },
+    {
+      "run": 5,
+      "session_id": "sort-0005",
+      "verdict": "success",
+      "reason": "全部成功标准满足",
+      "criteria": [
+        {
+          "criterion": "全部目标物品已被抓取",
+          "status": "satisfied",
+          "evidence_refs": [
+            "evidence:8892b9e61ddcddf8",
+            "evidence:27f12bc30aee4ac8",
+            "evidence:a259e2d014865753",
+            "evidence:2c04561e6f45f17f",
+            "evidence:ee2cdfd67c36b55d",
+            "evidence:16f87b348dfd9cfe"
+          ]
+        },
+        {
+          "criterion": "每个物品放入正确篮子",
+          "status": "satisfied",
+          "evidence_refs": []
+        },
+        {
+          "criterion": "分类判定无未知类别",
+          "status": "satisfied",
+          "evidence_refs": []
+        }
+      ],
+      "ops": [
+        {
+          "item": "可乐",
+          "basket": "黄色",
+          "command_id": "c-0005-可乐",
+          "success": true,
+          "attempts": 2,
+          "evidence_sha": "8892b9e61ddcddf8"
+        },
+        {
+          "item": "牛奶",
+          "basket": "黄色",
+          "command_id": "c-0005-牛奶",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "27f12bc30aee4ac8"
+        },
+        {
+          "item": "雪碧",
+          "basket": "黄色",
+          "command_id": "c-0005-雪碧",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "a259e2d014865753"
+        },
+        {
+          "item": "香蕉",
+          "basket": "绿色",
+          "command_id": "c-0005-香蕉",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "2c04561e6f45f17f"
+        },
+        {
+          "item": "橙子",
+          "basket": "绿色",
+          "command_id": "c-0005-橙子",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "ee2cdfd67c36b55d"
+        },
+        {
+          "item": "猕猴桃",
+          "basket": "绿色",
+          "command_id": "c-0005-猕猴桃",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "16f87b348dfd9cfe"
+        }
+      ],
+      "replans": 1
+    },
+    {
+      "run": 6,
+      "session_id": "sort-0006",
+      "verdict": "success",
+      "reason": "全部成功标准满足",
+      "criteria": [
+        {
+          "criterion": "全部目标物品已被抓取",
+          "status": "satisfied",
+          "evidence_refs": [
+            "evidence:2a1a949b4545547f",
+            "evidence:4c20badaa974e264",
+            "evidence:bd8843cf2735f076",
+            "evidence:0ddc725ff1506673",
+            "evidence:16dfc927301a8985",
+            "evidence:e638bf0ddee261b7"
+          ]
+        },
+        {
+          "criterion": "每个物品放入正确篮子",
+          "status": "satisfied",
+          "evidence_refs": []
+        },
+        {
+          "criterion": "分类判定无未知类别",
+          "status": "satisfied",
+          "evidence_refs": []
+        }
+      ],
+      "ops": [
+        {
+          "item": "可乐",
+          "basket": "黄色",
+          "command_id": "c-0006-可乐",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "2a1a949b4545547f"
+        },
+        {
+          "item": "牛奶",
+          "basket": "黄色",
+          "command_id": "c-0006-牛奶",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "4c20badaa974e264"
+        },
+        {
+          "item": "雪碧",
+          "basket": "黄色",
+          "command_id": "c-0006-雪碧",
+          "success": true,
+          "attempts": 2,
+          "evidence_sha": "bd8843cf2735f076"
+        },
+        {
+          "item": "香蕉",
+          "basket": "绿色",
+          "command_id": "c-0006-香蕉",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "0ddc725ff1506673"
+        },
+        {
+          "item": "橙子",
+          "basket": "绿色",
+          "command_id": "c-0006-橙子",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "16dfc927301a8985"
+        },
+        {
+          "item": "猕猴桃",
+          "basket": "绿色",
+          "command_id": "c-0006-猕猴桃",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "e638bf0ddee261b7"
+        }
+      ],
+      "replans": 1
+    },
+    {
+      "run": 7,
+      "session_id": "sort-0007",
+      "verdict": "success",
+      "reason": "全部成功标准满足",
+      "criteria": [
+        {
+          "criterion": "全部目标物品已被抓取",
+          "status": "satisfied",
+          "evidence_refs": [
+            "evidence:cef63da2a5c51c90",
+            "evidence:ea41c230bbf9f539",
+            "evidence:66bf5c0b020ec00d",
+            "evidence:d602593e4c289e2b",
+            "evidence:23639a908b9c3a9d",
+            "evidence:d01bb78d3cae273e"
+          ]
+        },
+        {
+          "criterion": "每个物品放入正确篮子",
+          "status": "satisfied",
+          "evidence_refs": []
+        },
+        {
+          "criterion": "分类判定无未知类别",
+          "status": "satisfied",
+          "evidence_refs": []
+        }
+      ],
+      "ops": [
+        {
+          "item": "可乐",
+          "basket": "黄色",
+          "command_id": "c-0007-可乐",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "cef63da2a5c51c90"
+        },
+        {
+          "item": "牛奶",
+          "basket": "黄色",
+          "command_id": "c-0007-牛奶",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "ea41c230bbf9f539"
+        },
+        {
+          "item": "雪碧",
+          "basket": "黄色",
+          "command_id": "c-0007-雪碧",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "66bf5c0b020ec00d"
+        },
+        {
+          "item": "香蕉",
+          "basket": "绿色",
+          "command_id": "c-0007-香蕉",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "d602593e4c289e2b"
+        },
+        {
+          "item": "橙子",
+          "basket": "绿色",
+          "command_id": "c-0007-橙子",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "23639a908b9c3a9d"
+        },
+        {
+          "item": "猕猴桃",
+          "basket": "绿色",
+          "command_id": "c-0007-猕猴桃",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "d01bb78d3cae273e"
+        }
+      ],
+      "replans": 0
+    },
+    {
+      "run": 8,
+      "session_id": "sort-0008",
+      "verdict": "success",
+      "reason": "全部成功标准满足",
+      "criteria": [
+        {
+          "criterion": "全部目标物品已被抓取",
+          "status": "satisfied",
+          "evidence_refs": [
+            "evidence:9045d70fda7c09db",
+            "evidence:ac73148d9b0b7dd7",
+            "evidence:287b5d1538acd484",
+            "evidence:777ceb4246e1f386",
+            "evidence:1343834d00f8875b",
+            "evidence:4135eb63aa67c072"
+          ]
+        },
+        {
+          "criterion": "每个物品放入正确篮子",
+          "status": "satisfied",
+          "evidence_refs": []
+        },
+        {
+          "criterion": "分类判定无未知类别",
+          "status": "satisfied",
+          "evidence_refs": []
+        }
+      ],
+      "ops": [
+        {
+          "item": "可乐",
+          "basket": "黄色",
+          "command_id": "c-0008-可乐",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "9045d70fda7c09db"
+        },
+        {
+          "item": "牛奶",
+          "basket": "黄色",
+          "command_id": "c-0008-牛奶",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "ac73148d9b0b7dd7"
+        },
+        {
+          "item": "雪碧",
+          "basket": "黄色",
+          "command_id": "c-0008-雪碧",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "287b5d1538acd484"
+        },
+        {
+          "item": "香蕉",
+          "basket": "绿色",
+          "command_id": "c-0008-香蕉",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "777ceb4246e1f386"
+        },
+        {
+          "item": "橙子",
+          "basket": "绿色",
+          "command_id": "c-0008-橙子",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "1343834d00f8875b"
+        },
+        {
+          "item": "猕猴桃",
+          "basket": "绿色",
+          "command_id": "c-0008-猕猴桃",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "4135eb63aa67c072"
+        }
+      ],
+      "replans": 0
+    },
+    {
+      "run": 9,
+      "session_id": "sort-0009",
+      "verdict": "success",
+      "reason": "全部成功标准满足",
+      "criteria": [
+        {
+          "criterion": "全部目标物品已被抓取",
+          "status": "satisfied",
+          "evidence_refs": [
+            "evidence:d024023104e2ea5d",
+            "evidence:c85b72150afc42c5",
+            "evidence:ec4444f038017d42",
+            "evidence:74db531fc6c716a8",
+            "evidence:372f87a526bb367a",
+            "evidence:3e8b42bb2619a6c5"
+          ]
+        },
+        {
+          "criterion": "每个物品放入正确篮子",
+          "status": "satisfied",
+          "evidence_refs": []
+        },
+        {
+          "criterion": "分类判定无未知类别",
+          "status": "satisfied",
+          "evidence_refs": []
+        }
+      ],
+      "ops": [
+        {
+          "item": "可乐",
+          "basket": "黄色",
+          "command_id": "c-0009-可乐",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "d024023104e2ea5d"
+        },
+        {
+          "item": "牛奶",
+          "basket": "黄色",
+          "command_id": "c-0009-牛奶",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "c85b72150afc42c5"
+        },
+        {
+          "item": "雪碧",
+          "basket": "黄色",
+          "command_id": "c-0009-雪碧",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "ec4444f038017d42"
+        },
+        {
+          "item": "香蕉",
+          "basket": "绿色",
+          "command_id": "c-0009-香蕉",
+          "success": true,
+          "attempts": 2,
+          "evidence_sha": "74db531fc6c716a8"
+        },
+        {
+          "item": "橙子",
+          "basket": "绿色",
+          "command_id": "c-0009-橙子",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "372f87a526bb367a"
+        },
+        {
+          "item": "猕猴桃",
+          "basket": "绿色",
+          "command_id": "c-0009-猕猴桃",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "3e8b42bb2619a6c5"
+        }
+      ],
+      "replans": 1
+    },
+    {
+      "run": 10,
+      "session_id": "sort-0010",
+      "verdict": "success",
+      "reason": "全部成功标准满足",
+      "criteria": [
+        {
+          "criterion": "全部目标物品已被抓取",
+          "status": "satisfied",
+          "evidence_refs": [
+            "evidence:9bf29794064ab47b",
+            "evidence:ed88f70986e30bb9",
+            "evidence:7b9bda869aa74c0e",
+            "evidence:f22bd6ad58593a87",
+            "evidence:4b3227b7b56ad0ce",
+            "evidence:fc6222b3df21c0e2"
+          ]
+        },
+        {
+          "criterion": "每个物品放入正确篮子",
+          "status": "satisfied",
+          "evidence_refs": []
+        },
+        {
+          "criterion": "分类判定无未知类别",
+          "status": "satisfied",
+          "evidence_refs": []
+        }
+      ],
+      "ops": [
+        {
+          "item": "可乐",
+          "basket": "黄色",
+          "command_id": "c-0010-可乐",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "9bf29794064ab47b"
+        },
+        {
+          "item": "牛奶",
+          "basket": "黄色",
+          "command_id": "c-0010-牛奶",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "ed88f70986e30bb9"
+        },
+        {
+          "item": "雪碧",
+          "basket": "黄色",
+          "command_id": "c-0010-雪碧",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "7b9bda869aa74c0e"
+        },
+        {
+          "item": "香蕉",
+          "basket": "绿色",
+          "command_id": "c-0010-香蕉",
+          "success": true,
+          "attempts": 2,
+          "evidence_sha": "f22bd6ad58593a87"
+        },
+        {
+          "item": "橙子",
+          "basket": "绿色",
+          "command_id": "c-0010-橙子",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "4b3227b7b56ad0ce"
+        },
+        {
+          "item": "猕猴桃",
+          "basket": "绿色",
+          "command_id": "c-0010-猕猴桃",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "fc6222b3df21c0e2"
+        }
+      ],
+      "replans": 1
+    },
+    {
+      "run": 11,
+      "session_id": "sort-0011",
+      "verdict": "success",
+      "reason": "全部成功标准满足",
+      "criteria": [
+        {
+          "criterion": "全部目标物品已被抓取",
+          "status": "satisfied",
+          "evidence_refs": [
+            "evidence:219bccd1f5b4d1c6",
+            "evidence:81f728f210cdbc96",
+            "evidence:b1809d4f94cbaaa4",
+            "evidence:d4f6f2d3a7493fe7",
+            "evidence:172897ad22c35dd2",
+            "evidence:7cd03c973ff5e0e6"
+          ]
+        },
+        {
+          "criterion": "每个物品放入正确篮子",
+          "status": "satisfied",
+          "evidence_refs": []
+        },
+        {
+          "criterion": "分类判定无未知类别",
+          "status": "satisfied",
+          "evidence_refs": []
+        }
+      ],
+      "ops": [
+        {
+          "item": "可乐",
+          "basket": "黄色",
+          "command_id": "c-0011-可乐",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "219bccd1f5b4d1c6"
+        },
+        {
+          "item": "牛奶",
+          "basket": "黄色",
+          "command_id": "c-0011-牛奶",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "81f728f210cdbc96"
+        },
+        {
+          "item": "雪碧",
+          "basket": "黄色",
+          "command_id": "c-0011-雪碧",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "b1809d4f94cbaaa4"
+        },
+        {
+          "item": "香蕉",
+          "basket": "绿色",
+          "command_id": "c-0011-香蕉",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "d4f6f2d3a7493fe7"
+        },
+        {
+          "item": "橙子",
+          "basket": "绿色",
+          "command_id": "c-0011-橙子",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "172897ad22c35dd2"
+        },
+        {
+          "item": "猕猴桃",
+          "basket": "绿色",
+          "command_id": "c-0011-猕猴桃",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "7cd03c973ff5e0e6"
+        }
+      ],
+      "replans": 0
+    },
+    {
+      "run": 12,
+      "session_id": "sort-0012",
+      "verdict": "success",
+      "reason": "全部成功标准满足",
+      "criteria": [
+        {
+          "criterion": "全部目标物品已被抓取",
+          "status": "satisfied",
+          "evidence_refs": [
+            "evidence:0bc67ecd2cde1cb9",
+            "evidence:eea775d90c4c3cfd",
+            "evidence:34eaca35836e9323",
+            "evidence:baa1202a85c9d644",
+            "evidence:61e273df5091ca63",
+            "evidence:eb9616c57470573c"
+          ]
+        },
+        {
+          "criterion": "每个物品放入正确篮子",
+          "status": "satisfied",
+          "evidence_refs": []
+        },
+        {
+          "criterion": "分类判定无未知类别",
+          "status": "satisfied",
+          "evidence_refs": []
+        }
+      ],
+      "ops": [
+        {
+          "item": "可乐",
+          "basket": "黄色",
+          "command_id": "c-0012-可乐",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "0bc67ecd2cde1cb9"
+        },
+        {
+          "item": "牛奶",
+          "basket": "黄色",
+          "command_id": "c-0012-牛奶",
+          "success": true,
+          "attempts": 2,
+          "evidence_sha": "eea775d90c4c3cfd"
+        },
+        {
+          "item": "雪碧",
+          "basket": "黄色",
+          "command_id": "c-0012-雪碧",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "34eaca35836e9323"
+        },
+        {
+          "item": "香蕉",
+          "basket": "绿色",
+          "command_id": "c-0012-香蕉",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "baa1202a85c9d644"
+        },
+        {
+          "item": "橙子",
+          "basket": "绿色",
+          "command_id": "c-0012-橙子",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "61e273df5091ca63"
+        },
+        {
+          "item": "猕猴桃",
+          "basket": "绿色",
+          "command_id": "c-0012-猕猴桃",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "eb9616c57470573c"
+        }
+      ],
+      "replans": 1
+    },
+    {
+      "run": 13,
+      "session_id": "sort-0013",
+      "verdict": "success",
+      "reason": "全部成功标准满足",
+      "criteria": [
+        {
+          "criterion": "全部目标物品已被抓取",
+          "status": "satisfied",
+          "evidence_refs": [
+            "evidence:a9013f45b7283df7",
+            "evidence:07e29e01ce1ad530",
+            "evidence:f9a7ced59fde843d",
+            "evidence:2258107b9f9ac1ff",
+            "evidence:8af64dbf6454ba62",
+            "evidence:acddd03892cf99df"
+          ]
+        },
+        {
+          "criterion": "每个物品放入正确篮子",
+          "status": "satisfied",
+          "evidence_refs": []
+        },
+        {
+          "criterion": "分类判定无未知类别",
+          "status": "satisfied",
+          "evidence_refs": []
+        }
+      ],
+      "ops": [
+        {
+          "item": "可乐",
+          "basket": "黄色",
+          "command_id": "c-0013-可乐",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "a9013f45b7283df7"
+        },
+        {
+          "item": "牛奶",
+          "basket": "黄色",
+          "command_id": "c-0013-牛奶",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "07e29e01ce1ad530"
+        },
+        {
+          "item": "雪碧",
+          "basket": "黄色",
+          "command_id": "c-0013-雪碧",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "f9a7ced59fde843d"
+        },
+        {
+          "item": "香蕉",
+          "basket": "绿色",
+          "command_id": "c-0013-香蕉",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "2258107b9f9ac1ff"
+        },
+        {
+          "item": "橙子",
+          "basket": "绿色",
+          "command_id": "c-0013-橙子",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "8af64dbf6454ba62"
+        },
+        {
+          "item": "猕猴桃",
+          "basket": "绿色",
+          "command_id": "c-0013-猕猴桃",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "acddd03892cf99df"
+        }
+      ],
+      "replans": 0
+    },
+    {
+      "run": 14,
+      "session_id": "sort-0014",
+      "verdict": "success",
+      "reason": "全部成功标准满足",
+      "criteria": [
+        {
+          "criterion": "全部目标物品已被抓取",
+          "status": "satisfied",
+          "evidence_refs": [
+            "evidence:805959e6ccc42ec9",
+            "evidence:2c54c0d74b03aa77",
+            "evidence:7f72cd701abdf4e1",
+            "evidence:a7cd9946b00ded65",
+            "evidence:47dadcf45c499ed1",
+            "evidence:103b4b4943ff24c7"
+          ]
+        },
+        {
+          "criterion": "每个物品放入正确篮子",
+          "status": "satisfied",
+          "evidence_refs": []
+        },
+        {
+          "criterion": "分类判定无未知类别",
+          "status": "satisfied",
+          "evidence_refs": []
+        }
+      ],
+      "ops": [
+        {
+          "item": "可乐",
+          "basket": "黄色",
+          "command_id": "c-0014-可乐",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "805959e6ccc42ec9"
+        },
+        {
+          "item": "牛奶",
+          "basket": "黄色",
+          "command_id": "c-0014-牛奶",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "2c54c0d74b03aa77"
+        },
+        {
+          "item": "雪碧",
+          "basket": "黄色",
+          "command_id": "c-0014-雪碧",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "7f72cd701abdf4e1"
+        },
+        {
+          "item": "香蕉",
+          "basket": "绿色",
+          "command_id": "c-0014-香蕉",
+          "success": true,
+          "attempts": 2,
+          "evidence_sha": "a7cd9946b00ded65"
+        },
+        {
+          "item": "橙子",
+          "basket": "绿色",
+          "command_id": "c-0014-橙子",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "47dadcf45c499ed1"
+        },
+        {
+          "item": "猕猴桃",
+          "basket": "绿色",
+          "command_id": "c-0014-猕猴桃",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "103b4b4943ff24c7"
+        }
+      ],
+      "replans": 1
+    },
+    {
+      "run": 15,
+      "session_id": "sort-0015",
+      "verdict": "success",
+      "reason": "全部成功标准满足",
+      "criteria": [
+        {
+          "criterion": "全部目标物品已被抓取",
+          "status": "satisfied",
+          "evidence_refs": [
+            "evidence:d1d947e01fe2665e",
+            "evidence:f8900e3b52e7fd94",
+            "evidence:4b0edacf43731737",
+            "evidence:eed405e26af49671",
+            "evidence:9ca74fb67d4e32ba",
+            "evidence:3d63ea3f98054697"
+          ]
+        },
+        {
+          "criterion": "每个物品放入正确篮子",
+          "status": "satisfied",
+          "evidence_refs": []
+        },
+        {
+          "criterion": "分类判定无未知类别",
+          "status": "satisfied",
+          "evidence_refs": []
+        }
+      ],
+      "ops": [
+        {
+          "item": "可乐",
+          "basket": "黄色",
+          "command_id": "c-0015-可乐",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "d1d947e01fe2665e"
+        },
+        {
+          "item": "牛奶",
+          "basket": "黄色",
+          "command_id": "c-0015-牛奶",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "f8900e3b52e7fd94"
+        },
+        {
+          "item": "雪碧",
+          "basket": "黄色",
+          "command_id": "c-0015-雪碧",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "4b0edacf43731737"
+        },
+        {
+          "item": "香蕉",
+          "basket": "绿色",
+          "command_id": "c-0015-香蕉",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "eed405e26af49671"
+        },
+        {
+          "item": "橙子",
+          "basket": "绿色",
+          "command_id": "c-0015-橙子",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "9ca74fb67d4e32ba"
+        },
+        {
+          "item": "猕猴桃",
+          "basket": "绿色",
+          "command_id": "c-0015-猕猴桃",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "3d63ea3f98054697"
+        }
+      ],
+      "replans": 0
+    },
+    {
+      "run": 16,
+      "session_id": "sort-0016",
+      "verdict": "success",
+      "reason": "全部成功标准满足",
+      "criteria": [
+        {
+          "criterion": "全部目标物品已被抓取",
+          "status": "satisfied",
+          "evidence_refs": [
+            "evidence:4fa8e580f9763786",
+            "evidence:305f847e5dbf32c9",
+            "evidence:dd4e2c67042b893b",
+            "evidence:887a6d31d862079e",
+            "evidence:78e0b5b104307902",
+            "evidence:6dab236ce416101e"
+          ]
+        },
+        {
+          "criterion": "每个物品放入正确篮子",
+          "status": "satisfied",
+          "evidence_refs": []
+        },
+        {
+          "criterion": "分类判定无未知类别",
+          "status": "satisfied",
+          "evidence_refs": []
+        }
+      ],
+      "ops": [
+        {
+          "item": "可乐",
+          "basket": "黄色",
+          "command_id": "c-0016-可乐",
+          "success": true,
+          "attempts": 2,
+          "evidence_sha": "4fa8e580f9763786"
+        },
+        {
+          "item": "牛奶",
+          "basket": "黄色",
+          "command_id": "c-0016-牛奶",
+          "success": true,
+          "attempts": 2,
+          "evidence_sha": "305f847e5dbf32c9"
+        },
+        {
+          "item": "雪碧",
+          "basket": "黄色",
+          "command_id": "c-0016-雪碧",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "dd4e2c67042b893b"
+        },
+        {
+          "item": "香蕉",
+          "basket": "绿色",
+          "command_id": "c-0016-香蕉",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "887a6d31d862079e"
+        },
+        {
+          "item": "橙子",
+          "basket": "绿色",
+          "command_id": "c-0016-橙子",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "78e0b5b104307902"
+        },
+        {
+          "item": "猕猴桃",
+          "basket": "绿色",
+          "command_id": "c-0016-猕猴桃",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "6dab236ce416101e"
+        }
+      ],
+      "replans": 2
+    },
+    {
+      "run": 17,
+      "session_id": "sort-0017",
+      "verdict": "success",
+      "reason": "全部成功标准满足",
+      "criteria": [
+        {
+          "criterion": "全部目标物品已被抓取",
+          "status": "satisfied",
+          "evidence_refs": [
+            "evidence:64000fe1dbdb1fae",
+            "evidence:7c914ffd6b08fb2b",
+            "evidence:5dfe7db74a5898e0",
+            "evidence:a7a044302f8ad0c6",
+            "evidence:9f4e4f370422a659",
+            "evidence:270a0e2f3726b0c8"
+          ]
+        },
+        {
+          "criterion": "每个物品放入正确篮子",
+          "status": "satisfied",
+          "evidence_refs": []
+        },
+        {
+          "criterion": "分类判定无未知类别",
+          "status": "satisfied",
+          "evidence_refs": []
+        }
+      ],
+      "ops": [
+        {
+          "item": "可乐",
+          "basket": "黄色",
+          "command_id": "c-0017-可乐",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "64000fe1dbdb1fae"
+        },
+        {
+          "item": "牛奶",
+          "basket": "黄色",
+          "command_id": "c-0017-牛奶",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "7c914ffd6b08fb2b"
+        },
+        {
+          "item": "雪碧",
+          "basket": "黄色",
+          "command_id": "c-0017-雪碧",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "5dfe7db74a5898e0"
+        },
+        {
+          "item": "香蕉",
+          "basket": "绿色",
+          "command_id": "c-0017-香蕉",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "a7a044302f8ad0c6"
+        },
+        {
+          "item": "橙子",
+          "basket": "绿色",
+          "command_id": "c-0017-橙子",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "9f4e4f370422a659"
+        },
+        {
+          "item": "猕猴桃",
+          "basket": "绿色",
+          "command_id": "c-0017-猕猴桃",
+          "success": true,
+          "attempts": 2,
+          "evidence_sha": "270a0e2f3726b0c8"
+        }
+      ],
+      "replans": 1
+    },
+    {
+      "run": 18,
+      "session_id": "sort-0018",
+      "verdict": "success",
+      "reason": "全部成功标准满足",
+      "criteria": [
+        {
+          "criterion": "全部目标物品已被抓取",
+          "status": "satisfied",
+          "evidence_refs": [
+            "evidence:a6078ea31a36d2d2",
+            "evidence:9943451d9a22056d",
+            "evidence:dc82dd20539befbe",
+            "evidence:aed2f08ce23b52b1",
+            "evidence:f9d157b33cc225a3",
+            "evidence:19f0d29ece21954c"
+          ]
+        },
+        {
+          "criterion": "每个物品放入正确篮子",
+          "status": "satisfied",
+          "evidence_refs": []
+        },
+        {
+          "criterion": "分类判定无未知类别",
+          "status": "satisfied",
+          "evidence_refs": []
+        }
+      ],
+      "ops": [
+        {
+          "item": "可乐",
+          "basket": "黄色",
+          "command_id": "c-0018-可乐",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "a6078ea31a36d2d2"
+        },
+        {
+          "item": "牛奶",
+          "basket": "黄色",
+          "command_id": "c-0018-牛奶",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "9943451d9a22056d"
+        },
+        {
+          "item": "雪碧",
+          "basket": "黄色",
+          "command_id": "c-0018-雪碧",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "dc82dd20539befbe"
+        },
+        {
+          "item": "香蕉",
+          "basket": "绿色",
+          "command_id": "c-0018-香蕉",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "aed2f08ce23b52b1"
+        },
+        {
+          "item": "橙子",
+          "basket": "绿色",
+          "command_id": "c-0018-橙子",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "f9d157b33cc225a3"
+        },
+        {
+          "item": "猕猴桃",
+          "basket": "绿色",
+          "command_id": "c-0018-猕猴桃",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "19f0d29ece21954c"
+        }
+      ],
+      "replans": 0
+    },
+    {
+      "run": 19,
+      "session_id": "sort-0019",
+      "verdict": "success",
+      "reason": "全部成功标准满足",
+      "criteria": [
+        {
+          "criterion": "全部目标物品已被抓取",
+          "status": "satisfied",
+          "evidence_refs": [
+            "evidence:95609de58f1753e0",
+            "evidence:2face248f87641ac",
+            "evidence:7e821eac9429aa0f",
+            "evidence:97f1315edc3490b1",
+            "evidence:7c502153ce562989",
+            "evidence:c41298252aa562a4"
+          ]
+        },
+        {
+          "criterion": "每个物品放入正确篮子",
+          "status": "satisfied",
+          "evidence_refs": []
+        },
+        {
+          "criterion": "分类判定无未知类别",
+          "status": "satisfied",
+          "evidence_refs": []
+        }
+      ],
+      "ops": [
+        {
+          "item": "可乐",
+          "basket": "黄色",
+          "command_id": "c-0019-可乐",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "95609de58f1753e0"
+        },
+        {
+          "item": "牛奶",
+          "basket": "黄色",
+          "command_id": "c-0019-牛奶",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "2face248f87641ac"
+        },
+        {
+          "item": "雪碧",
+          "basket": "黄色",
+          "command_id": "c-0019-雪碧",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "7e821eac9429aa0f"
+        },
+        {
+          "item": "香蕉",
+          "basket": "绿色",
+          "command_id": "c-0019-香蕉",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "97f1315edc3490b1"
+        },
+        {
+          "item": "橙子",
+          "basket": "绿色",
+          "command_id": "c-0019-橙子",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "7c502153ce562989"
+        },
+        {
+          "item": "猕猴桃",
+          "basket": "绿色",
+          "command_id": "c-0019-猕猴桃",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "c41298252aa562a4"
+        }
+      ],
+      "replans": 0
+    },
+    {
+      "run": 20,
+      "session_id": "sort-0020",
+      "verdict": "success",
+      "reason": "全部成功标准满足",
+      "criteria": [
+        {
+          "criterion": "全部目标物品已被抓取",
+          "status": "satisfied",
+          "evidence_refs": [
+            "evidence:bc49b453d8484f4e",
+            "evidence:d6006359f4a81250",
+            "evidence:5742e34f64fb2211",
+            "evidence:f6bd9953fe089558",
+            "evidence:169b0360899bcda1",
+            "evidence:c86dfedd6f18c5dd"
+          ]
+        },
+        {
+          "criterion": "每个物品放入正确篮子",
+          "status": "satisfied",
+          "evidence_refs": []
+        },
+        {
+          "criterion": "分类判定无未知类别",
+          "status": "satisfied",
+          "evidence_refs": []
+        }
+      ],
+      "ops": [
+        {
+          "item": "可乐",
+          "basket": "黄色",
+          "command_id": "c-0020-可乐",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "bc49b453d8484f4e"
+        },
+        {
+          "item": "牛奶",
+          "basket": "黄色",
+          "command_id": "c-0020-牛奶",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "d6006359f4a81250"
+        },
+        {
+          "item": "雪碧",
+          "basket": "黄色",
+          "command_id": "c-0020-雪碧",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "5742e34f64fb2211"
+        },
+        {
+          "item": "香蕉",
+          "basket": "绿色",
+          "command_id": "c-0020-香蕉",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "f6bd9953fe089558"
+        },
+        {
+          "item": "橙子",
+          "basket": "绿色",
+          "command_id": "c-0020-橙子",
+          "success": true,
+          "attempts": 2,
+          "evidence_sha": "169b0360899bcda1"
+        },
+        {
+          "item": "猕猴桃",
+          "basket": "绿色",
+          "command_id": "c-0020-猕猴桃",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "c86dfedd6f18c5dd"
+        }
+      ],
+      "replans": 1
+    },
+    {
+      "run": 21,
+      "session_id": "sort-0021",
+      "verdict": "success",
+      "reason": "全部成功标准满足",
+      "criteria": [
+        {
+          "criterion": "全部目标物品已被抓取",
+          "status": "satisfied",
+          "evidence_refs": [
+            "evidence:75be0dffb104ae65",
+            "evidence:d1b1dfa29df59cb8",
+            "evidence:b168a77c61aa9fe0",
+            "evidence:da4e8ff6dcac2477",
+            "evidence:8da1dab9710ecdb7",
+            "evidence:1996ef19ff041ff7"
+          ]
+        },
+        {
+          "criterion": "每个物品放入正确篮子",
+          "status": "satisfied",
+          "evidence_refs": []
+        },
+        {
+          "criterion": "分类判定无未知类别",
+          "status": "satisfied",
+          "evidence_refs": []
+        }
+      ],
+      "ops": [
+        {
+          "item": "可乐",
+          "basket": "黄色",
+          "command_id": "c-0021-可乐",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "75be0dffb104ae65"
+        },
+        {
+          "item": "牛奶",
+          "basket": "黄色",
+          "command_id": "c-0021-牛奶",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "d1b1dfa29df59cb8"
+        },
+        {
+          "item": "雪碧",
+          "basket": "黄色",
+          "command_id": "c-0021-雪碧",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "b168a77c61aa9fe0"
+        },
+        {
+          "item": "香蕉",
+          "basket": "绿色",
+          "command_id": "c-0021-香蕉",
+          "success": true,
+          "attempts": 2,
+          "evidence_sha": "da4e8ff6dcac2477"
+        },
+        {
+          "item": "橙子",
+          "basket": "绿色",
+          "command_id": "c-0021-橙子",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "8da1dab9710ecdb7"
+        },
+        {
+          "item": "猕猴桃",
+          "basket": "绿色",
+          "command_id": "c-0021-猕猴桃",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "1996ef19ff041ff7"
+        }
+      ],
+      "replans": 1
+    },
+    {
+      "run": 22,
+      "session_id": "sort-0022",
+      "verdict": "success",
+      "reason": "全部成功标准满足",
+      "criteria": [
+        {
+          "criterion": "全部目标物品已被抓取",
+          "status": "satisfied",
+          "evidence_refs": [
+            "evidence:ee070e5364afdcea",
+            "evidence:f452299c6afd1100",
+            "evidence:fa1bb23763e10614",
+            "evidence:ddd5a6e4b29ea452",
+            "evidence:4ed30b4d14b074b3",
+            "evidence:57096c64a25408e8"
+          ]
+        },
+        {
+          "criterion": "每个物品放入正确篮子",
+          "status": "satisfied",
+          "evidence_refs": []
+        },
+        {
+          "criterion": "分类判定无未知类别",
+          "status": "satisfied",
+          "evidence_refs": []
+        }
+      ],
+      "ops": [
+        {
+          "item": "可乐",
+          "basket": "黄色",
+          "command_id": "c-0022-可乐",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "ee070e5364afdcea"
+        },
+        {
+          "item": "牛奶",
+          "basket": "黄色",
+          "command_id": "c-0022-牛奶",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "f452299c6afd1100"
+        },
+        {
+          "item": "雪碧",
+          "basket": "黄色",
+          "command_id": "c-0022-雪碧",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "fa1bb23763e10614"
+        },
+        {
+          "item": "香蕉",
+          "basket": "绿色",
+          "command_id": "c-0022-香蕉",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "ddd5a6e4b29ea452"
+        },
+        {
+          "item": "橙子",
+          "basket": "绿色",
+          "command_id": "c-0022-橙子",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "4ed30b4d14b074b3"
+        },
+        {
+          "item": "猕猴桃",
+          "basket": "绿色",
+          "command_id": "c-0022-猕猴桃",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "57096c64a25408e8"
+        }
+      ],
+      "replans": 0
+    },
+    {
+      "run": 23,
+      "session_id": "sort-0023",
+      "verdict": "success",
+      "reason": "全部成功标准满足",
+      "criteria": [
+        {
+          "criterion": "全部目标物品已被抓取",
+          "status": "satisfied",
+          "evidence_refs": [
+            "evidence:75399f5cb695bd9c",
+            "evidence:823b93778d5e1d69",
+            "evidence:412d4489e13de604",
+            "evidence:827974d2fc80e36d",
+            "evidence:83ffeb1259dded6d",
+            "evidence:3824d19f0ed69fc5"
+          ]
+        },
+        {
+          "criterion": "每个物品放入正确篮子",
+          "status": "satisfied",
+          "evidence_refs": []
+        },
+        {
+          "criterion": "分类判定无未知类别",
+          "status": "satisfied",
+          "evidence_refs": []
+        }
+      ],
+      "ops": [
+        {
+          "item": "可乐",
+          "basket": "黄色",
+          "command_id": "c-0023-可乐",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "75399f5cb695bd9c"
+        },
+        {
+          "item": "牛奶",
+          "basket": "黄色",
+          "command_id": "c-0023-牛奶",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "823b93778d5e1d69"
+        },
+        {
+          "item": "雪碧",
+          "basket": "黄色",
+          "command_id": "c-0023-雪碧",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "412d4489e13de604"
+        },
+        {
+          "item": "香蕉",
+          "basket": "绿色",
+          "command_id": "c-0023-香蕉",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "827974d2fc80e36d"
+        },
+        {
+          "item": "橙子",
+          "basket": "绿色",
+          "command_id": "c-0023-橙子",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "83ffeb1259dded6d"
+        },
+        {
+          "item": "猕猴桃",
+          "basket": "绿色",
+          "command_id": "c-0023-猕猴桃",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "3824d19f0ed69fc5"
+        }
+      ],
+      "replans": 0
+    },
+    {
+      "run": 24,
+      "session_id": "sort-0024",
+      "verdict": "success",
+      "reason": "全部成功标准满足",
+      "criteria": [
+        {
+          "criterion": "全部目标物品已被抓取",
+          "status": "satisfied",
+          "evidence_refs": [
+            "evidence:821020dffd411cb7",
+            "evidence:85f4fbb4b9907d17",
+            "evidence:48c4e38b4e26579b",
+            "evidence:d8bfaee72e496dda",
+            "evidence:9ec283feac43a727",
+            "evidence:f4fd73e1c6ae3c27"
+          ]
+        },
+        {
+          "criterion": "每个物品放入正确篮子",
+          "status": "satisfied",
+          "evidence_refs": []
+        },
+        {
+          "criterion": "分类判定无未知类别",
+          "status": "satisfied",
+          "evidence_refs": []
+        }
+      ],
+      "ops": [
+        {
+          "item": "可乐",
+          "basket": "黄色",
+          "command_id": "c-0024-可乐",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "821020dffd411cb7"
+        },
+        {
+          "item": "牛奶",
+          "basket": "黄色",
+          "command_id": "c-0024-牛奶",
+          "success": true,
+          "attempts": 2,
+          "evidence_sha": "85f4fbb4b9907d17"
+        },
+        {
+          "item": "雪碧",
+          "basket": "黄色",
+          "command_id": "c-0024-雪碧",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "48c4e38b4e26579b"
+        },
+        {
+          "item": "香蕉",
+          "basket": "绿色",
+          "command_id": "c-0024-香蕉",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "d8bfaee72e496dda"
+        },
+        {
+          "item": "橙子",
+          "basket": "绿色",
+          "command_id": "c-0024-橙子",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "9ec283feac43a727"
+        },
+        {
+          "item": "猕猴桃",
+          "basket": "绿色",
+          "command_id": "c-0024-猕猴桃",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "f4fd73e1c6ae3c27"
+        }
+      ],
+      "replans": 1
+    },
+    {
+      "run": 25,
+      "session_id": "sort-0025",
+      "verdict": "success",
+      "reason": "全部成功标准满足",
+      "criteria": [
+        {
+          "criterion": "全部目标物品已被抓取",
+          "status": "satisfied",
+          "evidence_refs": [
+            "evidence:aaa1cbab0c0740a5",
+            "evidence:66b96097b2772c9c",
+            "evidence:98bf540af2febb1a",
+            "evidence:4c6cd4afbbbe06f7",
+            "evidence:6af42444349a7198",
+            "evidence:055f7f1fd59a90c5"
+          ]
+        },
+        {
+          "criterion": "每个物品放入正确篮子",
+          "status": "satisfied",
+          "evidence_refs": []
+        },
+        {
+          "criterion": "分类判定无未知类别",
+          "status": "satisfied",
+          "evidence_refs": []
+        }
+      ],
+      "ops": [
+        {
+          "item": "可乐",
+          "basket": "黄色",
+          "command_id": "c-0025-可乐",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "aaa1cbab0c0740a5"
+        },
+        {
+          "item": "牛奶",
+          "basket": "黄色",
+          "command_id": "c-0025-牛奶",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "66b96097b2772c9c"
+        },
+        {
+          "item": "雪碧",
+          "basket": "黄色",
+          "command_id": "c-0025-雪碧",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "98bf540af2febb1a"
+        },
+        {
+          "item": "香蕉",
+          "basket": "绿色",
+          "command_id": "c-0025-香蕉",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "4c6cd4afbbbe06f7"
+        },
+        {
+          "item": "橙子",
+          "basket": "绿色",
+          "command_id": "c-0025-橙子",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "6af42444349a7198"
+        },
+        {
+          "item": "猕猴桃",
+          "basket": "绿色",
+          "command_id": "c-0025-猕猴桃",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "055f7f1fd59a90c5"
+        }
+      ],
+      "replans": 0
+    },
+    {
+      "run": 26,
+      "session_id": "sort-0026",
+      "verdict": "success",
+      "reason": "全部成功标准满足",
+      "criteria": [
+        {
+          "criterion": "全部目标物品已被抓取",
+          "status": "satisfied",
+          "evidence_refs": [
+            "evidence:397667df5b692874",
+            "evidence:f2a9507b1ebc9d4d",
+            "evidence:45d29a12f1c0203d",
+            "evidence:6e10240ef290e583",
+            "evidence:f901e146b0ed8fd6",
+            "evidence:f24430ae340e76fa"
+          ]
+        },
+        {
+          "criterion": "每个物品放入正确篮子",
+          "status": "satisfied",
+          "evidence_refs": []
+        },
+        {
+          "criterion": "分类判定无未知类别",
+          "status": "satisfied",
+          "evidence_refs": []
+        }
+      ],
+      "ops": [
+        {
+          "item": "可乐",
+          "basket": "黄色",
+          "command_id": "c-0026-可乐",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "397667df5b692874"
+        },
+        {
+          "item": "牛奶",
+          "basket": "黄色",
+          "command_id": "c-0026-牛奶",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "f2a9507b1ebc9d4d"
+        },
+        {
+          "item": "雪碧",
+          "basket": "黄色",
+          "command_id": "c-0026-雪碧",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "45d29a12f1c0203d"
+        },
+        {
+          "item": "香蕉",
+          "basket": "绿色",
+          "command_id": "c-0026-香蕉",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "6e10240ef290e583"
+        },
+        {
+          "item": "橙子",
+          "basket": "绿色",
+          "command_id": "c-0026-橙子",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "f901e146b0ed8fd6"
+        },
+        {
+          "item": "猕猴桃",
+          "basket": "绿色",
+          "command_id": "c-0026-猕猴桃",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "f24430ae340e76fa"
+        }
+      ],
+      "replans": 0
+    },
+    {
+      "run": 27,
+      "session_id": "sort-0027",
+      "verdict": "success",
+      "reason": "全部成功标准满足",
+      "criteria": [
+        {
+          "criterion": "全部目标物品已被抓取",
+          "status": "satisfied",
+          "evidence_refs": [
+            "evidence:ff65e4805ca1687b",
+            "evidence:d9a1cc6b12b58a1d",
+            "evidence:3573f24d35ad0d89",
+            "evidence:b3d54c512a6a8b5b",
+            "evidence:4940ffe534902c5d",
+            "evidence:f19af4a1ce683558"
+          ]
+        },
+        {
+          "criterion": "每个物品放入正确篮子",
+          "status": "satisfied",
+          "evidence_refs": []
+        },
+        {
+          "criterion": "分类判定无未知类别",
+          "status": "satisfied",
+          "evidence_refs": []
+        }
+      ],
+      "ops": [
+        {
+          "item": "可乐",
+          "basket": "黄色",
+          "command_id": "c-0027-可乐",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "ff65e4805ca1687b"
+        },
+        {
+          "item": "牛奶",
+          "basket": "黄色",
+          "command_id": "c-0027-牛奶",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "d9a1cc6b12b58a1d"
+        },
+        {
+          "item": "雪碧",
+          "basket": "黄色",
+          "command_id": "c-0027-雪碧",
+          "success": true,
+          "attempts": 2,
+          "evidence_sha": "3573f24d35ad0d89"
+        },
+        {
+          "item": "香蕉",
+          "basket": "绿色",
+          "command_id": "c-0027-香蕉",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "b3d54c512a6a8b5b"
+        },
+        {
+          "item": "橙子",
+          "basket": "绿色",
+          "command_id": "c-0027-橙子",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "4940ffe534902c5d"
+        },
+        {
+          "item": "猕猴桃",
+          "basket": "绿色",
+          "command_id": "c-0027-猕猴桃",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "f19af4a1ce683558"
+        }
+      ],
+      "replans": 1
+    },
+    {
+      "run": 28,
+      "session_id": "sort-0028",
+      "verdict": "success",
+      "reason": "全部成功标准满足",
+      "criteria": [
+        {
+          "criterion": "全部目标物品已被抓取",
+          "status": "satisfied",
+          "evidence_refs": [
+            "evidence:89c578ff3744529a",
+            "evidence:712ea504ea852fbe",
+            "evidence:79fbd5588f8a18de",
+            "evidence:6b50d0170e789039",
+            "evidence:eab34189e8fdc3c9",
+            "evidence:2c33398e41d11de8"
+          ]
+        },
+        {
+          "criterion": "每个物品放入正确篮子",
+          "status": "satisfied",
+          "evidence_refs": []
+        },
+        {
+          "criterion": "分类判定无未知类别",
+          "status": "satisfied",
+          "evidence_refs": []
+        }
+      ],
+      "ops": [
+        {
+          "item": "可乐",
+          "basket": "黄色",
+          "command_id": "c-0028-可乐",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "89c578ff3744529a"
+        },
+        {
+          "item": "牛奶",
+          "basket": "黄色",
+          "command_id": "c-0028-牛奶",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "712ea504ea852fbe"
+        },
+        {
+          "item": "雪碧",
+          "basket": "黄色",
+          "command_id": "c-0028-雪碧",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "79fbd5588f8a18de"
+        },
+        {
+          "item": "香蕉",
+          "basket": "绿色",
+          "command_id": "c-0028-香蕉",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "6b50d0170e789039"
+        },
+        {
+          "item": "橙子",
+          "basket": "绿色",
+          "command_id": "c-0028-橙子",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "eab34189e8fdc3c9"
+        },
+        {
+          "item": "猕猴桃",
+          "basket": "绿色",
+          "command_id": "c-0028-猕猴桃",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "2c33398e41d11de8"
+        }
+      ],
+      "replans": 0
+    },
+    {
+      "run": 29,
+      "session_id": "sort-0029",
+      "verdict": "success",
+      "reason": "全部成功标准满足",
+      "criteria": [
+        {
+          "criterion": "全部目标物品已被抓取",
+          "status": "satisfied",
+          "evidence_refs": [
+            "evidence:377c31a5afe4fb3b",
+            "evidence:e97c22692b293b66",
+            "evidence:e2035122362e9354",
+            "evidence:5b629a3922db316b",
+            "evidence:6be3be4c6165f5f8",
+            "evidence:551b844f324b6cd8"
+          ]
+        },
+        {
+          "criterion": "每个物品放入正确篮子",
+          "status": "satisfied",
+          "evidence_refs": []
+        },
+        {
+          "criterion": "分类判定无未知类别",
+          "status": "satisfied",
+          "evidence_refs": []
+        }
+      ],
+      "ops": [
+        {
+          "item": "可乐",
+          "basket": "黄色",
+          "command_id": "c-0029-可乐",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "377c31a5afe4fb3b"
+        },
+        {
+          "item": "牛奶",
+          "basket": "黄色",
+          "command_id": "c-0029-牛奶",
+          "success": true,
+          "attempts": 2,
+          "evidence_sha": "e97c22692b293b66"
+        },
+        {
+          "item": "雪碧",
+          "basket": "黄色",
+          "command_id": "c-0029-雪碧",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "e2035122362e9354"
+        },
+        {
+          "item": "香蕉",
+          "basket": "绿色",
+          "command_id": "c-0029-香蕉",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "5b629a3922db316b"
+        },
+        {
+          "item": "橙子",
+          "basket": "绿色",
+          "command_id": "c-0029-橙子",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "6be3be4c6165f5f8"
+        },
+        {
+          "item": "猕猴桃",
+          "basket": "绿色",
+          "command_id": "c-0029-猕猴桃",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "551b844f324b6cd8"
+        }
+      ],
+      "replans": 1
+    },
+    {
+      "run": 30,
+      "session_id": "sort-0030",
+      "verdict": "success",
+      "reason": "全部成功标准满足",
+      "criteria": [
+        {
+          "criterion": "全部目标物品已被抓取",
+          "status": "satisfied",
+          "evidence_refs": [
+            "evidence:2e7e15593debcebb",
+            "evidence:18fc78ce3c256ed1",
+            "evidence:1b675a3a58a65cd2",
+            "evidence:2a6890bff83fc24d",
+            "evidence:f2209f8f22f355cc",
+            "evidence:ba5c1c4e4a3c500f"
+          ]
+        },
+        {
+          "criterion": "每个物品放入正确篮子",
+          "status": "satisfied",
+          "evidence_refs": []
+        },
+        {
+          "criterion": "分类判定无未知类别",
+          "status": "satisfied",
+          "evidence_refs": []
+        }
+      ],
+      "ops": [
+        {
+          "item": "可乐",
+          "basket": "黄色",
+          "command_id": "c-0030-可乐",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "2e7e15593debcebb"
+        },
+        {
+          "item": "牛奶",
+          "basket": "黄色",
+          "command_id": "c-0030-牛奶",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "18fc78ce3c256ed1"
+        },
+        {
+          "item": "雪碧",
+          "basket": "黄色",
+          "command_id": "c-0030-雪碧",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "1b675a3a58a65cd2"
+        },
+        {
+          "item": "香蕉",
+          "basket": "绿色",
+          "command_id": "c-0030-香蕉",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "2a6890bff83fc24d"
+        },
+        {
+          "item": "橙子",
+          "basket": "绿色",
+          "command_id": "c-0030-橙子",
+          "success": true,
+          "attempts": 1,
+          "evidence_sha": "f2209f8f22f355cc"
+        },
+        {
+          "item": "猕猴桃",
+          "basket": "绿色",
+          "command_id": "c-0030-猕猴桃",
+          "success": true,
+          "attempts": 2,
+          "evidence_sha": "ba5c1c4e4a3c500f"
+        }
+      ],
+      "replans": 1
+    }
+  ]
+}
